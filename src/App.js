@@ -6,6 +6,8 @@ import MenuNav from "./components/menu/Menu"
 import Socorro from "./components/Socorro"
 import ScheduleTurmas from "./components/scheduleMenu/ScheduleMenuTurmas"
 import ScheduleSalas from "./components/scheduleMenu/ScheduleMenuSalas"
+import Manager from "./components/manager/Manager"
+
 
 class App extends Component {
   state = {
@@ -26,6 +28,7 @@ class App extends Component {
             <Route component={ScheduleTurmas} exact path="/" ></Route>
             <Route component={ScheduleSalas} exact path="/salas" ></Route>
             <Route component={ScheduleTurmas} exact path="/turmas" ></Route>
+            <Route component={Manager} exact path="/Manager" ></Route>
           </main>
         </Switch>
       </div>

@@ -32,21 +32,21 @@ export default function turmas(state = initialState, action) {
 
 export const Creators = {
 
-    createMateria: (turma) => ({
+    createTurma: (turma) => ({
         type: Types.ADD,
         payload: {
             turma
         }
     }),
 
-    updateMateria: (turma) => ({
+    updateTurma: (turma) => ({
         type: Types.UPDATE,
         payload: {
             turma
         }
     }),
 
-    deleteMateria: (turmaId) => ({
+    deleteTurma: (turmaId) => ({
         type: Types.REMOVE,
         payload: {
             turmaId
