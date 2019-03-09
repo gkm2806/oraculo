@@ -4,32 +4,25 @@ import {connect} from "react-redux"
 
 import Schedule from "../schedule/Schedule"
 
-class ScheduleMenuTurmas extends Component{
-    state = { activeItem: ""}
+const ScheduleMenuTurmas =({turmas}) => {
 
-    handleItemClick = (e, { name }) => this.setState({ activeItem: name })   
+    const handleItemClick = (e, { name }) => console.log("Hj nao") 
   
-    render() {
-      const { activeItem } = this.state
-      const { turmas } = this.props
-      return (
-        <Grid>
-          <Grid.Column width={2}>
-            <Menu fluid vertical tabular>
-              {turmas.map((turma) => {
-                return(
-                <Menu.Item key={turma.id} name={turma.nome} turma={turma} active={activeItem === turma.nome} onClick={this.handleItemClick} />)
-              })}
-            </Menu>
-          </Grid.Column>
+    
+    return (
+      <Grid>
+        <Grid.Column width={2}>
+          <Menu fluid vertical tabular>
+            {turmas && turmas.map((turma) => { return(
+              <Menu.Item key={turma.id} name={turma.nome} turma={turma}/>
+            )})}
+          </Menu>
+        </Grid.Column>
+
+        <Grid.Column stretched width={14}>
+        </Grid.Column>
+      </Grid>
+    )
   
-          <Grid.Column stretched width={14}>
-          </Grid.Column>
-        </Grid>
-      )
-    }
 }
-const mapStateToProps = (state) => ({
-  turmas: state.turmas
-})
-export default connect(mapStateToProps)(ScheduleMenuTurmas)
+export default ScheduleMenuTurmas
