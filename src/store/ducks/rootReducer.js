@@ -7,7 +7,8 @@ import salas from "./salas"
 import turmas from "./turmas"
 import aulas from "./aulas"
 import settings from "./settings"
+import professores from "./professores"
 
 export default combineReducers({
-    materias,salas,turmas, aulas, settings
+    materias,salas,turmas, aulas, settings, professores
 })

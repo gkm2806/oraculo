@@ -25,12 +25,12 @@ class Manager extends Component{
     }
     render(){
         console.log(TurmaActions, this.props.createTurma);
-        const {turmas, materias} = this.props
+        const {professores, materias} = this.props
         return(
             <Grid>
                 <Grid.Row>
                     <Grid.Column width={4}> <Display create={this.createNew} type="materias" ctx={materias && materias}> </Display> </Grid.Column>
-                    <Grid.Column width={4}> Alo</Grid.Column>
+                    <Grid.Column width={4}> <Display create={this.createNew} type="professores" ctx={professores && professores}> </Display>  </Grid.Column>
                     <Grid.Column width={4}> Alo</Grid.Column>
                     <Grid.Column width={4}> Alo</Grid.Column>
                 </Grid.Row>
@@ -42,7 +42,8 @@ class Manager extends Component{
 const mapStateToProps = (state) => ({
     salas: state.salas,
     turmas: state.turmas,
-    materias: state.materias
+    materias: state.materias,
+    professores: state.professores
 })
 
 const mapDispatchToProps = dispatch => bindActionCreators(MateriaActions, dispatch)
