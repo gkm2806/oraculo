@@ -25,28 +25,28 @@ export default function professores(state = initialState, action) {
         case Types.UPDATE:
             return [...state.filter(professor => professor.id !== action.payload.professor.id), Object.assign({}, action.payload.professor)]
         case Types.REMOVE:
-            return [...state.filter(professor => professor.id !== action.payload.materiaId)]
+            return [...state.filter(professor => professor.id !== action.payload.ProfessorId)]
         default: return state
     }
 }
 
 export const Creators = {
 
-    createMateria: (professor) => ({
+    createProfessor: (professor) => ({
         type: Types.ADD,
         payload: {
             professor
         }
     }),
 
-    updateMateria: (professor) => ({
+    updateProfessor: (professor) => ({
         type: Types.UPDATE,
         payload: {
             professor
         }
     }),
 
-    deleteMateria: (professorId) => ({
+    deleteProfessor: (professorId) => ({
         type: Types.REMOVE,
         payload: {
             professorId

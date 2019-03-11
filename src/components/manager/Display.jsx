@@ -5,11 +5,13 @@ import { Form, Input, Segment, Button } from "semantic-ui-react"
 const Display = ({ ctx, type, create }) => {
 
     const dispatch = (obj) => {
-        create(type, obj.target.nome.value)
+        create(type, obj.target.nome.value);
+        obj.target.nome.value = ""
     }
 
     return (
         <Segment>
+            <center><h1> {type} </h1></center>
             <Segment>
                 <Form onSubmit={dispatch}>
                     <Form.Field>

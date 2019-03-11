@@ -44,28 +44,28 @@ export default function salas(state = initialState, action) {
         case Types.UPDATE:
             return [...state.filter(sala => sala.id !== action.payload.sala.id), Object.assign({}, action.payload.sala)]
         case Types.REMOVE:
-            return [...state.filter(sala => sala.id !== action.payload.materiaId)]
+            return [...state.filter(sala => sala.id !== action.payload.SalaId)]
         default: return state
     }
 }
 
 export const Creators = {
 
-    createMateria: (sala) => ({
+    createSala: (sala) => ({
         type: Types.ADD,
         payload: {
             sala
         }
     }),
 
-    updateMateria: (sala) => ({
+    updateSala: (sala) => ({
         type: Types.UPDATE,
         payload: {
             sala
         }
     }),
 
-    deleteMateria: (salaId) => ({
+    deleteSala: (salaId) => ({
         type: Types.REMOVE,
         payload: {
             salaId

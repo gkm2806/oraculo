@@ -48,9 +48,9 @@ class MenuNav extends Component {
 
         <Menu.Menu position='right'>
           <Menu.Item
-            as={Link} to='/manage'
-            name='manage'
-            active={activeItem === 'manage'}
+            as={Link} to='/manager'
+            name='manager'
+            active={activeItem === 'manager'}
             onClick={this.handleItemClick}
           />
           <Menu.Item
