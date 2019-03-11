@@ -6,7 +6,7 @@ import { bindActionCreators } from "redux";
 import Display from "./Display"
 import { Creators as TurmaActions } from "../../store/ducks/turmas"
 import { Creators as MateriaActions } from "../../store/ducks/materias"
-
+import Aula from "./Aula"
 
 class Manager extends Component{
     
@@ -33,7 +33,7 @@ class Manager extends Component{
                 <Grid.Row>
                     <Grid.Column width={4}> <Display create={this.createNew} type="materias" ctx={materias && materias}> </Display> </Grid.Column>
                     <Grid.Column width={4}> <Display create={this.createNew} type="professores" ctx={professores && professores}> </Display>  </Grid.Column>
-                    <Grid.Column width={4}> Alo</Grid.Column>
+                    <Grid.Column width={4}> <Aula/> </Grid.Column>
                     <Grid.Column width={4}> Alo</Grid.Column>
                 </Grid.Row>
             </Grid>

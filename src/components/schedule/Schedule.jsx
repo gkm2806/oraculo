@@ -13,7 +13,7 @@ class Schedule extends Component {
 
   render() {
     const { activeItem } = this.state
-    const { ctx } = this.props
+    const { ctx, settings } = this.props
     return (
       <Grid>
         <Grid.Column width={2}>
@@ -21,7 +21,7 @@ class Schedule extends Component {
         </Grid.Column>
 
         <Grid.Column ctx={{}} stretched width={14} id="ScheduleGrid">
-          <ScheduleViwer />
+          <ScheduleViwer timeStamps={settings[0].timeStamps} />
         </Grid.Column>
       </Grid>
     )
@@ -29,6 +29,7 @@ class Schedule extends Component {
 }
 const mapStateToProps = (state) => ({
   salas: state.salas,
-  turmas: state.turmas
+  turmas: state.turmas,
+  settings: state.settings
 })
 export default connect(mapStateToProps)(Schedule)

@@ -22,7 +22,8 @@ const initialState = [
         materia: "LP2",
         turma: "3750",
         horario: "Alo",
-        dia: 2 //terça
+        dia: 2 //terça,
+        
     }
 ];
 

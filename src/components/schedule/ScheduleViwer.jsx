@@ -1,42 +1,33 @@
 import React, { Component } from "react";
-import { Segment, Grid } from "semantic-ui-react";
+import { Segment, Grid, Header } from "semantic-ui-react";
 
 import Dia from "./Dia"
 
 export default class Schedule extends Component {
-    componentDidMount(){
-        
+    componentDidMount() {
+
     }
     render() {
+        const {timeStamps} = this.props
         return (
-            
+
             <Segment id="alo">
-                 
-                
-                <Grid style={{display: "flex"}}>
+                <Grid style={{ display: "flex" }}>
                     <Grid.Column width={2} >
-                        <Dia /*aulas = {ctx.aulas[0]} */></Dia>
+                        <Grid.Row><Header> </Header></Grid.Row>
+                        {timeStamps.map((time)=>{
+                            return( <Grid.Row><Segment>{time}</Segment></Grid.Row>)
+                        })}
                     </Grid.Column>
-                    <Grid.Column width={2}>
-                        <Dia /*aulas = {ctx.aulas[1]} */></Dia>
-                    </Grid.Column>
-                    <Grid.Column width={2}>
-                        <Dia /*aulas = {ctx.aulas[2]} */></Dia>
-                    </Grid.Column>
-                    <Grid.Column width={2}>
-                        <Dia /*aulas = {ctx.aulas[3]} */></Dia>
-                    </Grid.Column>
-                    <Grid.Column width={2}>
-                        <Dia /*aulas = {ctx.aulas[4]} */></Dia>
-                    </Grid.Column>
-                    <Grid.Column width={2}>
-                        <Dia /*aulas = {ctx.aulas[5]} */></Dia>
-                    </Grid.Column>
-                    <Grid.Column width={2}>
-                        <Dia /*aulas = {ctx.aulas[6]} */></Dia>
-                    </Grid.Column>
+                    <Dia />
+                    <Dia />
+                    <Dia />
+                    <Dia />
+                    <Dia />
+                    <Dia />
+                    <Dia />
                 </Grid>
-                
+
             </Segment>
 
         )
