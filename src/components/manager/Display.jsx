@@ -10,11 +10,6 @@ const Display = ({ ctx, type, create }) => {
 
     return (
         <Segment>
-
-            {ctx.map((single) =>
-                <Segment key={single.id}><h4> {single.nome} </h4>  </Segment>
-            )}
-
             <Segment>
                 <Form onSubmit={dispatch}>
                     <Form.Field>
@@ -23,6 +18,11 @@ const Display = ({ ctx, type, create }) => {
                     <Button type='submit' positive> add </Button>
                 </Form>
             </Segment>
+            {ctx.map((single) =>
+                <Segment key={single.id}><h4> {single.nome} </h4>  </Segment>
+            )}
+
+            
         </Segment>
     )
 
