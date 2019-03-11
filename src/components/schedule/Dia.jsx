@@ -1,13 +1,17 @@
 import React from "react"
 import { Segment } from "semantic-ui-react"
 
-const Dia = ({}) => {
-    const aulas = this.props
+const Dia = ({aulas}) => {
     return(
         <div>
-            {aulas.map((aula) => {
+            {/* }{aulas.map((aula) => { 
                 return(<Segment> {aula} </Segment>)
-            })}
+            })} --> */}
+            <Segment> NYW </Segment>
+            <Segment> NYW </Segment>
+            <Segment> NYW </Segment>
+            <Segment> NYW </Segment>
+            <Segment> NYW </Segment>
         </div>
     );
 } 

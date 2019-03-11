@@ -1,48 +1,34 @@
+//@ts-check
 import React, { Component } from "react";
-import { Segment, Grid } from "semantic-ui-react";
+import { Grid, Menu } from 'semantic-ui-react'
+import { connect } from "react-redux"
 
-import Dia from "./Dia"
+import ScheduleMenu from "./ScheduleMenu"
+import ScheduleViwer from "./ScheduleViwer"
 
-export default class Schedule extends Component {
-    componentDidMount(){
-        
-    }
-    render() {
-        
-        const { ctx, container } = this.props
-        console.log(    container);
-        return (
-            
-            <Segment id="alo">
-                 <h2>id: {ctx && ctx.nome}</h2>
-                 {ctx.aulas && (
-                
-                <Grid style={{display: "flex"}}>
-                    <Grid.Column width={2} >
-                        <Dia /*aulas = {ctx.aulas[0]} */></Dia>
-                    </Grid.Column>
-                    <Grid.Column width={2}>
-                        <Dia /*aulas = {ctx.aulas[1]} */></Dia>
-                    </Grid.Column>
-                    <Grid.Column width={2}>
-                        <Dia /*aulas = {ctx.aulas[2]} */></Dia>
-                    </Grid.Column>
-                    <Grid.Column width={2}>
-                        <Dia /*aulas = {ctx.aulas[3]} */></Dia>
-                    </Grid.Column>
-                    <Grid.Column width={2}>
-                        <Dia /*aulas = {ctx.aulas[4]} */></Dia>
-                    </Grid.Column>
-                    <Grid.Column width={2}>
-                        <Dia /*aulas = {ctx.aulas[5]} */></Dia>
-                    </Grid.Column>
-                    <Grid.Column width={2}>
-                        <Dia /*aulas = {ctx.aulas[6]} */></Dia>
-                    </Grid.Column>
-                </Grid>
-                )}
-            </Segment>
+class Schedule extends Component {
+  state = { activeItem: "" }
 
-        )
-    }
+  handleItemClick = (e, { name }) => this.setState({ activeItem: name })
+
+  render() {
+    const { activeItem } = this.state
+    const { ctx } = this.props
+    return (
+      <Grid>
+        <Grid.Column width={2}>
+          <ScheduleMenu ctx={ctx} />
+        </Grid.Column>
+
+        <Grid.Column ctx={{}} stretched width={14} id="ScheduleGrid">
+          <ScheduleViwer />
+        </Grid.Column>
+      </Grid>
+    )
+  }
 }
+const mapStateToProps = (state) => ({
+  salas: state.salas,
+  turmas: state.turmas
+})
+export default connect(mapStateToProps)(Schedule)
