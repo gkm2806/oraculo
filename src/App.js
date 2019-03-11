@@ -4,9 +4,9 @@ import {Route, Switch} from 'react-router-dom'
 
 import MenuNav from "./components/menu/Menu"
 import Socorro from "./components/Socorro"
-import ScheduleTurmas from "./components/scheduleMenu/ScheduleMenuTurmas"
-import ScheduleSalas from "./components/scheduleMenu/ScheduleMenuSalas"
+import ScheduleMenu from "./components/scheduleMenu/ScheduleMenu"
 import Manager from "./components/manager/Manager"
+import { connect } from 'react-redux';
 
 
 class App extends Component {
@@ -25,9 +25,14 @@ class App extends Component {
         <MenuNav name={this.state.name} alo={this.alo} ></MenuNav>
         <Switch >
           <main>   
-            <Route component={ScheduleTurmas} exact path="/" ></Route>
-            <Route component={ScheduleSalas} exact path="/salas" ></Route>
-            <Route component={ScheduleTurmas} exact path="/turmas" ></Route>
+            <Route 
+              component={() => <ScheduleMenu ctx={this.props.salas} />}
+              exact path="/salas" 
+            />
+            <Route 
+              component={() => <ScheduleMenu ctx={this.props.turmas} />}
+              exact path="/turmas" 
+            />
             <Route component={Manager} exact path="/Manager" ></Route>
           </main>
         </Switch>
@@ -36,4 +41,9 @@ class App extends Component {
   }
 }
 
-export default App;
+const mapStateToProps = (state) => ({
+  salas: state.salas,
+  turmas: state.turmas
+})
+
+export default connect(mapStateToProps)(App);

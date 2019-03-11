@@ -21,6 +21,8 @@ class Manager extends Component{
             case "materias":
                 createMateria({nome: obj})
                 break;
+            default:
+                alert("Nenhuma action type passada pelo obj ", obj)
         }
     }
     render(){

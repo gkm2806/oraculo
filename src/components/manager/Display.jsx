@@ -1,6 +1,5 @@
-import React, { Component } from "react"
-import { Form, Input, Segment, Button, Container } from "semantic-ui-react"
-import { SSL_OP_SINGLE_DH_USE } from "constants";
+import React from "react"
+import { Form, Input, Segment, Button } from "semantic-ui-react"
 
 
 const Display = ({ ctx, type, create }) => {
@@ -11,11 +10,11 @@ const Display = ({ ctx, type, create }) => {
 
     return (
         <Segment>
-            
-                {ctx.map((single) => 
-                    <Segment key={single.id}><h4> {single.nome} </h4>  </Segment>
-                )}
-           
+
+            {ctx.map((single) =>
+                <Segment key={single.id}><h4> {single.nome} </h4>  </Segment>
+            )}
+
             <Segment>
                 <Form onSubmit={dispatch}>
                     <Form.Field>

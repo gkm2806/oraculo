@@ -5,21 +5,21 @@ import { connect } from "react-redux"
 
 import Schedule from "../schedule/Schedule"
 
-class ScheduleMenuSalas extends Component {
+class ScheduleMenu extends Component {
   state = { activeItem: "" }
 
   handleItemClick = (e, { name }) => this.setState({ activeItem: name })
 
   render() {
     const { activeItem } = this.state
-    const { salas } = this.props
+    const { ctx } = this.props
     return (
       <Grid>
         <Grid.Column width={2}>
           <Menu fluid vertical tabular>
-            {salas.map((sala) => {
+            {ctx.map((obj) => {
               return (
-                <Menu.Item key={sala.id} name={sala.nome} active={activeItem === sala.nome} onClick={this.handleItemClick} />)
+                <Menu.Item key={obj.id} name={obj.nome} active={activeItem === obj.nome} onClick={this.handleItemClick} />)
             })}
           </Menu>
         </Grid.Column>
@@ -31,6 +31,7 @@ class ScheduleMenuSalas extends Component {
   }
 }
 const mapStateToProps = (state) => ({
-  salas: state.salas
+  salas: state.salas,
+  turmas: state.turmas
 })
-export default connect(mapStateToProps)(ScheduleMenuSalas)
+export default connect(mapStateToProps)(ScheduleMenu)
