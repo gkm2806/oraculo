@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Grid } from "semantic-ui-react";
+import { Grid, Divider } from "semantic-ui-react";
 import {connect} from "react-redux" 
 import { bindActionCreators } from "redux";
 
@@ -8,12 +8,13 @@ import { Creators as TurmaActions } from "../../store/ducks/turmas"
 import { Creators as MateriaActions } from "../../store/ducks/materias"
 import { Creators as SalaActions } from "../../store/ducks/salas"
 import { Creators as professoreAction } from "../../store/ducks/professores"
+import { Creators as aulaAction } from "../../store/ducks/aulas"
 import Aula from "./Aula"
 
 class Manager extends Component{
     
     createNew = (type, obj) => {
-        const {createTurma,createMateria, createSala, createProfessor} = this.props
+        const {createTurma,createMateria, createSala, createProfessor, createAula} = this.props
 
         switch(type){
             case "turmas":
@@ -28,13 +29,16 @@ class Manager extends Component{
             case "professores":
                 createProfessor({nome: obj})
                 break;
+            case "aula":
+                createAula(obj)
+                break;
             default:
                 alert("Nenhuma action type passada pelo obj ", obj)
                 console.log("Nenhuma action type passada pelo obj ", type)
         }
     }
     render(){
-        const {professores, materias, turmas, salas} = this.props
+        const {professores, materias, turmas, salas, settings} = this.props
         return(
             <Grid>
                 <Grid.Row>
@@ -42,7 +46,8 @@ class Manager extends Component{
                     <Grid.Column width={3}> <Display create={this.createNew} type="professores" ctx={professores && professores}> </Display>  </Grid.Column>
                     <Grid.Column width={3}> <Display create={this.createNew} type="salas" ctx={salas && salas}> </Display></Grid.Column>
                     <Grid.Column width={3}> <Display create={this.createNew} type="turmas" ctx={turmas && turmas}> </Display></Grid.Column>
-                    <Grid.Column width={3}> <Aula profs={professores} materias={materias} salas={salas} turmas={turmas}/> </Grid.Column>
+                    <Divider />
+                    <Grid.Column width={6}> <Aula create={this.createNew} dias={settings[0].dias} horarios={settings[0].timeStamps} profs={professores} materias={materias} salas={salas} turmas={turmas}/> </Grid.Column>
                 </Grid.Row>
             </Grid>
         )
@@ -53,14 +58,17 @@ const mapStateToProps = (state) => ({
     salas: state.salas,
     turmas: state.turmas,
     materias: state.materias,
-    professores: state.professores
+    professores: state.professores,
+    settings: state.settings,
+    aulas: state.aulas
 })
 
 const mapDispatchToProps = dispatch => bindActionCreators({
     ...MateriaActions,
     ...TurmaActions,
     ...SalaActions,
-    ...professoreAction
+    ...professoreAction,
+    ...aulaAction
     }, dispatch)
 
 

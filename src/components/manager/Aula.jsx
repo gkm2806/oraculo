@@ -1,38 +1,78 @@
 import React, { Component } from 'react';
-import { Segment, Form, Button, Input, Dropdown } from 'semantic-ui-react'
+import { Segment, Form, Button, Input, Dropdown, Grid, Divider } from 'semantic-ui-react'
+import cuid from "cuid";
 
 export default class Aula extends Component {
-    dispatch = () => {
+    constructor(props) {
+        super(props);
 
+        this.state = {
+            materia: "",
+            turma: "",
+            professor: "",
+            sala:"",
+            dia:"",
+            horaInicio:"",
+            horaFim:"",
+            id: 0
+        };
+    }
+    dispatch = (obj) => {
+        console.log("aula sendo criada")
+        var newId = cuid();
+        this.setState({id:newId})
+        this.props.create("aula", this.state)
+    }
+    handleChange = (event, { name, value }) => {
+        if (this.state.hasOwnProperty(name)) {
+            this.setState({ [name]: value });
+        }
     }
 
-
     render() {
-        const { profs, materias, salas, turmas } = this.props
+        const { profs, materias, salas, turmas, horarios, dias } = this.props
+        function mapObj(array){
+            return array.map((obj, i) => ({ "key": obj.nome, "text": obj.nome, "value": obj.nome }))
+        }
+        let profNomes = mapObj(profs)
+        let materiaNomes = mapObj(materias)
+        let salaNomes = mapObj(salas)
+        let turmaNomes = mapObj(turmas)
+        let horariosArray = horarios.map((horario, i) => ({ "key": horario, "text": horario, "value": horario }))
+        let diasArray = dias.map((dia, i) => ({ "key": dia, "text": dia, "value": dia }))
 
-        let profNomes = profs.map((prof, i) => ({ "key": prof.nome, "text": prof.nome, "value": prof.nome }))
-
-        let materiaNomes = materias.map((materia, i) => ({ "key": materia.nome, "text": materia.nome, "value": materia.nome }))
-
-        let salaNomes = salas.map((sala, i) => ({ "key": sala.nome, "text": sala.nome, "value": sala.nome }))
-        let turmaNomes = turmas.map((turma, i) => ({ "key": turma.nome, "text": turma.nome, "value": turma.nome }))
-        
         return (
             <Segment>
-                <Form onSubmit={this.dispatch}>
-                    <Form.Field>
-                        <Dropdown placeholder='selecione a Materia' fluid search selection options={materiaNomes} />
-                    </Form.Field>
-                    <Form.Field>
-                        <Dropdown placeholder='selecione a Sala' fluid search selection options={salaNomes} />
-                    </Form.Field>
-                    <Form.Field>
-                        <Dropdown placeholder='selecione a Sala' fluid search selection options={turmaNomes} />
-                    </Form.Field>
-                    <Form.Field>
-                        <Dropdown placeholder='selecione o Professor' fluid search selection options={profNomes} />
-                    </Form.Field>
-                    <Button type='submit' positive> add </Button>
+                <Form onSubmit={this.dispatch} flex>
+                    <Grid>
+                        <Grid.Column width={8}>
+                            <Form.Field>
+                                <Dropdown onChange={this.handleChange} name="materia" placeholder='selecione a Materia' fluid search selection options={materiaNomes} />
+                            </Form.Field>
+                            <Form.Field>
+                                <Dropdown onChange={this.handleChange} name="sala" placeholder='selecione a Sala' fluid search selection options={salaNomes} />
+                            </Form.Field>
+                            <Form.Field>
+                                <Dropdown onChange={this.handleChange} name="turma" placeholder='selecione a Turma' fluid search selection options={turmaNomes} />
+                            </Form.Field>
+                            <Form.Field>
+                                <Dropdown onChange={this.handleChange} name="professor" placeholder='selecione o Professor' fluid search selection options={profNomes} />
+                            </Form.Field>
+                        </Grid.Column>
+                        <Grid.Column width={8}>
+                            <Form.Field>
+                                <Dropdown onChange={this.handleChange} name="dia" placeholder='Dia da Semana' fluid search selection options={diasArray} />
+                            </Form.Field>
+                            <Form.Field>
+                                <Dropdown onChange={this.handleChange} name="horaInicio" placeholder='Horario de Inicio' fluid search selection options={horariosArray} />
+                            </Form.Field>
+                            <Form.Field>
+                                <Dropdown onChange={this.handleChange} name="horaFim" placeholder='Horario de Termino' fluid search selection options={horariosArray} />
+                            </Form.Field>
+                            <Button type='submit' positive> add </Button>
+                        </Grid.Column>
+                        <Divider vertical></Divider>
+                    </Grid>
                 </Form>
             </Segment>
         );
