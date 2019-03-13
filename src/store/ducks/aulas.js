@@ -12,7 +12,7 @@ const initialState = [
         sala: "Sala2",
         materia: "Matematica",
         turma: "2024",
-        horaInicio: "13:00",
+        horaInicio: "7:00",
         horaFim:"13:45",
         dia: "Quarta",
         continuo: true

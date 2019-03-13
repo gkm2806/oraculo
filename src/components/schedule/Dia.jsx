@@ -1,5 +1,6 @@
 import React from "react"
-import { Segment, Grid, Header } from "semantic-ui-react"
+import { Segment, Grid, Header, Modal, Button, Image } from "semantic-ui-react"
+import ScheduleAula from "./ScheduleAula.jsx";
 
 const Dia = ({ aulas, dNome, timeStamps }) => {
     return (
@@ -9,12 +10,12 @@ const Dia = ({ aulas, dNome, timeStamps }) => {
             {timeStamps.map((time) => {
                 let bool = (aulas.filter(aula => aula.horaInicio === time))[0]
                 return (<Grid.Row key={time}>
-                    <Segment > {bool ? bool.materia : "vazio"} </Segment>
+                     {bool ? (<ScheduleAula aula={bool} />) : (<Segment > vazio </Segment> )} 
                 </Grid.Row>)
             })}
 
 
-        
+
         </Grid.Column>
     );
 }
