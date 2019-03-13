@@ -7,21 +7,25 @@ import ScheduleMenu from "./ScheduleMenu"
 import ScheduleViewer from "./ScheduleViewer"
 
 class Schedule extends Component {
-  state = { activeItem: "" }
+  state = {
+    searched: ""
+  }
 
-  handleItemClick = (e, { name }) => this.setState({ activeItem: name })
-
+  setSearched = (query) => {
+    this.setState({searched:query})
+    console.log(this.props.aulas.filter(aula => Object.values(aula).indexOf(this.state.searched)))
+  }
+  
   render() {
-    const { activeItem } = this.state
     const { ctx, settings, aulas } = this.props
     return (
       <Grid>
         <Grid.Column width={2}>
-          <ScheduleMenu ctx={ctx} />
+          <ScheduleMenu setSearched={this.setSearched} ctx={ctx} />
         </Grid.Column>
 
         <Grid.Column ctx={{}} stretched width={14} id="ScheduleGrid">
-          <ScheduleViewer aulas={aulas} timeStamps={settings[0].timeStamps} />
+          <ScheduleViewer aulas={aulas.filter(aula => (Object.values(aula)).includes(this.state.searched))} timeStamps={settings[0].timeStamps} />
         </Grid.Column>
       </Grid>
     )

@@ -7,7 +7,10 @@ const Dia = ({ aulas, dNome, timeStamps }) => {
             <Grid.Row> <Header> {dNome} </Header> </Grid.Row>
 
             {timeStamps.map((time) => {
-                return (<Grid.Row key={time}><Segment> {(aulas.filter(aula => aula.horaInicio === time))[0] ? ((aulas.filter(aula => aula.horaInicio === time))[0]).materia : "none"} </Segment></Grid.Row>)
+                let bool = (aulas.filter(aula => aula.horaInicio === time))[0]
+                return (<Grid.Row key={time}>
+                    <Segment > {bool ? bool.materia : "vazio"} </Segment>
+                </Grid.Row>)
             })}
 
 

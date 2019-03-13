@@ -3,12 +3,13 @@ import React, { Component } from "react";
 import { Grid, Menu } from 'semantic-ui-react'
 import { connect } from "react-redux"
 
-import Schedule from "./ScheduleViewer"
-
 class ScheduleMenu extends Component {
   state = { activeItem: "" }
 
-  handleItemClick = (e, { name }) => this.setState({ activeItem: name })
+  handleItemClick = (e, { name }) => {
+    this.setState({ activeItem: name })
+    this.props.setSearched(name);
+  }
 
   render() {
     const { activeItem } = this.state

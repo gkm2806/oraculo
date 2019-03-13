@@ -17,11 +17,11 @@ class App extends Component {
         <Switch >
           <main>   
             <Route 
-              component={() => <Schedule ctx={this.props.salas} />}
+              component={() => <Schedule type="salas" ctx={this.props.salas} />}
               exact path="/salas" 
             />
             <Route 
-              component={() => <Schedule ctx={this.props.turmas} />}
+              component={() => <Schedule type="turmas" ctx={this.props.turmas} />}
               exact path="/turmas" 
             />
             <Route component={Manager} exact path="/Manager" ></Route>
