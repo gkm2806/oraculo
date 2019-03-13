@@ -6,6 +6,7 @@ import * as serviceWorker from './serviceWorker';
 import { Provider } from 'react-redux';
 import { BrowserRouter } from 'react-router-dom';
 import 'semantic-ui-css/semantic.min.css'
+import 'react-semantic-toasts/styles/react-semantic-alert.css';
 import Store from "./store/store"
 
 ReactDOM.render(

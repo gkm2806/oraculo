@@ -3,7 +3,7 @@ import React, { Component } from "react";
 import { Grid, Menu } from 'semantic-ui-react'
 import { connect } from "react-redux"
 
-import Schedule from "./ScheduleViwer"
+import Schedule from "./ScheduleViewer"
 
 class ScheduleMenu extends Component {
   state = { activeItem: "" }

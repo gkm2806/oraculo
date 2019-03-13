@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Segment, Form, Button, Input, Dropdown, Grid, Divider } from 'semantic-ui-react'
 import cuid from "cuid";
+import { SemanticToastContainer, toast } from 'react-semantic-toasts';
 
 export default class Aula extends Component {
     constructor(props) {
@@ -17,12 +18,19 @@ export default class Aula extends Component {
             id: 0
         };
     }
+
+    validation = (obj) => {
+        toast({title:"no validation yet", type: "warning"})
+        this.dispatch(obj)
+    }
+
     dispatch = (obj) => {
         console.log("aula sendo criada")
         var newId = cuid();
         this.setState({id:newId})
         this.props.create("aula", this.state)
     }
+
     handleChange = (event, { name, value }) => {
         if (this.state.hasOwnProperty(name)) {
             this.setState({ [name]: value });
@@ -43,7 +51,8 @@ export default class Aula extends Component {
 
         return (
             <Segment>
-                <Form onSubmit={this.dispatch} flex>
+                <SemanticToastContainer />
+                <Form onSubmit={this.validation} flex>
                     <Grid>
                         <Grid.Column width={8}>
                             <Form.Field>

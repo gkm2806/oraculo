@@ -4,7 +4,7 @@ import { Grid, Menu } from 'semantic-ui-react'
 import { connect } from "react-redux"
 
 import ScheduleMenu from "./ScheduleMenu"
-import ScheduleViwer from "./ScheduleViwer"
+import ScheduleViewer from "./ScheduleViewer"
 
 class Schedule extends Component {
   state = { activeItem: "" }
@@ -13,7 +13,7 @@ class Schedule extends Component {
 
   render() {
     const { activeItem } = this.state
-    const { ctx, settings } = this.props
+    const { ctx, settings, aulas } = this.props
     return (
       <Grid>
         <Grid.Column width={2}>
@@ -21,7 +21,7 @@ class Schedule extends Component {
         </Grid.Column>
 
         <Grid.Column ctx={{}} stretched width={14} id="ScheduleGrid">
-          <ScheduleViwer timeStamps={settings[0].timeStamps} />
+          <ScheduleViewer aulas={aulas} timeStamps={settings[0].timeStamps} />
         </Grid.Column>
       </Grid>
     )
@@ -30,6 +30,7 @@ class Schedule extends Component {
 const mapStateToProps = (state) => ({
   salas: state.salas,
   turmas: state.turmas,
-  settings: state.settings
+  settings: state.settings,
+  aulas: state.aulas
 })
 export default connect(mapStateToProps)(Schedule)

@@ -10,19 +10,21 @@ const initialState = [
     {
         id: "cjrr5xtfi00003a5qu7lvn55d",
         sala: "Sala2",
-        Aula: "Matematica",
+        materia: "Matematica",
         turma: "2024",
-        horario: "13:00",
-        dia: 1, //segunda
+        horaInicio: "13:00",
+        horaFim:"13:45",
+        dia: "Quarta",
         continuo: true
     },
     {
         id: "cjrr5xu3k00013a5qymu6gn3k",
         sala: "LabA",
-        Aula: "LP2",
+        materia: "LP2",
         turma: "3750",
-        horario: "Alo",
-        dia: 2 //terça,
+        horaInicio: "8:30",
+        horaFim:"9:30",
+        dia: "Terça",
         
     }
 ];
