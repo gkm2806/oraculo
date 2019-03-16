@@ -11,9 +11,6 @@ const initialState = [
         id: "cjrr5xtfi00003a5qu7lvn55d",
         nome: "2024",
         alunos: ["Gabriel Kukiel", "Gustavo Ferri"],
-        aulas:[
-            ["Historia"],["matematica"],["fisica"],["quimica"],["teste"],["alo"],["Aaaa"]
-        ]
     }
 ];
 

@@ -9,22 +9,24 @@ export const Types = {
 const initialState = [
     {
         id: "cjrr5xtfi00003a5qu7lvn55d",
-        sala: "Sala2",
+        sala: "Sala 2",
         materia: "Matematica",
         turma: "2024",
         horaInicio: "7:00",
         horaFim:"13:45",
         dia: "Quarta",
+        professor:"Mauro",
         continuo: true
     },
     {
         id: "cjrr5xu3k00013a5qymu6gn3k",
-        sala: "LabA",
+        sala: "Lab A",
         materia: "LP2",
         turma: "3750",
         horaInicio: "8:30",
         horaFim:"9:30",
         dia: "Terça",
+        professor:"Jimenez"
         
     }
 ];

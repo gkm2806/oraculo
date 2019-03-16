@@ -9,30 +9,11 @@ export const Types = {
 const initialState = [
     {
         id: "cjrr5xtfi00003a5qu7lvn55d",
-        nome: "Sala1",
-        aulas:[
-            ["LP1","ProjInt3"],
-            ["LP1","ProjInt3"],
-            ["LP1","ProjInt3"],
-            ["LP1","ProjInt3"],
-            ["LP1","ProjInt3"],
-            ["LP1","ProjInt3"],
-            ["LP1","ProjInt3"]
-        ]
+        nome: "Sala 1",
     },
     {
         id: "cjrr5xu3k00013a5qymu6gn3k",
-        nome: "sala2",
-        aulas:[
-            ["matematica","quimica"],
-            ["matematica","quimica"],
-            ["matematica","quimica"],
-            ["matematica","quimica"],
-            ["matematica","quimica"],
-            ["matematica","quimica"],
-            ["matematica","quimica"]
-        ]
-        
+        nome: "sala 2",
     }
 ];
 
