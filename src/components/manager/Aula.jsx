@@ -52,7 +52,8 @@ class Aula extends Component {
 
     render() {
         const { Option } = Select
-        const { professores, materias, salas, turmas, settings } = this.props
+        const { professores, materias, salas, turmas, settings, dia, time, search, type } = this.props
+
         let horarios = settings[0].timeStamps
         let dias = settings[0].dias
         function mapObj(array) {
@@ -78,6 +79,7 @@ class Aula extends Component {
                     </Form.Item>
                     <Form.Item>
                         <AutoComplete
+                            defaultValue = {type=="salas" ? search : null}
                             onChange={this.handleChange}
                             key="sala"
                             dataSource={salaNomes}
@@ -87,6 +89,7 @@ class Aula extends Component {
                     </Form.Item>
                     <Form.Item>
                         <AutoComplete
+                            defaultValue = {type=="turmas" ? search : null}
                             onChange={this.handleChange}
                             key="turma"
                             dataSource={turmaNomes}
@@ -107,6 +110,7 @@ class Aula extends Component {
                 <Col span={12}>
                     <Form.Item>
                         <AutoComplete
+                            defaultValue = {dia && dia}
                             onChange={this.handleChange}
                             key="dia"
                             dataSource={diasArray}
@@ -116,6 +120,7 @@ class Aula extends Component {
                     </Form.Item>
                     <Form.Item>
                         <AutoComplete
+                            defaultValue = {time && time}
                             onChange={this.handleChange}
                             key="horaInicio"
                             dataSource={horariosArray}

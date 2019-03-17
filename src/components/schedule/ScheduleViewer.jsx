@@ -1,4 +1,4 @@
-//@ts-check
+
 import React, { Component } from "react";
 import {Row, Col, Card} from "antd"
 
@@ -9,7 +9,7 @@ export default class ScheduleViewer extends Component {
 
     }
     render() {
-        const {timeStamps, aulas, search} = this.props
+        const {timeStamps, aulas, search, type} = this.props
         return (
             (search ?(
             <div id="alo">
@@ -21,18 +21,18 @@ export default class ScheduleViewer extends Component {
                         })}
                     </Col>
 
-                    <Dia timeStamps={timeStamps} dNome="Domingo" aulas={aulas.filter(aula=> aula.dia === "Domingo")}/>
-                    <Dia timeStamps={timeStamps} dNome="Segunda" aulas={aulas.filter(aula=> aula.dia === "Segunda")}/>
-                    <Dia timeStamps={timeStamps} dNome="Terça" aulas={aulas.filter(aula=> aula.dia === "Terça")}/>
-                    <Dia timeStamps={timeStamps} dNome="Quarta" aulas={aulas.filter(aula=> aula.dia === "Quarta")}/>
-                    <Dia timeStamps={timeStamps} dNome="Quinta" aulas={aulas.filter(aula=> aula.dia === "Quinta")}/>
-                    <Dia timeStamps={timeStamps} dNome="Sexta" aulas={aulas.filter(aula=> aula.dia === "Sexta")}/>
-                    <Dia timeStamps={timeStamps} dNome="Sabado" aulas={aulas.filter(aula=> aula.dia === "Sabado")}/>
+                    <Dia type={type} search={search} timeStamps={timeStamps} dNome="Domingo" aulas={aulas.filter(aula=> aula.dia === "Domingo")}/>
+                    <Dia type={type} search={search} timeStamps={timeStamps} dNome="Segunda" aulas={aulas.filter(aula=> aula.dia === "Segunda")}/>
+                    <Dia type={type} search={search} timeStamps={timeStamps} dNome="Terça" aulas={aulas.filter(aula=> aula.dia === "Terça")}/>
+                    <Dia type={type} search={search} timeStamps={timeStamps} dNome="Quarta" aulas={aulas.filter(aula=> aula.dia === "Quarta")}/>
+                    <Dia type={type} search={search} timeStamps={timeStamps} dNome="Quinta" aulas={aulas.filter(aula=> aula.dia === "Quinta")}/>
+                    <Dia type={type} search={search} timeStamps={timeStamps} dNome="Sexta" aulas={aulas.filter(aula=> aula.dia === "Sexta")}/>
+                    <Dia type={type} search={search} timeStamps={timeStamps} dNome="Sabado" aulas={aulas.filter(aula=> aula.dia === "Sabado")}/>
                 </div>
 
             </div>
             ):(
-                <h2> Selecione um Contexto no menu ao lado</h2>
+                <h2> Selecione um contexto no menu ao lado</h2>
             ))
         )
     }

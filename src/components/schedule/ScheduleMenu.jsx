@@ -29,7 +29,7 @@ class ScheduleMenu extends Component {
     >
         {ctx.map((obj) => {
           return (
-            <Menu.Item key={obj.id} > {obj.nome} </Menu.Item>)
+            <Menu.Item key={obj.nome} > {obj.nome} </Menu.Item>)
         })}
       </Menu>
     )
