@@ -1,17 +1,18 @@
 //@ts-check
 import React, { Component } from 'react';
-import { Segment, Form, Button, Input, Dropdown, Grid, Divider } from 'semantic-ui-react'
-import cuid from "cuid";
-import { SemanticToastContainer, toast } from 'react-semantic-toasts';
 import { connect } from "react-redux";
-import {Creators as aulaActions } from "../../store/ducks/aulas"
+import { bindActionCreators } from "redux";
+import { Row, Col, Form, Icon, Input, Button, AutoComplete, Select } from 'antd';
+
+import cuid from "cuid";
 import moment from "moment"
+
 import { Creators as TurmaActions } from "../../store/ducks/turmas"
 import { Creators as MateriaActions } from "../../store/ducks/materias"
 import { Creators as SalaActions } from "../../store/ducks/salas"
 import { Creators as professoreAction } from "../../store/ducks/professores"
 import { Creators as aulaAction } from "../../store/ducks/aulas"
-import { bindActionCreators } from "redux";
+
 
 class Aula extends Component {
     constructor(props) {
@@ -21,40 +22,40 @@ class Aula extends Component {
             materia: "",
             turma: "",
             professor: "",
-            sala:"",
-            dia:"",
-            horaInicio:"",
-            horaFim:"",
+            sala: "",
+            dia: "",
+            horaInicio: "",
+            horaFim: "",
             id: 0,
             creationdate: ""
         };
     }
 
     validation = (obj) => {
+        obj.preventDefault();
         this.dispatch(obj);
     }
 
     dispatch = (obj) => {
-        toast({title:"no validation yet", type: "warning"})
-        
         let newId = cuid();
         let now = moment.now();
-        this.setState({id: newId, creationdate: now});
-        console.log(this.state)
+        this.setState({ id: newId, creationdate: now });
         this.props.createAula(this.state)
+ 
     }
 
-    handleChange = (event, { name, value }) => {
-        if (this.state.hasOwnProperty(name)) {
-            this.setState({ [name]: value });
+    handleChange = (event, { key, value }) => {
+        if (this.state.hasOwnProperty(key)) {
+            this.setState({ [key]: value });
         }
     }
 
     render() {
-        const { professores, materias, salas, turmas, settings} = this.props
+        const { Option } = Select
+        const { professores, materias, salas, turmas, settings } = this.props
         let horarios = settings[0].timeStamps
-        let dias= settings[0].dias
-        function mapObj(array){
+        let dias = settings[0].dias
+        function mapObj(array) {
             return array.map((obj, i) => ({ "key": obj.nome, "text": obj.nome, "value": obj.nome }))
         }
         let profNomes = mapObj(professores)
@@ -65,40 +66,77 @@ class Aula extends Component {
         let diasArray = dias.map((dia, i) => ({ "key": dia, "text": dia, "value": dia }))
 
         return (
-            <Segment>
-                <SemanticToastContainer />
-                <Form onSubmit={this.validation} flex>
-                    <Grid>
-                        <Grid.Column width={8}>
-                            <Form.Field>
-                                <Dropdown onChange={this.handleChange} name="materia" placeholder='selecione a Materia' fluid search selection options={materiaNomes} />
-                            </Form.Field>
-                            <Form.Field>
-                                <Dropdown onChange={this.handleChange} name="sala" placeholder='selecione a Sala' fluid search selection options={salaNomes} />
-                            </Form.Field>
-                            <Form.Field>
-                                <Dropdown onChange={this.handleChange} name="turma" placeholder='selecione a Turma' fluid search selection options={turmaNomes} />
-                            </Form.Field>
-                            <Form.Field>
-                                <Dropdown onChange={this.handleChange} name="professor" placeholder='selecione o Professor' fluid search selection options={profNomes} />
-                            </Form.Field>
-                        </Grid.Column>
-                        <Grid.Column width={8}>
-                            <Form.Field>
-                                <Dropdown onChange={this.handleChange} name="dia" placeholder='Dia da Semana' fluid search selection options={diasArray} />
-                            </Form.Field>
-                            <Form.Field>
-                                <Dropdown onChange={this.handleChange} name="horaInicio" placeholder='Horario de Inicio' fluid search selection options={horariosArray} />
-                            </Form.Field>
-                            <Form.Field>
-                                <Dropdown onChange={this.handleChange} name="horaFim" placeholder='Horario de Termino' fluid search selection options={horariosArray} />
-                            </Form.Field>
-                            <Button type='submit' positive> add </Button>
-                        </Grid.Column>
-                        <Divider vertical></Divider>
-                    </Grid>
-                </Form>
-            </Segment>
+            <Form className="main" onSubmit={this.validation} >
+                <Col span={12} >
+                    <Form.Item>
+                        <AutoComplete
+                            key="professor"
+                            dataSource={profNomes}
+                            placeholder="Professor"
+                            filterOption={(inputValue, option) => option.props.children.toUpperCase().indexOf(inputValue.toUpperCase()) !== -1}
+                        />
+                    </Form.Item>
+                    <Form.Item>
+                        <AutoComplete
+                            onChange={this.handleChange}
+                            key="sala"
+                            dataSource={salaNomes}
+                            placeholder="Sala"
+                            filterOption={(inputValue, option) => option.props.children.toUpperCase().indexOf(inputValue.toUpperCase()) !== -1}
+                        />
+                    </Form.Item>
+                    <Form.Item>
+                        <AutoComplete
+                            onChange={this.handleChange}
+                            key="turma"
+                            dataSource={turmaNomes}
+                            placeholder="Turma"
+                            filterOption={(inputValue, option) => option.props.children.toUpperCase().indexOf(inputValue.toUpperCase()) !== -1}
+                        />
+                    </Form.Item>
+                    <Form.Item>
+                        <AutoComplete
+                            onChange={this.handleChange}
+                            key="materia"
+                            dataSource={materiaNomes}
+                            placeholder="Materia"
+                            filterOption={(inputValue, option) => option.props.children.toUpperCase().indexOf(inputValue.toUpperCase()) !== -1}
+                        />
+                    </Form.Item>
+                </Col >
+                <Col span={12}>
+                    <Form.Item>
+                        <AutoComplete
+                            onChange={this.handleChange}
+                            key="dia"
+                            dataSource={diasArray}
+                            placeholder="dia"
+                            filterOption={(inputValue, option) => option.props.children.toUpperCase().indexOf(inputValue.toUpperCase()) !== -1}
+                        />
+                    </Form.Item>
+                    <Form.Item>
+                        <AutoComplete
+                            onChange={this.handleChange}
+                            key="horaInicio"
+                            dataSource={horariosArray}
+                            placeholder="Horario de Inicio"
+                            filterOption={(inputValue, option) => option.props.children.toUpperCase().indexOf(inputValue.toUpperCase()) !== -1}
+                        />
+                    </Form.Item>
+                    <Form.Item>
+                        <AutoComplete
+                            onChange={this.handleChange}
+                            key="horaFim"
+                            dataSource={horariosArray}
+                            placeholder="Horario de Termino"
+                            filterOption={(inputValue, option) => option.props.children.toUpperCase().indexOf(inputValue.toUpperCase()) !== -1}
+                        />
+                    </Form.Item>
+                    <Form.Item>
+                        <Button htmlType="submit"> criar </Button>
+                    </Form.Item>
+                </Col>
+            </Form>
         );
     }
 }
@@ -117,7 +155,7 @@ const mapDispatchToProps = dispatch => bindActionCreators({
     ...SalaActions,
     ...professoreAction,
     ...aulaAction
-    }, dispatch)
+}, dispatch)
 
 
 export default connect(mapStateToProps, mapDispatchToProps)(Aula)

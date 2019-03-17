@@ -1,19 +1,48 @@
-import React from "react";
-import { Header, Modal, Button, Image } from "semantic-ui-react"
+import React, { Component } from "react";
+import { Card, Button, Modal } from "antd"
+class ScheduleAula extends Component {
+    state = { visible: false }
 
-const ScheduleAula = ({aula}) => {
-    return (
-        <Modal trigger={<Button>{aula.materia}</Button>}>
-            <Modal.Header>{aula.materia}</Modal.Header>
-            <Modal.Content image>
-                <Modal.Description>
-                    <p>turma: {aula.turma}</p>
-                    <p>Local: {aula.sala}</p>
-                    <p>professor: {aula.professor}</p>
-                </Modal.Description>
-            </Modal.Content>
-        </Modal>
-    )
+    showModal = () => {
+        this.setState({
+            visible: true,
+        });
+    }
+
+    handleOk = (e) => {
+        console.log(e);
+        this.setState({
+            visible: false,
+        });
+    }
+
+    handleCancel = (e) => {
+        console.log(e);
+        this.setState({
+            visible: false,
+        });
+    }
+    render() {
+        const {aula} = this.props
+        return (
+            <div>
+                <Card className="hoverable" onClick={this.showModal}>
+                    {aula.materia}
+                </Card>
+                <Modal
+                    title={aula.materia}
+                    visible={this.state.visible}
+                    onOk={this.handleOk}
+                    onCancel={this.handleCancel}
+                >
+                    <p>{aula.horaInicio} | {aula.horaFim}</p>
+                    <p>{aula.turma}</p>
+                    <p>{aula.materia}</p>
+                    <p>{aula.professor}</p>
+                </Modal>
+            </div>
+        )
+    }
 }
 
 export default ScheduleAula;

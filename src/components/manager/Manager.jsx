@@ -1,8 +1,7 @@
 import React, { Component } from "react";
-import { Grid, Divider } from "semantic-ui-react";
 import {connect} from "react-redux" 
 import { bindActionCreators } from "redux";
-
+import {Row, Col } from "antd"
 import Display from "./Display"
 import { Creators as TurmaActions } from "../../store/ducks/turmas"
 import { Creators as MateriaActions } from "../../store/ducks/materias"
@@ -30,23 +29,21 @@ class Manager extends Component{
                 createProfessor({nome: obj})
                 break;
             default:
-                alert("Nenhuma action type passada pelo obj ", obj)
+                alert("Nenhuma action type passada pelo obj ")
                 console.log("Nenhuma action type passada pelo obj ", type)
         }
     }
     render(){
         const {professores, materias, turmas, salas, settings} = this.props
         return(
-            <Grid>
-                <Grid.Row>
-                    <Grid.Column width={3}> <Display create={this.createNew} type="materias" ctx={materias && materias}> </Display> </Grid.Column>
-                    <Grid.Column width={3}> <Display create={this.createNew} type="professores" ctx={professores && professores}> </Display>  </Grid.Column>
-                    <Grid.Column width={3}> <Display create={this.createNew} type="salas" ctx={salas && salas}> </Display></Grid.Column>
-                    <Grid.Column width={3}> <Display create={this.createNew} type="turmas" ctx={turmas && turmas}> </Display></Grid.Column>
-                    <Divider />
-                    <Grid.Column width={6}> <Aula dias={settings[0].dias} horarios={settings[0].timeStamps} profs={professores} materias={materias} salas={salas} turmas={turmas}/> </Grid.Column>
-                </Grid.Row>
-            </Grid>
+            <div className="main">
+                <Row>
+                    <Col span={6}> <Display create={this.createNew} type="materias" ctx={materias && materias}> </Display> </Col>
+                    <Col span={6}> <Display create={this.createNew} type="professores" ctx={professores && professores}> </Display>  </Col>
+                    <Col span={6}> <Display create={this.createNew} type="salas" ctx={salas && salas}> </Display></Col>
+                    <Col span={6}> <Display create={this.createNew} type="turmas" ctx={turmas && turmas}> </Display></Col>
+                </Row>
+            </div>
         )
     }
 }

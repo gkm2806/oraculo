@@ -1,13 +1,18 @@
+@import '~antd/dist/antd.css';
+
 main{
   display: flex;
   padding: 0 1em 1em 1em;
 }
-
-:global(.ScheduleDot){
-  width: 8vh;
-  background-color: fuchsia !important
+.hoverable{
+  background-color: #eee
 }
-
-Route{
-  background-color: #356245;
+.main{
+  width:100%;
+  padding: 0 1em 1em 1em;
+}
+.hoverable:hover{
+  cursor: pointer;
+  background-color: rgb(197, 197, 197);
+  color: #555
 }

@@ -1,24 +1,35 @@
 //@ts-check
 import React, { Component } from "react";
-import { Grid, Menu } from 'semantic-ui-react'
 import { connect } from "react-redux"
+import {Menu, Row, Col} from "antd"
 
 class ScheduleMenu extends Component {
-  state = { activeItem: "" }
+  state = {
+    current: '',
+  }
 
-  handleItemClick = (e, { name }) => {
-    this.setState({ activeItem: name })
-    this.props.setSearched(name);
+  handleClick = (e) => {
+    console.log('click ', e);
+    this.setState({
+      current: e.key,
+    });
+    this.props.setSearched(e.key)
   }
 
   render() {
     const { activeItem } = this.state
     const { ctx } = this.props
     return (
-      <Menu fluid vertical tabular>
+      <Menu
+      style={{ width: "100%" }}
+      onClick={this.handleClick}
+      defaultSelectedKeys={['1']}
+      defaultOpenKeys={['sub1']}
+      mode="inline"
+    >
         {ctx.map((obj) => {
           return (
-            <Menu.Item key={obj.id} name={obj.nome} active={activeItem === obj.nome} onClick={this.handleItemClick} />)
+            <Menu.Item key={obj.id} > {obj.nome} </Menu.Item>)
         })}
       </Menu>
     )

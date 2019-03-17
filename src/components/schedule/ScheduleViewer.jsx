@@ -1,5 +1,6 @@
+//@ts-check
 import React, { Component } from "react";
-import { Segment, Grid, Header } from "semantic-ui-react";
+import {Row, Col, Card} from "antd"
 
 import Dia from "./Dia"
 
@@ -8,17 +9,17 @@ export default class ScheduleViewer extends Component {
 
     }
     render() {
-        const {timeStamps, aulas} = this.props
+        const {timeStamps, aulas, search} = this.props
         return (
-
-            <Segment id="alo">
-                <Grid container >
-                    <Grid.Column width={2} >
-                        <Grid.Row><Header> Hora </Header></Grid.Row>
+            (search ?(
+            <div id="alo">
+                <div>
+                    <Col span={3} >
+                        <Row><header> Hora </header></Row>
                         {timeStamps.map((time)=>{
-                            return( <Grid.Row><Segment>{time}</Segment></Grid.Row>)
+                            return( <Row><Card style={{backgroundColor: "#999", padding:0}}>{time}</Card></Row>)
                         })}
-                    </Grid.Column>
+                    </Col>
 
                     <Dia timeStamps={timeStamps} dNome="Domingo" aulas={aulas.filter(aula=> aula.dia === "Domingo")}/>
                     <Dia timeStamps={timeStamps} dNome="Segunda" aulas={aulas.filter(aula=> aula.dia === "Segunda")}/>
@@ -27,10 +28,12 @@ export default class ScheduleViewer extends Component {
                     <Dia timeStamps={timeStamps} dNome="Quinta" aulas={aulas.filter(aula=> aula.dia === "Quinta")}/>
                     <Dia timeStamps={timeStamps} dNome="Sexta" aulas={aulas.filter(aula=> aula.dia === "Sexta")}/>
                     <Dia timeStamps={timeStamps} dNome="Sabado" aulas={aulas.filter(aula=> aula.dia === "Sabado")}/>
-                </Grid>
+                </div>
 
-            </Segment>
-
+            </div>
+            ):(
+                <h2> Selecione um Contexto no menu ao lado</h2>
+            ))
         )
     }
 }

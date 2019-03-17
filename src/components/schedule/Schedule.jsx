@@ -1,7 +1,7 @@
 //@ts-check
 import React, { Component } from "react";
-import { Grid, Menu } from 'semantic-ui-react'
 import { connect } from "react-redux"
+import { Row, Col } from "antd"
 
 import ScheduleMenu from "./ScheduleMenu"
 import ScheduleViewer from "./ScheduleViewer"
@@ -17,17 +17,17 @@ class Schedule extends Component {
   }
   
   render() {
-    const { ctx, settings, aulas } = this.props
+    const { ctx, settings, aulas, type} = this.props
     return (
-      <Grid>
-        <Grid.Column width={2}>
-          <ScheduleMenu setSearched={this.setSearched} ctx={ctx} />
-        </Grid.Column>
+      <div style={{width:"100%"}}>
+        <Col span={3}>
+          <ScheduleMenu type={type}  setSearched={this.setSearched} ctx={ctx} />
+        </Col>
 
-        <Grid.Column ctx={{}} stretched width={14} id="ScheduleGrid">
-          <ScheduleViewer aulas={aulas.filter(aula => (Object.values(aula)).includes(this.state.searched))} timeStamps={settings[0].timeStamps} />
-        </Grid.Column>
-      </Grid>
+        <Col span={20} style={{marginLeft: "1rem"}}>
+          <ScheduleViewer type={type} search ={this.state.searched} aulas={aulas.filter(aula => (Object.values(aula)).includes(this.state.searched))} timeStamps={settings[0].timeStamps} />
+        </Col>
+      </div>
     )
   }
 }

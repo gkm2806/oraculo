@@ -1,28 +1,28 @@
 import React from "react"
-import { Segment, Grid, Header, Modal, Button, Image, Icon } from "semantic-ui-react"
 import ScheduleAula from "./ScheduleAula.jsx";
+import { Row, Col, Card } from "antd"
 
 const Dia = ({ aulas, dNome, timeStamps }) => {
     return (
-        <Grid.Column width={2} >
-            <Grid.Row> <Header> {dNome} </Header> </Grid.Row>
+        <Col span={3}>
+            <Row> <header> {dNome} </header> </Row>
 
             {timeStamps.map((time) => {
                 let bool = (aulas.filter(aula => aula.horaInicio === time))[0]
-                return (<Grid.Row key={time}>
+                return (<Row key={time}>
                      {bool ? (<ScheduleAula className="ScheduleDot" aula={bool} />) : (<Create className="ScheduleDot" /> )} 
-                </Grid.Row>)
+                </Row>)
             })}
 
 
 
-        </Grid.Column>
+        </Col>
     );
 }
 
 const Create = () =>{
     return(
-        <Segment > <center> <Icon size="large" name="calendar plus outline" /> </center></Segment>
+        <Card > <center> vazio </center></Card>
     )
 }
 export default Dia
