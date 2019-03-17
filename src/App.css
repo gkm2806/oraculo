@@ -3,6 +3,11 @@ main{
   padding: 0 1em 1em 1em;
 }
 
+:global(.ScheduleDot){
+  width: 8vh;
+  background-color: fuchsia !important
+}
+
 Route{
   background-color: #356245;
 }

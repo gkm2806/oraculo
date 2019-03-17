@@ -29,9 +29,6 @@ class Manager extends Component{
             case "professores":
                 createProfessor({nome: obj})
                 break;
-            case "aula":
-                createAula(obj)
-                break;
             default:
                 alert("Nenhuma action type passada pelo obj ", obj)
                 console.log("Nenhuma action type passada pelo obj ", type)
@@ -47,7 +44,7 @@ class Manager extends Component{
                     <Grid.Column width={3}> <Display create={this.createNew} type="salas" ctx={salas && salas}> </Display></Grid.Column>
                     <Grid.Column width={3}> <Display create={this.createNew} type="turmas" ctx={turmas && turmas}> </Display></Grid.Column>
                     <Divider />
-                    <Grid.Column width={6}> <Aula create={this.createNew} dias={settings[0].dias} horarios={settings[0].timeStamps} profs={professores} materias={materias} salas={salas} turmas={turmas}/> </Grid.Column>
+                    <Grid.Column width={6}> <Aula dias={settings[0].dias} horarios={settings[0].timeStamps} profs={professores} materias={materias} salas={salas} turmas={turmas}/> </Grid.Column>
                 </Grid.Row>
             </Grid>
         )

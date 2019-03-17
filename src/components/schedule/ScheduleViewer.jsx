@@ -12,7 +12,7 @@ export default class ScheduleViewer extends Component {
         return (
 
             <Segment id="alo">
-                <Grid style={{ display: "flex" }}>
+                <Grid container >
                     <Grid.Column width={2} >
                         <Grid.Row><Header> Hora </Header></Grid.Row>
                         {timeStamps.map((time)=>{

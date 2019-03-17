@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import './App.css'
 import {Route, Switch} from 'react-router-dom'
+import Aula from "./components/manager/Aula"
 
 import MenuNav from "./components/menu/Menu"
 import Schedule from "./components/schedule/Schedule"
@@ -24,7 +25,8 @@ class App extends Component {
               component={() => <Schedule type="turmas" ctx={this.props.turmas} />}
               exact path="/turmas" 
             />
-            <Route component={Manager} exact path="/Manager" ></Route>
+            <Route component={Manager} exact path="/manager" ></Route>
+            <Route component={Aula} exact path="/aula" ></Route>
           </main>
         </Switch>
       </div>
