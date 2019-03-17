@@ -8,26 +8,45 @@ export const Types = {
 
 const initialState = [
     {
-        id: "cjrr5xtfi00003a5qu7lvn55d",
+        id: "cjrr5xtfi04003a5qu7lvn55d",
         sala: "Sala 2",
         materia: "Matematica",
         turma: "2024",
         horaInicio: "7:00",
-        horaFim:"13:45",
+        horaFim:"7:45",
         dia: "Quarta",
         professor:"Mauro",
         continuo: true
     },
     {
-        id: "cjrr5xu3k00013a5qymu6gn3k",
+        id: "cjrr5xu3k00013aqqymu6gn3k",
         sala: "Lab A",
         materia: "LP2",
-        turma: "3750",
-        horaInicio: "8:30",
-        horaFim:"9:30",
-        dia: "Terça",
+        turma: "2024",
+        horaInicio: "7:45",
+        horaFim:"8:30",
+        dia: "Quarta",
         professor:"Jimenez"
-        
+    },
+    {
+        id: "cjrr5xu3k00013a5qyuu6gn3k",
+        sala: "Lab Quimica",
+        materia: "Quimica",
+        turma: "2024",
+        horaInicio: "8:30",
+        horaFim:"9:15",
+        dia: "Quarta",
+        professor:"Daisy"
+    },
+    {
+        id: "cjrr5xu3k00013a5wymu6gn3k",
+        sala: "Lab Quimica",
+        materia: "Quimica",
+        turma: "2024",
+        horaInicio: "13:45",
+        horaFim:"14:30",
+        dia: "Quinta",
+        professor:"Daisy"
     }
 ];
 

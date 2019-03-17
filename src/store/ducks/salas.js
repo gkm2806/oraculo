@@ -13,7 +13,15 @@ const initialState = [
     },
     {
         id: "cjrr5xu3k00013a5qymu6gn3k",
-        nome: "sala 2",
+        nome: "Sala 2",
+    },
+    {
+        id: "cjrr5xu3k00613a5qymu6gn3k",
+        nome: "Lab A",
+    },
+    {
+        id: "cjrr5xu3k09013a5qymu6gn3k",
+        nome: "Lab Quimica",
     }
 ];
 

@@ -4,13 +4,16 @@ main{
   display: flex;
   padding: 0 1em 1em 1em;
 }
-.hoverable{
-  background-color: #eee
-}
+
 .main{
   width:100%;
   padding: 0 1em 1em 1em;
 }
+
+.aula{
+  background-color: #eee
+}
+
 .hoverable:hover{
   cursor: pointer;
   background-color: rgb(197, 197, 197);

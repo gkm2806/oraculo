@@ -1,4 +1,3 @@
-//@ts-check
 import React, { Component } from 'react';
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
@@ -40,38 +39,40 @@ class Aula extends Component {
         let newId = cuid();
         let now = moment.now();
         this.setState({ id: newId, creationdate: now });
+        console.log(obj.target, obj.target.professor)
         this.props.createAula(this.state)
- 
     }
 
-    handleChange = (event, { key, value }) => {
-        if (this.state.hasOwnProperty(key)) {
-            this.setState({ [key]: value });
+
+    handleChange = (event, alo) => {
+        console.log(alo.name)
+        if (this.state.hasOwnProperty(alo.nome)) {
+            this.setState({ [alo.nome]: alo.key });
         }
     }
 
     render() {
         const { Option } = Select
         const { professores, materias, salas, turmas, settings, dia, time, search, type } = this.props
-
+        
         let horarios = settings[0].timeStamps
         let dias = settings[0].dias
         function mapObj(array) {
-            return array.map((obj, i) => ({ "key": obj.nome, "text": obj.nome, "value": obj.nome }))
+            return array.map((obj, i) => ({  "text": obj.nome, "value": obj.nome }))
         }
         let profNomes = mapObj(professores)
         let materiaNomes = mapObj(materias)
         let salaNomes = mapObj(salas)
         let turmaNomes = mapObj(turmas)
-        let horariosArray = horarios.map((horario, i) => ({ "key": horario, "text": horario, "value": horario }))
-        let diasArray = dias.map((dia, i) => ({ "key": dia, "text": dia, "value": dia }))
-
+        let horariosArray = horarios.map((horario, i) => ({ "text": horario, "value": horario }))
+        let diasArray = dias.map((dia, i) => ({ "text": dia, "value": dia }))
+        
         return (
             <Form className="main" onSubmit={this.validation} >
                 <Col span={12} >
                     <Form.Item>
                         <AutoComplete
-                            key="professor"
+                            id="professor"
                             dataSource={profNomes}
                             placeholder="Professor"
                             filterOption={(inputValue, option) => option.props.children.toUpperCase().indexOf(inputValue.toUpperCase()) !== -1}
@@ -81,7 +82,7 @@ class Aula extends Component {
                         <AutoComplete
                             defaultValue = {type=="salas" ? search : null}
                             onChange={this.handleChange}
-                            key="sala"
+                            name="sala"
                             dataSource={salaNomes}
                             placeholder="Sala"
                             filterOption={(inputValue, option) => option.props.children.toUpperCase().indexOf(inputValue.toUpperCase()) !== -1}

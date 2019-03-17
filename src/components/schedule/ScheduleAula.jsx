@@ -26,7 +26,7 @@ class ScheduleAula extends Component {
         const {aula} = this.props
         return (
             <div>
-                <Card className="hoverable" onClick={this.showModal}>
+                <Card className="hoverable aula" onClick={this.showModal}>
                     {aula.materia}
                 </Card>
                 <Modal
