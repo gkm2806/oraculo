@@ -16,9 +16,6 @@ const Dia = ({ aulas, dNome, timeStamps,search, type }) => {
                         (<Create type={type} search={search} dia={dNome} time={time} className="ScheduleDot" /> )} 
                 </Row>)
             })}
-
-
-
         </Col>
     );
 }

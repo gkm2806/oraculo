@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
-import { Row, Col, Form, Icon, Input, Button, AutoComplete, Select } from 'antd';
+import { Row, Col, Form, Icon, Input, Button, AutoComplete, Select, TimePicker } from 'antd';
 
 import cuid from "cuid";
 import moment from "moment"
+import {format} from "moment"
 
 import { Creators as TurmaActions } from "../../store/ducks/turmas"
 import { Creators as MateriaActions } from "../../store/ducks/materias"
@@ -39,33 +40,25 @@ class Aula extends Component {
         let newId = cuid();
         let now = moment.now();
         this.setState({ id: newId, creationdate: now });
-        console.log(obj.target, obj.target.professor)
-        this.props.createAula(this.state)
+        console.log(this.state.horaInicio);
+        this.props.createAula(this.state);
     }
 
 
-    handleChange = (event, alo) => {
-        console.log(alo.name)
-        if (this.state.hasOwnProperty(alo.nome)) {
-            this.setState({ [alo.nome]: alo.key });
-        }
+    handleChange = (a,b,c) => {
+        console.log(a)
+        console.log(b)
+        console.log(a.target)
     }
 
     render() {
-        const { Option } = Select
         const { professores, materias, salas, turmas, settings, dia, time, search, type } = this.props
         
-        let horarios = settings[0].timeStamps
-        let dias = settings[0].dias
         function mapObj(array) {
             return array.map((obj, i) => ({  "text": obj.nome, "value": obj.nome }))
         }
-        let profNomes = mapObj(professores)
-        let materiaNomes = mapObj(materias)
-        let salaNomes = mapObj(salas)
-        let turmaNomes = mapObj(turmas)
-        let horariosArray = horarios.map((horario, i) => ({ "text": horario, "value": horario }))
-        let diasArray = dias.map((dia, i) => ({ "text": dia, "value": dia }))
+        let horariosArray = settings[0].timeStamps.map((horario, i) => ({ "text": horario, "value": horario }))
+        let diasArray = settings[0].dias.map((dia, i) => ({ "text": dia, "value": dia }))
         
         return (
             <Form className="main" onSubmit={this.validation} >
@@ -73,37 +66,39 @@ class Aula extends Component {
                     <Form.Item>
                         <AutoComplete
                             id="professor"
-                            dataSource={profNomes}
+                            dataSource={mapObj(professores)}
                             placeholder="Professor"
                             filterOption={(inputValue, option) => option.props.children.toUpperCase().indexOf(inputValue.toUpperCase()) !== -1}
+                            alo="vtnc"
+                            onChange={(e)=> {this.setState({professor: e})}}
                         />
                     </Form.Item>
                     <Form.Item>
                         <AutoComplete
                             defaultValue = {type=="salas" ? search : null}
-                            onChange={this.handleChange}
                             name="sala"
-                            dataSource={salaNomes}
+                            dataSource={mapObj(salas)}
                             placeholder="Sala"
+                            onChange={(e)=> {this.setState({sala: e})}}
                             filterOption={(inputValue, option) => option.props.children.toUpperCase().indexOf(inputValue.toUpperCase()) !== -1}
                         />
                     </Form.Item>
                     <Form.Item>
                         <AutoComplete
                             defaultValue = {type=="turmas" ? search : null}
-                            onChange={this.handleChange}
                             key="turma"
-                            dataSource={turmaNomes}
+                            dataSource={mapObj(turmas)}
                             placeholder="Turma"
+                            onChange={(e)=> {this.setState({turma: e})}}
                             filterOption={(inputValue, option) => option.props.children.toUpperCase().indexOf(inputValue.toUpperCase()) !== -1}
                         />
                     </Form.Item>
                     <Form.Item>
                         <AutoComplete
-                            onChange={this.handleChange}
                             key="materia"
-                            dataSource={materiaNomes}
+                            dataSource={mapObj(materias)}
                             placeholder="Materia"
+                            onChange={(e)=> {this.setState({materia: e})}}
                             filterOption={(inputValue, option) => option.props.children.toUpperCase().indexOf(inputValue.toUpperCase()) !== -1}
                         />
                     </Form.Item>
@@ -112,34 +107,37 @@ class Aula extends Component {
                     <Form.Item>
                         <AutoComplete
                             defaultValue = {dia && dia}
-                            onChange={this.handleChange}
                             key="dia"
                             dataSource={diasArray}
                             placeholder="dia"
+                            onChange={(e)=> {this.setState({dia: e})}}
                             filterOption={(inputValue, option) => option.props.children.toUpperCase().indexOf(inputValue.toUpperCase()) !== -1}
                         />
                     </Form.Item>
                     <Form.Item>
-                        <AutoComplete
-                            defaultValue = {time && time}
-                            onChange={this.handleChange}
+                        <Row>
+                        <TimePicker 
+                            defaultValue={moment('06:00', 'HH:mm')} 
+                            format={'HH:mm'} 
+                            onChange={(e)=> {this.setState({horaInicio: e.format("HH:mm")})}}
+                            minuteStep={15}
+                            placeholder="Hr Inicio"
                             key="horaInicio"
-                            dataSource={horariosArray}
-                            placeholder="Horario de Inicio"
-                            filterOption={(inputValue, option) => option.props.children.toUpperCase().indexOf(inputValue.toUpperCase()) !== -1}
+                            disabledHours={() => [1,2,3,4,4,5]}
                         />
-                    </Form.Item>
-                    <Form.Item>
-                        <AutoComplete
-                            onChange={this.handleChange}
+                        <TimePicker 
+                            defaultValue={moment('06:00', 'HH:mm')} 
+                            format={'HH:mm'} 
+                            minuteStep={15}
+                            placeholder="Hr Fim"
                             key="horaFim"
-                            dataSource={horariosArray}
-                            placeholder="Horario de Termino"
-                            filterOption={(inputValue, option) => option.props.children.toUpperCase().indexOf(inputValue.toUpperCase()) !== -1}
+                            onChange={(e)=> {this.setState({horaFim: e.format("HH:mm")})}}
+                            disabledHours={() => [1,2,3,4,4,5]}
                         />
+                        </Row>
                     </Form.Item>
-                    <Form.Item>
-                        <Button htmlType="submit"> criar </Button>
+                    <Form.Item style={{display: "flex", flex:1, justifyContent: "space-between"}}>
+                        <Button style={{width:"16em"}}type="primary" htmlType="submit"> criar </Button>
                     </Form.Item>
                 </Col>
             </Form>
@@ -156,12 +154,8 @@ const mapStateToProps = (state) => ({
 })
 
 const mapDispatchToProps = dispatch => bindActionCreators({
-    ...MateriaActions,
-    ...TurmaActions,
-    ...SalaActions,
-    ...professoreAction,
     ...aulaAction
 }, dispatch)
 
-
-export default connect(mapStateToProps, mapDispatchToProps)(Aula)
+const AulaHOC = Form.create({ name: 'AulaForm' })(Aula);
+export default connect(mapStateToProps, mapDispatchToProps)(AulaHOC)
