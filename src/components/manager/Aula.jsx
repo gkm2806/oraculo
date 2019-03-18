@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
-import { Row, Col, Form, Icon, Input, Button, AutoComplete, Select, TimePicker } from 'antd';
+import { Row, notification, Col, Form, Icon, Input, Button, AutoComplete, Select, TimePicker } from 'antd';
 
 import cuid from "cuid";
 import moment from "moment"
@@ -13,6 +13,15 @@ import { Creators as SalaActions } from "../../store/ducks/salas"
 import { Creators as professoreAction } from "../../store/ducks/professores"
 import { Creators as aulaAction } from "../../store/ducks/aulas"
 
+const openNotification = () => {
+    notification.open({
+      message: 'Aula',
+      description: 'Aula criada!',
+      onClick: () => {
+        console.log('Notification Clicked!');
+      },
+    });
+  };
 
 class Aula extends Component {
     constructor(props) {
@@ -42,6 +51,7 @@ class Aula extends Component {
         this.setState({ id: newId, creationdate: now });
         console.log(this.state.horaInicio);
         this.props.createAula(this.state);
+        openNotification()
     }
 
 
