@@ -9,8 +9,8 @@ const Dia = ({ aulas, dNome, timeStamps,search, type }) => {
             <Row> <header> {dNome} </header> </Row>
 
             {timeStamps.map((time) => {
-                let bool = (aulas.filter(aula => aula.horaInicio === time))[0]
-                return (<Row>
+                let bool = (aulas.filter(aula => (aula.horaInicio).toString() === (time).toString()))[0]
+                return (<Row time={time}>
                      {bool ? 
                         (<ScheduleAula className="ScheduleDot" aula={bool} />) : 
                         (<Create type={type} search={search} dia={dNome} time={time} className="ScheduleDot" /> )} 

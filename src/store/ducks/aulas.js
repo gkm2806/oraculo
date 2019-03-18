@@ -12,8 +12,8 @@ const initialState = [
         sala: "Sala 2",
         materia: "Matematica",
         turma: "2024",
-        horaInicio: "7:00",
-        horaFim:"7:45",
+        horaInicio: "07:00",
+        horaFim:"07:45",
         dia: "Quarta",
         professor:"Mauro",
         continuo: true
@@ -23,8 +23,8 @@ const initialState = [
         sala: "Lab A",
         materia: "LP2",
         turma: "2024",
-        horaInicio: "7:45",
-        horaFim:"8:30",
+        horaInicio: "07:45",
+        horaFim:"08:30",
         dia: "Quarta",
         professor:"Jimenez"
     },
@@ -33,8 +33,8 @@ const initialState = [
         sala: "Lab Quimica",
         materia: "Quimica",
         turma: "2024",
-        horaInicio: "8:30",
-        horaFim:"9:15",
+        horaInicio: "08:30",
+        horaFim:"09:15",
         dia: "Quarta",
         professor:"Daisy"
     },
