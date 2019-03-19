@@ -19,8 +19,6 @@ class MenuNav extends Component {
     });
   }
   render() {
-    const SubMenu = Menu.SubMenu;
-    const MenuItemGroup = Menu.ItemGroup;
 
     return (
       <Menu
@@ -62,7 +60,7 @@ class MenuNav extends Component {
   }
 }
 const mapState = (state) => ({
-  user: state.firebase.auth
+  user: state.user
 })
 
-export default withRouter(connect(null)(MenuNav));
+export default withRouter(connect(mapState)(MenuNav));

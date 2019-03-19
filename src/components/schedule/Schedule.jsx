@@ -1,7 +1,7 @@
 //@ts-check
 import React, { Component } from "react";
 import { connect } from "react-redux"
-import { Row, Col } from "antd"
+import { Col } from "antd"
 
 import ScheduleMenu from "./ScheduleMenu"
 import ScheduleViewer from "./ScheduleViewer"

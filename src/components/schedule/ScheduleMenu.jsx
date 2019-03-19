@@ -1,7 +1,6 @@
 //@ts-check
 import React, { Component } from "react";
-import { connect } from "react-redux"
-import {Menu, Row, Col} from "antd"
+import {Menu} from "antd"
 
 class ScheduleMenu extends Component {
   state = {
@@ -17,7 +16,6 @@ class ScheduleMenu extends Component {
   }
 
   render() {
-    const { activeItem } = this.state
     const { ctx } = this.props
     return (
       <Menu

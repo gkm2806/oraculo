@@ -15,8 +15,7 @@ class App extends Component {
     return (
       <div className="App">
         <MenuNav name="Oraculo" ></MenuNav>
-        <Switch >
-          <main>   
+        <Switch>
             <Route 
               component={() => <Schedule type="salas" ctx={this.props.salas} />}
               exact path="/salas" 
@@ -27,7 +26,6 @@ class App extends Component {
             />
             <Route component={Manager} exact path="/manager" ></Route>
             <Route component={Aula} exact path="/aula" ></Route>
-          </main>
         </Switch>
       </div>
     );

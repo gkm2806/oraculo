@@ -1,16 +1,11 @@
 import React, { Component } from 'react';
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
-import { Row, notification, Col, Form, Icon, Input, Button, AutoComplete, Select, TimePicker } from 'antd';
+import { Row, notification, Col, Form, Button, AutoComplete, TimePicker } from 'antd';
 
 import cuid from "cuid";
 import moment from "moment"
-import {format} from "moment"
 
-import { Creators as TurmaActions } from "../../store/ducks/turmas"
-import { Creators as MateriaActions } from "../../store/ducks/materias"
-import { Creators as SalaActions } from "../../store/ducks/salas"
-import { Creators as professoreAction } from "../../store/ducks/professores"
 import { Creators as aulaAction } from "../../store/ducks/aulas"
 
 const openNotification = () => {
@@ -39,7 +34,18 @@ class Aula extends Component {
             creationdate: ""
         };
     }
-
+    componentDidMount(){
+        const {type, search, dia, time} = this.props
+        type ? (
+            this.setState({
+                horaInicio: time,
+                dia: dia,
+                [type]: search
+            })
+        ) : (
+            console.log("Sem argumentos")
+        )
+    }
     validation = (obj) => {
         obj.preventDefault();
         this.dispatch(obj);
@@ -85,8 +91,9 @@ class Aula extends Component {
                     </Form.Item>
                     <Form.Item>
                         <AutoComplete
-                            defaultValue = {type=="salas" ? search : null}
+                            defaultValue = {type==="sala" ? search : null}
                             name="sala"
+                            value={this.state.sala}
                             dataSource={mapObj(salas)}
                             placeholder="Sala"
                             onChange={(e)=> {this.setState({sala: e})}}
@@ -95,8 +102,9 @@ class Aula extends Component {
                     </Form.Item>
                     <Form.Item>
                         <AutoComplete
-                            defaultValue = {type=="turmas" ? search : null}
+                            defaultValue = {type==="turma" ? search : null}
                             key="turma"
+                            value={this.state.turma}
                             dataSource={mapObj(turmas)}
                             placeholder="Turma"
                             onChange={(e)=> {this.setState({turma: e})}}
@@ -127,7 +135,7 @@ class Aula extends Component {
                     <Form.Item>
                         <Row>
                         <TimePicker 
-                            defaultValue={moment('06:00', 'HH:mm')} 
+                            defaultValue={type ?  moment(time, 'HH:mm') : moment('06:00', 'HH:mm')} 
                             format={'HH:mm'} 
                             onChange={(e)=> {this.setState({horaInicio: e.format("HH:mm")})}}
                             minuteStep={15}

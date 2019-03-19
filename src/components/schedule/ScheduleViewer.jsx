@@ -21,13 +21,13 @@ export default class ScheduleViewer extends Component {
                         })}
                     </Col>
 
-                    <Dia type={type} search={search} timeStamps={timeStamps} dNome="Domingo" aulas={aulas.filter(aula=> aula.dia === "Domingo")}/>
-                    <Dia type={type} search={search} timeStamps={timeStamps} dNome="Segunda" aulas={aulas.filter(aula=> aula.dia === "Segunda")}/>
-                    <Dia type={type} search={search} timeStamps={timeStamps} dNome="Terça" aulas={aulas.filter(aula=> aula.dia === "Terça")}/>
-                    <Dia type={type} search={search} timeStamps={timeStamps} dNome="Quarta" aulas={aulas.filter(aula=> aula.dia === "Quarta")}/>
-                    <Dia type={type} search={search} timeStamps={timeStamps} dNome="Quinta" aulas={aulas.filter(aula=> aula.dia === "Quinta")}/>
-                    <Dia type={type} search={search} timeStamps={timeStamps} dNome="Sexta" aulas={aulas.filter(aula=> aula.dia === "Sexta")}/>
-                    <Dia type={type} search={search} timeStamps={timeStamps} dNome="Sabado" aulas={aulas.filter(aula=> aula.dia === "Sabado")}/>
+                    <Dia type={type} search={search} timeStamps={timeStamps} dNome="Domingo" key="Domingo" aulas={aulas.filter(aula=> aula.dia === "Domingo")}/>
+                    <Dia type={type} search={search} timeStamps={timeStamps} dNome="Segunda" key="Segunda" aulas={aulas.filter(aula=> aula.dia === "Segunda")}/>
+                    <Dia type={type} search={search} timeStamps={timeStamps} dNome="Terça"   key="Terça"   aulas={aulas.filter(aula=> aula.dia === "Terça")}/>
+                    <Dia type={type} search={search} timeStamps={timeStamps} dNome="Quarta"  key="Quarta"  aulas={aulas.filter(aula=> aula.dia === "Quarta")}/>
+                    <Dia type={type} search={search} timeStamps={timeStamps} dNome="Quinta"  key="Quinta"  aulas={aulas.filter(aula=> aula.dia === "Quinta")}/>
+                    <Dia type={type} search={search} timeStamps={timeStamps} dNome="Sexta"   key="Sexta"   aulas={aulas.filter(aula=> aula.dia === "Sexta")}/>
+                    <Dia type={type} search={search} timeStamps={timeStamps} dNome="Sabado"  key="Sabado"  aulas={aulas.filter(aula=> aula.dia === "Sabado")}/>
                 </div>
 
             </div>

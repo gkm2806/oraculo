@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Card, Button, Modal } from "antd"
+import { Card, Modal } from "antd"
 class ScheduleAula extends Component {
     state = { visible: false }
 

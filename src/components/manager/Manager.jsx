@@ -7,13 +7,11 @@ import { Creators as TurmaActions } from "../../store/ducks/turmas"
 import { Creators as MateriaActions } from "../../store/ducks/materias"
 import { Creators as SalaActions } from "../../store/ducks/salas"
 import { Creators as professoreAction } from "../../store/ducks/professores"
-import { Creators as aulaAction } from "../../store/ducks/aulas"
-import Aula from "./Aula"
 
 class Manager extends Component{
     
     createNew = (type, obj) => {
-        const {createTurma,createMateria, createSala, createProfessor, createAula} = this.props
+        const {createTurma,createMateria, createSala, createProfessor} = this.props
 
         switch(type){
             case "turmas":
@@ -34,7 +32,7 @@ class Manager extends Component{
         }
     }
     render(){
-        const {professores, materias, turmas, salas, settings} = this.props
+        const {professores, materias, turmas, salas} = this.props
         return(
             <div className="main">
                 <Row>
@@ -61,8 +59,7 @@ const mapDispatchToProps = dispatch => bindActionCreators({
     ...MateriaActions,
     ...TurmaActions,
     ...SalaActions,
-    ...professoreAction,
-    ...aulaAction
+    ...professoreAction
     }, dispatch)
 
 

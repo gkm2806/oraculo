@@ -34,10 +34,12 @@ class ScheduleAulaCreate extends Component {
                 <Modal
                     title="criar aula"
                     visible={this.state.visible}
-                    onOk={this.handleOk}
                     onCancel={this.handleCancel}
+                    footer = {[
+                        <Button key="back" onClick={this.handleCancel}>Return</Button>
+                      ]}
                 >
-                    <Aula type={type} search={search} dia={dia} time={time} />
+                    <Aula type={type.substring(0, type.length-1)} /* remove o 's' no plural de Types */ search={search} dia={dia} time={time} />
                 </Modal>
             </div>
         )
