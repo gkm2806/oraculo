@@ -1,7 +1,11 @@
 import React, { Component } from "react";
+import {connect} from "react-redux"
 import {
     Form, Icon, Input, Button, Col,notification
 } from 'antd';
+import {bindActionCreators} from "redux"
+
+import {Creators as userActions} from "../../store/ducks/user";
 
 class UserLogin extends Component {
     openNotification = (type) => {
@@ -16,15 +20,18 @@ class UserLogin extends Component {
         this.props.form.validateFields((err, values) => {
             if (!err) {
                 console.log('Received values of form: ', values);
+                this.props.loginUser({...values, permission: 1})
             }
         });
     }
-
+    componentDidMount(){
+        this.openNotification("info")
+    }
     render() {
         const { getFieldDecorator } = this.props.form;
         return (
             <Col span={6}>
-                {this.openNotification("info")}
+                
                 <Form onSubmit={this.handleSubmit} className="login-form">
                     <Form.Item>
                         {getFieldDecorator('userName', {
@@ -51,5 +58,8 @@ class UserLogin extends Component {
     }
 }
 const WrappedForm = Form.create({ name: 'loginForm' })(UserLogin);
+const mapDispatchToProps = dispatch => bindActionCreators({
+    ...userActions
+    }, dispatch)
 
-export default WrappedForm
+export default connect(null,mapDispatchToProps)(WrappedForm)

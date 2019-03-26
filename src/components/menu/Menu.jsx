@@ -1,4 +1,3 @@
-//@ts-check
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 import { withRouter } from "react-router"
@@ -19,7 +18,7 @@ class MenuNav extends Component {
     });
   }
   render() {
-
+    const { user } = this.props
     return (
       <Menu
         onClick={this.handleClick}
@@ -28,35 +27,39 @@ class MenuNav extends Component {
       >
         <Menu.Item key="mail">
           <Link to="/salas">
-          <Icon type="table" /> Salas
+            <Icon type="table" /> Salas
           </Link>
         </Menu.Item>
 
         <Menu.Item key="app">
           <Link to="/turmas">
-          <Icon type="table" /> Turmas
+            <Icon type="table" /> Turmas
           </Link>
         </Menu.Item>
 
-        
-        <Menu.Item key="clock" disabled style={{float: "right"}}>
+
+        <Menu.Item key="clock" disabled style={{ float: "right" }}>
           <Icon type="clock-circle" /> {moment().format("HH:mm")}
         </Menu.Item>
-        <Menu.Item key="user" style={{float: "right"}}>
+        <Menu.Item key="user" style={{ float: "right" }}>
           <Link to="/login">
             <Icon type="user" /> Usuario
           </Link>
         </Menu.Item>
-        <Menu.Item key="manager" style={{float: "right"}}>
-          <Link to="/manager">
-            <Icon type="setting" /> manager
+        {(user.permission >= 1) &&
+          <Menu.Item key="manager" style={{ float: "right" }}>
+            <Link to="/manager">
+              <Icon type="setting" /> manager
           </Link>
-        </Menu.Item>
-        <Menu.Item key="createAula" style={{float: "right"}}>
-          <Link to="/aula">
-            <Icon type="setting" /> criar aula
+          </Menu.Item>
+        }
+        {(user.permission >= 1) &&
+          <Menu.Item key="createAula" style={{ float: "right" }}>
+            <Link to="/aula">
+              <Icon type="setting" /> criar aula
           </Link>
-        </Menu.Item>
+          </Menu.Item>
+        }
       </Menu>
     )
   }
