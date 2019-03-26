@@ -7,8 +7,9 @@ import cuid from "cuid";
 import moment from "moment"
 
 import { Creators as aulaAction } from "../../store/ducks/aulas"
+import Auth from "../../utils/Auth"
 
-const openNotification = () => {
+const aulaCriada = () => {
     notification.open({
       message: 'Aula',
       description: 'Aula criada!',
@@ -57,7 +58,7 @@ class Aula extends Component {
         this.setState({ id: newId, creationdate: now });
         console.log(this.state.horaInicio);
         this.props.createAula(this.state);
-        openNotification()
+        aulaCriada()
     }
 
 
@@ -68,7 +69,7 @@ class Aula extends Component {
     }
 
     render() {
-        const { professores, materias, salas, turmas, settings, dia, time, search, type } = this.props
+        const { professores, materias, salas, turmas, settings, dia, time, search, type, user} = this.props
         
         function mapObj(array) {
             return array.map((obj, i) => ({  "text": obj.nome, "value": obj.nome }))
@@ -78,7 +79,7 @@ class Aula extends Component {
         
         return (
             <Form className="main" onSubmit={this.validation} >
-                <Col span={12} >
+                {Auth((<div>  <Col span={12} >
                     <Form.Item>
                         <AutoComplete
                             id="professor"
@@ -157,7 +158,7 @@ class Aula extends Component {
                     <Form.Item style={{display: "flex", flex:1, justifyContent: "space-between"}}>
                         <Button style={{width:"16em"}}type="primary" htmlType="submit"> criar </Button>
                     </Form.Item>
-                </Col>
+                </Col></div>),{user}, 1, (<h1> nao </h1>))}
             </Form>
         );
     }
@@ -168,7 +169,8 @@ const mapStateToProps = (state) => ({
     materias: state.materias,
     professores: state.professores,
     settings: state.settings,
-    aulas: state.aulas
+    aulas: state.aulas,
+    user: state.user
 })
 
 const mapDispatchToProps = dispatch => bindActionCreators({
