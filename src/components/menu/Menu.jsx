@@ -43,7 +43,9 @@ class MenuNav extends Component {
           <Icon type="clock-circle" /> {moment().format("HH:mm")}
         </Menu.Item>
         <Menu.Item key="user" style={{float: "right"}}>
-          <Icon type="user" /> Usuario
+          <Link to="/login">
+            <Icon type="user" /> Usuario
+          </Link>
         </Menu.Item>
         <Menu.Item key="manager" style={{float: "right"}}>
           <Link to="/manager">
