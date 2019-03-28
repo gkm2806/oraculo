@@ -44,7 +44,6 @@ class Manager extends Component {
                 deleteSala(obj.id)
                 break;
             case "professores":
-                console.log(obj.id)
                 deleteProfessor(obj.id)
                 break;
             default:

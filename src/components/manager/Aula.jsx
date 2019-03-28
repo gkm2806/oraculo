@@ -145,7 +145,7 @@ class Aula extends Component {
                         <TimePicker 
                             defaultValue={type ?  this.state.horaInicio : moment('06:00', 'HH:mm')} 
                             format={'HH:mm'} 
-                            onChange={(e)=> {this.setState({horaInicio: e.format("HH:mm")})}}
+                            onChange={(e)=> {this.setState({horaInicio: e.format("HH:mm").toString()})}}
                             minuteStep={15}
                             placeholder="Hr Inicio"
                             key="horaInicio"
@@ -158,7 +158,7 @@ class Aula extends Component {
                             minuteStep={15}
                             placeholder="Hr Fim"
                             key="horaFim"
-                            onChange={(e)=> {this.setState({horaFim: e.format("HH:mm")})}}
+                            onChange={(e)=> {this.setState({horaFim: e.format("HH:mm").toString()})}}
                             disabledHours={() => [1,2,3,4,4,5]}
                             allowClear={false}
                         />
