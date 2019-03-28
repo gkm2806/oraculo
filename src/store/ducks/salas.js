@@ -33,7 +33,7 @@ export default function salas(state = initialState, action) {
         case Types.UPDATE:
             return [...state.filter(sala => sala.id !== action.payload.sala.id), Object.assign({}, action.payload.sala)]
         case Types.REMOVE:
-            return [...state.filter(sala => sala.id !== action.payload.SalaId)]
+            return [...state.filter(sala => sala.id !== action.payload.salaId)]
         default: return state
     }
 }

@@ -22,7 +22,7 @@ export default function turmas(state = initialState, action) {
         case Types.UPDATE:
             return [...state.filter(turma => turma.id !== action.payload.turma.id), Object.assign({}, action.payload.turma)]
         case Types.REMOVE:
-            return [...state.filter(turma => turma.id !== action.payload.materiaId)]
+            return [...state.filter(turma => turma.id !== action.payload.turmaId)]
         default: return state
     }
 }

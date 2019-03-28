@@ -25,7 +25,7 @@ export default function professores(state = initialState, action) {
         case Types.UPDATE:
             return [...state.filter(professor => professor.id !== action.payload.professor.id), Object.assign({}, action.payload.professor)]
         case Types.REMOVE:
-            return [...state.filter(professor => professor.id !== action.payload.ProfessorId)]
+            return [...state.filter(professor => professor.id !== action.payload.professorId)]
         default: return state
     }
 }

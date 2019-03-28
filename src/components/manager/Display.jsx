@@ -1,7 +1,7 @@
 import React from "react"
-import { Form, Button, Input, Col, Row, List} from "antd"
+import { Form, Button, Input, Col, Row, List, Icon} from "antd"
 
-const Display = ({ ctx, type, create }) => {
+const Display = ({ ctx, type, deleteItem, create }) => {
 
     const dispatch = (obj) => {
         obj.preventDefault()
@@ -31,7 +31,7 @@ const Display = ({ ctx, type, create }) => {
             size="small"
             bordered
             dataSource={ctx}
-            renderItem={item => (<List.Item>{item.nome}</List.Item>)}
+            renderItem={item => (<List.Item>{item.nome}<Icon onClick={() => deleteItem(type, item)} style={{float:"right"}} type="delete" /></List.Item>)}
             />
         </div>
     )

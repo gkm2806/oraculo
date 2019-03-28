@@ -7,7 +7,7 @@ import moment from "moment";
 
 class MenuNav extends Component {
   state = {
-    current: 'mail',
+    current: '',
     tempo: moment.now()
   }
 
