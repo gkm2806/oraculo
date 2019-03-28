@@ -1,16 +1,5 @@
 @import '~antd/dist/antd.css';
 
-main{
-  display: flex;
-  padding: 0 1em 1em 1em;
-  justify-content:  space-around;
-}
-
-.main{
-  width:100%;
-  padding: 0 1em 1em 1em;
-}
-
 .aula{
   background-color: #eee
 }
@@ -23,3 +12,7 @@ main{
 .ant-form-item{
   padding: 0 1em 0 1em !important
 }
+/*
+  rgb(127, 226, 107);
+
+*/
