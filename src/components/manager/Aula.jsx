@@ -32,16 +32,23 @@ class Aula extends Component {
             horaInicio: "",
             horaFim: "",
             id: 0,
-            creationdate: ""
+            creationdate: "",
+            loading: true
         };
     }
+    
     componentDidMount(){
         const {type, search, dia, time} = this.props
+
+        var inicio  = moment(time,"HH:mm"), fim = moment(inicio).add(45, 'minutes')
+
         type ? (
             this.setState({
-                horaInicio: time,
+                horaInicio: inicio,
+                horaFim: fim,
                 dia: dia,
-                [type]: search
+                [type]: search,
+                loading: false
             })
         ) : (
             console.log("Sem argumentos")
@@ -61,7 +68,6 @@ class Aula extends Component {
         aulaCriada()
     }
 
-
     handleChange = (a,b,c) => {
         console.log(a)
         console.log(b)
@@ -70,7 +76,7 @@ class Aula extends Component {
 
     render() {
         const { professores, materias, salas, turmas, settings, dia, time, search, type, user} = this.props
-        
+        const {loading} = this.state
         function mapObj(array) {
             return array.map((obj, i) => ({  "text": obj.nome, "value": obj.nome }))
         }
@@ -79,7 +85,8 @@ class Aula extends Component {
         
         return (
             <Form className="main" onSubmit={this.validation} >
-                {Auth((<div>  <Col span={12} >
+            {Auth((<Row>
+               <Col span={12} >
                     <Form.Item>
                         <AutoComplete
                             id="professor"
@@ -88,6 +95,15 @@ class Aula extends Component {
                             filterOption={(inputValue, option) => option.props.children.toUpperCase().indexOf(inputValue.toUpperCase()) !== -1}
                             alo="vtnc"
                             onChange={(e)=> {this.setState({professor: e})}}
+                        />
+                    </Form.Item>
+                    <Form.Item>
+                        <AutoComplete
+                            key="materia"
+                            dataSource={mapObj(materias)}
+                            placeholder="Materia"
+                            onChange={(e)=> {this.setState({materia: e})}}
+                            filterOption={(inputValue, option) => option.props.children.toUpperCase().indexOf(inputValue.toUpperCase()) !== -1}
                         />
                     </Form.Item>
                     <Form.Item>
@@ -112,15 +128,6 @@ class Aula extends Component {
                             filterOption={(inputValue, option) => option.props.children.toUpperCase().indexOf(inputValue.toUpperCase()) !== -1}
                         />
                     </Form.Item>
-                    <Form.Item>
-                        <AutoComplete
-                            key="materia"
-                            dataSource={mapObj(materias)}
-                            placeholder="Materia"
-                            onChange={(e)=> {this.setState({materia: e})}}
-                            filterOption={(inputValue, option) => option.props.children.toUpperCase().indexOf(inputValue.toUpperCase()) !== -1}
-                        />
-                    </Form.Item>
                 </Col >
                 <Col span={12}>
                     <Form.Item>
@@ -136,31 +143,35 @@ class Aula extends Component {
                     <Form.Item>
                         <Row>
                         <TimePicker 
-                            defaultValue={type ?  moment(time, 'HH:mm') : moment('06:00', 'HH:mm')} 
+                            defaultValue={type ?  this.state.horaInicio : moment('06:00', 'HH:mm')} 
                             format={'HH:mm'} 
                             onChange={(e)=> {this.setState({horaInicio: e.format("HH:mm")})}}
                             minuteStep={15}
                             placeholder="Hr Inicio"
                             key="horaInicio"
                             disabledHours={() => [1,2,3,4,4,5]}
+                            allowClear= {false}
                         />
                         <TimePicker 
-                            defaultValue={moment('06:00', 'HH:mm')} 
+                            defaultValue={type ?  this.state.horaFim : moment('06:00', 'HH:mm')} 
                             format={'HH:mm'} 
                             minuteStep={15}
                             placeholder="Hr Fim"
                             key="horaFim"
                             onChange={(e)=> {this.setState({horaFim: e.format("HH:mm")})}}
                             disabledHours={() => [1,2,3,4,4,5]}
+                            allowClear={false}
                         />
                         </Row>
                     </Form.Item>
                     <Form.Item style={{display: "flex", flex:1, justifyContent: "space-between"}}>
                         <Button style={{width:"16em"}}type="primary" htmlType="submit"> criar </Button>
                     </Form.Item>
-                </Col></div>),{user}, 1, (<h1> nao </h1>))}
+                </Col>
+                </Row>),user,1,(<div>nope</div>),loading)}
+            
             </Form>
-        );
+            );
     }
 }
 const mapStateToProps = (state) => ({

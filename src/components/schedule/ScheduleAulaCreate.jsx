@@ -40,7 +40,7 @@ class ScheduleAulaCreate extends Component {
                         <Button key="back" onClick={this.handleCancel}>Return</Button>
                       ]}
                 >
-                    <Aula type={type.substring(0, type.length-1)} /* remove o 's' no plural de Types */ search={search} dia={dia} time={time} />
+                    <Aula search={search} dia={dia} time={time} type={type.substring(0, type.length-1)} /* remove o 's' no plural de Types */ />
                 </Modal>
             </div>
         )
