@@ -27,9 +27,10 @@ const initialState = [
 
 
 export default function salas(state = initialState, action) {
+    console.log(action.payload)
     switch (action.type) {
         case Types.ADD:
-            return [...state, Object.assign({}, action.payload.sala)]
+            return [...state, Object.assign({}, {"nome" : action.payload.sala})]
         case Types.UPDATE:
             return [...state.filter(sala => sala.id !== action.payload.sala.id), Object.assign({}, action.payload.sala)]
         case Types.REMOVE:

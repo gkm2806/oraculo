@@ -21,7 +21,7 @@ const initialState = [
 export default function materias(state = initialState, action) {
     switch (action.type) {
         case Types.ADD:
-            return [...state, Object.assign({}, action.payload.materia)]
+            return [...state, Object.assign({}, {"nome" : action.payload.materia})]
         case Types.UPDATE:
             return [...state.filter(materia => materia.id !== action.payload.materia.id), Object.assign({}, action.payload.materia)]
         case Types.REMOVE:

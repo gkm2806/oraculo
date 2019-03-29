@@ -54,7 +54,7 @@ const initialState = [
 export default function aulas(state = initialState, action) {
     switch (action.type) {
         case Types.ADD:
-            return [...state, Object.assign({}, action.payload.aula)]
+            return [...state, Object.assign({}, {"nome" : action.payload.aula})]
         case Types.UPDATE:
             return [...state.filter(aula => aula.id !== action.payload.aula.id), Object.assign({}, action.payload.aula)]
         case Types.REMOVE:

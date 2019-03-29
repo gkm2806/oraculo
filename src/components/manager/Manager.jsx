@@ -21,6 +21,7 @@ class Manager extends Component {
                 break;
             case "salas":
                 createSala(obj)
+                console.log(obj)
                 break;
             case "professores":
                 createProfessor(obj)

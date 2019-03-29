@@ -18,7 +18,7 @@ const initialState = [
 export default function turmas(state = initialState, action) {
     switch (action.type) {
         case Types.ADD:
-            return [...state, Object.assign({}, action.payload.turma)]
+            return [...state, Object.assign({}, {"nome" : action.payload.turma})]
         case Types.UPDATE:
             return [...state.filter(turma => turma.id !== action.payload.turma.id), Object.assign({}, action.payload.turma)]
         case Types.REMOVE:

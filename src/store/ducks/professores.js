@@ -21,7 +21,7 @@ const initialState = [
 export default function professores(state = initialState, action) {
     switch (action.type) {
         case Types.ADD:
-            return [...state, Object.assign({}, action.payload.professor)]
+            return [...state, Object.assign({}, {"nome" : action.payload.professor})]
         case Types.UPDATE:
             return [...state.filter(professor => professor.id !== action.payload.professor.id), Object.assign({}, action.payload.professor)]
         case Types.REMOVE:
