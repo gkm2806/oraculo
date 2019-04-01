@@ -1,69 +1,77 @@
-//@ts-check
-
+import axios from "axios"
 export const Types = {
     ADD: "aula/ADD",
     UPDATE: "aula/UPDATE",
-    REMOVE: "aula/REMOVE"
+    REMOVE: "aula/REMOVE",
+    BEGIN: 'FETCH_PRODUCTS_BEGIN',
+    SUCCESS: 'FETCH_PRODUCTS_SUCCESS',
+    FAILURE: 'FETCH_PRODUCTS_FAILURE'
 };
 
-const initialState = [
-    {
-        id: "cjrr5xtfi04003a5qu7lvn55d",
-        sala: "Sala 2",
-        materia: "Matematica",
-        turma: "2024",
-        horaInicio: "07:00",
-        horaFim:"07:45",
-        dia: "Quarta",
-        professor:"Mauro",
-        continuo: true
-    },
-    {
-        id: "cjrr5xu3k00013aqqymu6gn3k",
-        sala: "Lab A",
-        materia: "LP2",
-        turma: "2024",
-        horaInicio: "07:45",
-        horaFim:"08:30",
-        dia: "Quarta",
-        professor:"Jimenez"
-    },
-    {
-        id: "cjrr5xu3k00013a5qyuu6gn3k",
-        sala: "Lab Quimica",
-        materia: "Quimica",
-        turma: "2024",
-        horaInicio: "08:30",
-        horaFim:"09:15",
-        dia: "Quarta",
-        professor:"Daisy"
-    },
-    {
-        id: "cjrr5xu3k00013a5wymu6gn3k",
-        sala: "Lab Quimica",
-        materia: "Quimica",
-        turma: "2024",
-        horaInicio: "13:45",
-        horaFim:"14:30",
-        dia: "Quinta",
-        professor:"Daisy"
-    }
-];
-
+const initialState = {
+    error: null,
+    loading: null,
+    aulas: []
+}
 
 export default function aulas(state = initialState, action) {
     switch (action.type) {
+        case Types.BEGIN:
+            return {
+                ...state,
+                loading: true,
+                error: null
+            }
+        case Types.SUCCESS:
+            console.log(action.payload)
+            return {
+                ...state,
+                loading: false,
+                aulas: action.payload
+            }
+        case Types.FAILURE:
+            return{
+                ...state,
+                error: action.payload.error
+            }
         case Types.ADD:
-            return [...state, Object.assign({}, {"nome" : action.payload.aula})]
+            let a = axios.post('http://localhost:4000/api/aulas/', action.payload.aula)
+            return {
+                ...state,
+                aulas: [...state.aulas, Object.assign({}, action.payload.aula)]
+            }
         case Types.UPDATE:
-            return [...state.filter(aula => aula.id !== action.payload.aula.id), Object.assign({}, action.payload.aula)]
+            return {
+                ...state,
+                aulas: [...state.aulas.filter(aula => aula.id !== action.payload.aula.id), Object.assign({}, action.payload.aula)]
+            }
         case Types.REMOVE:
-            return [...state.filter(aula => aula.id !== action.payload.AulaId)]
+            return {
+                ...state,
+                aulas: [...state.aulas.filter(aula => aula.id !== action.payload.AulaId)]
+            }
         default: return state
     }
 }
 
 export const Creators = {
+    fetchBeginAula: () => ({
+        type: Types.BEGIN
+    }),
+
+    fetchSuccessAula: (aulas) => ({
+        type: Types.SUCCESS,
+        payload: {
+            aulas
+        }
+    }),
+
+    fetchFailureAula: (error) => ({
+        type: Types.FAILURE,
+        payload: {
+            error
+        }
+    }),
 
     createAula: (aula) => ({
         type: Types.ADD,
@@ -85,4 +93,5 @@ export const Creators = {
             aulaId
         }
     })
+
 }
