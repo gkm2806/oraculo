@@ -189,7 +189,7 @@ const mapStateToProps = (state) => ({
     materias: state.materias,
     professores: state.professores,
     settings: state.settings,
-    aulas: state.aulas,
+    aulas: state.aulas.aulas,
     user: state.user
 })
 

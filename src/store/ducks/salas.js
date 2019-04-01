@@ -1,3 +1,5 @@
+import Axios from "axios";
+
 //@ts-check
 
 export const Types = {
