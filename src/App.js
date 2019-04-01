@@ -3,6 +3,7 @@ import React, { Component } from 'react'
 import './App.css'
 import {Route, Switch} from 'react-router-dom'
 import { connect } from 'react-redux';
+import { withRouter } from "react-router-dom";
 
 import MenuNav from "./components/menu/Menu"
 import Schedule from "./components/schedule/Schedule"
@@ -45,4 +46,4 @@ const mapStateToProps = (state) => ({
   user: state.user
 })
 
-export default connect(mapStateToProps)(App);
+export default withRouter(connect(mapStateToProps)(App));

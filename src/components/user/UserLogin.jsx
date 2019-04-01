@@ -4,7 +4,7 @@ import {
     Form, Icon, Input, Button, Col,notification
 } from 'antd';
 import {bindActionCreators} from "redux"
-
+import { createBrowserHistory } from 'history';
 import {Creators as userActions} from "../../store/ducks/user";
 
 class UserLogin extends Component {
@@ -21,6 +21,7 @@ class UserLogin extends Component {
             if (!err) {
                 console.log('Received values of form: ', values);
                 this.props.loginUser({...values, permission: 1})
+                createBrowserHistory().push('/manager')
             }
         });
     }
