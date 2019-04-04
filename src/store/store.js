@@ -18,14 +18,14 @@ const store = createStore(RootReducer, /* preloadedState, */ composeEnhancers(
   ));
 
 store.dispatch((dispatch)=>{
-  dispatch({type: "FETCH_PRODUCTS_BEGIN"})
+  dispatch({type: "FETCH_AULAS_BEGIN"})
   axios.get("http://localhost:4000/api/aulas")
     .then((response) => {
-      dispatch({type: "FETCH_PRODUCTS_SUCCESS", payload: response.data})
+      dispatch({type: "FETCH_AULAS_SUCCESS", payload: response.data})
     })
     .catch((err)=>{
       console.log(err)
-      dispatch({type: "FETCH_PRODUCTS_FAILURE", payload: err})
+      dispatch({type: "FETCH_AULAS_FAILURE", payload: err})
     })
 })
 

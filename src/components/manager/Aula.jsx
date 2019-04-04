@@ -2,27 +2,35 @@ import React, { Component } from 'react';
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import { Row, notification, Col, Form, Button, AutoComplete, TimePicker } from 'antd';
-
+import axios from "axios";
 import cuid from "cuid";
 import moment from "moment"
 
 import { Creators as aulaAction } from "../../store/ducks/aulas"
 import Auth from "../../utils/Auth"
 
-const aulaCriada = () => {
-    notification.open({
-        message: 'Aula',
-        description: 'Aula criada!',
-        onClick: () => {
-            console.log('Notification Clicked!');
-        },
-    });
+const aulaCriada = (ok, err=null) => {
+    console.log(ok)
+    if(ok){
+        notification.open({
+            message: 'Aula',
+            description: 'Aula criada!'
+        })
+    }else{
+        notification.open({
+            message: "Falha ao criar aula",
+            description: err.response.data,
+            onClick: () => {
+                console.log(err);
+            },
+        })
+    }
+   
 };
 
 class Aula extends Component {
     constructor(props) {
         super(props);
-
         this.state = {
             materia: "",
             turma: "",
@@ -56,7 +64,6 @@ class Aula extends Component {
             loading: false,
             id: cuid()
         })
-        console.log(this.props.user)
     }
     validation = (obj) => {
         obj.preventDefault();
@@ -66,13 +73,19 @@ class Aula extends Component {
     dispatch = (obj) => {
         this.props.form.validateFields((err, values) => {
             if (!err) {
-                console.log('Received values of form: ', values);
+                this.props.close && this.props.close()
                 let newId = cuid();
                 let now = moment.now();
                 this.setState({ id: newId, creationdate: now });
-                console.log(this.state.horaInicio);
-                this.props.createAula(this.state);
-                aulaCriada()
+                axios.post('http://localhost:4000/api/aulas', this.state)
+                    .then((res) =>{
+                        this.props.createAula(res.data);
+                        aulaCriada(true)
+                    }).catch((err)=>{
+                        console.log("erro ao criar sala: ", err)
+                        aulaCriada(false, err)
+                    })
+                
             }
         });
     }
@@ -189,7 +202,7 @@ const mapStateToProps = (state) => ({
     materias: state.materias,
     professores: state.professores,
     settings: state.settings,
-    aulas: state.aulas.aulas,
+    aulas: state.aulas,
     user: state.user
 })
 

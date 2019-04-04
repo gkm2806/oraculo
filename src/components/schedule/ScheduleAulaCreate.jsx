@@ -5,7 +5,11 @@ import Auth from "../../utils/Auth"
 
 class ScheduleAulaCreate extends Component {
     state = { visible: false }
-
+    close = () =>{
+        this.setState({
+            visible: false,
+        });
+    }
     showModal = () => {
         this.setState({
             visible: true,
@@ -40,7 +44,7 @@ class ScheduleAulaCreate extends Component {
                         <Button key="back" onClick={this.handleCancel}>Return</Button>
                       ]}
                 >
-                    <Aula search={search} dia={dia} time={time} type={type.substring(0, type.length-1)} /* remove o 's' no plural de Types */ />
+                    <Aula close={this.close} search={search} dia={dia} time={time} type={type.substring(0, type.length-1)} /* remove o 's' no plural de Types */ />
                 </Modal>
             </div>
         )

@@ -3,9 +3,9 @@ export const Types = {
     ADD: "aula/ADD",
     UPDATE: "aula/UPDATE",
     REMOVE: "aula/REMOVE",
-    BEGIN: 'FETCH_PRODUCTS_BEGIN',
-    SUCCESS: 'FETCH_PRODUCTS_SUCCESS',
-    FAILURE: 'FETCH_PRODUCTS_FAILURE'
+    BEGIN: 'FETCH_AULAS_BEGIN',
+    SUCCESS: 'FETCH_AULAS_SUCCESS',
+    FAILURE: 'FETCH_AULAS_FAILURE'
 };
 
 const initialState = {
@@ -23,27 +23,26 @@ export default function aulas(state = initialState, action) {
                 error: null
             }
         case Types.SUCCESS:
-            console.log(action.payload)
             return {
                 ...state,
                 loading: false,
                 aulas: action.payload
             }
         case Types.FAILURE:
-            return{
+            return {
                 ...state,
                 error: action.payload.error
             }
         case Types.ADD:
-            let a = axios.post('http://localhost:4000/api/aulas', action.payload.aula)
             return {
                 ...state,
-                aulas: [...state.aulas, Object.assign({}, a)]
+                aulas: [...state.aulas, ...action.payload.aula]
             }
+       
         case Types.UPDATE:
             return {
                 ...state,
-                aulas: [...state.aulas.filter(aula => aula.id !== action.payload.aula.id), Object.assign({}, action.payload.aula)]
+                aulas: [...state.aulas.filter(aula => aula.id !== action.payload.aula.id), Object.assign({}, action.payload)]
             }
         case Types.REMOVE:
             return {

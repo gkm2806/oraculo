@@ -29,7 +29,6 @@ const initialState = [
 
 
 export default function salas(state = initialState, action) {
-    console.log(action.payload)
     switch (action.type) {
         case Types.ADD:
             return [...state, Object.assign({}, {"nome" : action.payload.sala})]

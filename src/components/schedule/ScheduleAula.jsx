@@ -37,6 +37,7 @@ class ScheduleAula extends Component {
                 >
                     <p>{aula.horaInicio} | {aula.horaFim}</p>
                     <p>{aula.turma}</p>
+                    <p>{aula.sala}</p>
                     <p>{aula.materia}</p>
                     <p>{aula.professor}</p>
                 </Modal>
