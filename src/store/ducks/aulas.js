@@ -35,10 +35,10 @@ export default function aulas(state = initialState, action) {
                 error: action.payload.error
             }
         case Types.ADD:
-            let a = axios.post('http://localhost:4000/api/aulas/', action.payload.aula)
+            let a = axios.post('http://localhost:4000/api/aulas', action.payload.aula)
             return {
                 ...state,
-                aulas: [...state.aulas, Object.assign({}, action.payload.aula)]
+                aulas: [...state.aulas, Object.assign({}, a)]
             }
         case Types.UPDATE:
             return {
