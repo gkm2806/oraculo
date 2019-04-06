@@ -35,11 +35,11 @@ class ScheduleAula extends Component {
                     onOk={this.handleOk}
                     onCancel={this.handleCancel}
                 >
-                    <p>{aula.horaInicio} | {aula.horaFim}</p>
-                    <p>{aula.turma}</p>
-                    <p>{aula.sala}</p>
-                    <p>{aula.materia}</p>
-                    <p>{aula.professor}</p>
+                    <p>Horario: {aula.horaInicio} | {aula.horaFim}</p>
+                    <p>Turma: {aula.turma}</p>
+                    <p>Local: {aula.sala}</p>
+                    <p>Materia: {aula.materia}</p>
+                    <p>Professor: {aula.professor}</p>
                 </Modal>
             </div>
         )
