@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
+
 import { Row, notification, Col, Form, Button, AutoComplete, TimePicker } from 'antd';
 import axios from "axios";
 import cuid from "cuid";
@@ -9,39 +10,24 @@ import moment from "moment"
 import { Creators as aulaAction } from "../../store/ducks/aulas"
 import Auth from "../../utils/Auth"
 
-const aulaCriada = (ok, err=null) => {
+const aulaCriada = (ok, type, err=null) => {
     console.log(ok)
     if(ok){
-        notification.open({
-            message: 'Aula',
-            description: 'Aula criada!'
+        notification[type]({
+            message: 'Aula criada com sucesso!',
         })
     }else{
-        notification.open({
+        notification[type]({
             message: "Falha ao criar aula",
             description: err.response.data,
-            onClick: () => {
-                console.log(err);
-            },
         })
     }
-   
 };
 
 class Aula extends Component {
     constructor(props) {
         super(props);
-        this.state = {
-            materia: "",
-            turma: "",
-            professor: "",
-            sala: "",
-            dia: "",
-            horaInicio: "",
-            horaFim: "",
-            id: 0,
-            creationdate: "",
-            loading: true
+        this.state = {materia: "",turma: "", professor: "",sala: "",dia: "", horaInicio: "", horaFim: "", id: 0, creationdate: "",loading: true
         };
     }
 
@@ -65,12 +51,9 @@ class Aula extends Component {
             id: cuid()
         })
     }
-    validation = (obj) => {
-        obj.preventDefault();
-        this.dispatch(obj);
-    }
 
     dispatch = (obj) => {
+        obj.preventDefault();
         this.props.form.validateFields((err, values) => {
             if (!err) {
                 this.props.close && this.props.close()
@@ -80,12 +63,12 @@ class Aula extends Component {
                 axios.post('http://localhost:4000/api/aulas', this.state)
                     .then((res) =>{
                         this.props.createAula(res.data);
-                        aulaCriada(true)
-                    }).catch((err)=>{
-                        console.log("erro ao criar sala: ", err)
-                        aulaCriada(false, err)
+                        aulaCriada(true,"success")
                     })
-                
+                    .catch((err)=>{
+                        console.log("erro ao criar sala: ", err)
+                        aulaCriada(false,"error", err)
+                    })
             }
         });
     }
@@ -101,7 +84,7 @@ class Aula extends Component {
         let inicio = moment(time, "HH:mm"), fim = moment(inicio).add(45, 'minutes')
 
         return (
-            <Form className="main" onSubmit={this.validation} >
+            <Form className="main" onSubmit={this.dispatch} >
                 {Auth((<Row>
                     <Col span={12} >
                         <Form.Item>
