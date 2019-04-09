@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 
-import { Row, notification, Col, Form, Button, AutoComplete, TimePicker } from 'antd';
+import { Row, Progress, Spin, notification, Col, Form, Button, AutoComplete, TimePicker } from 'antd';
 import axios from "axios";
 import cuid from "cuid";
 import moment from "moment"
@@ -10,13 +10,13 @@ import moment from "moment"
 import { Creators as aulaAction } from "../../store/ducks/aulas"
 import Auth from "../../utils/Auth"
 
-const aulaCriada = (ok, type, err=null) => {
+const aulaCriada = (ok, type, err = null) => {
     console.log(ok)
-    if(ok){
+    if (ok) {
         notification[type]({
             message: 'Aula criada com sucesso!',
         })
-    }else{
+    } else {
         notification[type]({
             message: "Falha ao criar aula",
             description: err.response.data,
@@ -24,10 +24,17 @@ const aulaCriada = (ok, type, err=null) => {
     }
 };
 
+const aulaCriando = () => {
+
+}
+
 class Aula extends Component {
     constructor(props) {
         super(props);
-        this.state = {materia: "",turma: "", professor: "",sala: "",dia: "", horaInicio: "", horaFim: "", id: 0, creationdate: "",loading: true
+        this.state = {
+            aula: { materia: "", turma: "", professor: "", sala: "", dia: "", horaInicio: "", horaFim: "", id: 0, creationdate: "" }, 
+            loading: true,
+
         };
     }
 
@@ -36,38 +43,48 @@ class Aula extends Component {
         let inicio = moment(time, "HH:mm"), fim = moment(inicio).add(45, 'minutes')
 
         type ? (
-            this.setState({
-                horaInicio: inicio.format("HH:mm"),
-                horaFim: fim.format("HH:mm"),
-                dia: dia,
-                [type]: search
-            })
+            this.setState(prev =>({
+                aula: {
+                    ...prev.aula,
+                    horaInicio: inicio.format("HH:mm"),
+                    horaFim: fim.format("HH:mm"),
+                    dia: dia,
+                    [type]: search
+                }
+            }))
         ) : (
                 console.log("Sem argumentos")
             )
-        this.setState({
-            creationdate: inicio.format("YY/MM/DD"),
+        this.setState(prev => ({
+            aula:{
+                ...prev.aula,
+                creationdate: inicio.format("YY/MM/DD"),
+                id: cuid()
+            },
             loading: false,
-            id: cuid()
-        })
+            visible: false
+            
+        }))
     }
 
     dispatch = (obj) => {
         obj.preventDefault();
         this.props.form.validateFields((err, values) => {
             if (!err) {
-                this.props.close && this.props.close()
                 let newId = cuid();
                 let now = moment.now();
-                this.setState({ id: newId, creationdate: now });
-                axios.post('http://localhost:4000/api/aulas', this.state)
-                    .then((res) =>{
+                this.setState(prev => ({aula:{ ...prev.aula, id: newId, creationdate: now }}));
+                this.setState({visible:"true"})
+                axios.post('http://172.18.0.1:4000/api/aulas', this.state.aula)
+                    .then((res) => {
                         this.props.createAula(res.data);
-                        aulaCriada(true,"success")
+                        aulaCriada(true, "success")
                     })
-                    .catch((err)=>{
+                    .catch((err) => {
                         console.log("erro ao criar sala: ", err)
-                        aulaCriada(false,"error", err)
+                        aulaCriada(false, "error", err)
+                    }).then(()=>{
+                        this.props.close && this.props.close()
                     })
             }
         });
@@ -80,11 +97,12 @@ class Aula extends Component {
         function mapObj(array) {
             return array.map((obj, i) => ({ "text": obj.nome, "value": obj.nome }))
         }
-        let diasArray = settings[0].dias.map((dia, i) => ({ "text": dia, "value": dia }))
+        let diasArray = settings.dias.map((dia, i) => ({ "text": dia, "value": dia }))
         let inicio = moment(time, "HH:mm"), fim = moment(inicio).add(45, 'minutes')
 
         return (
             <Form className="main" onSubmit={this.dispatch} >
+               <Spin spinning={this.state.visible} delay={500}>
                 {Auth((<Row>
                     <Col span={12} >
                         <Form.Item>
@@ -94,7 +112,7 @@ class Aula extends Component {
                                 placeholder="Professor"
                                 filterOption={(inputValue, option) => option.props.children.toUpperCase().indexOf(inputValue.toUpperCase()) !== -1}
                                 alo="vtnc"
-                                onChange={(e) => { this.setState({ professor: e }) }}
+                                onChange={(e) => { this.setState(prev => ({ aula:{...prev.aula, professor: e }}))}}
                             />
                         </Form.Item>
                         <Form.Item>
@@ -105,7 +123,7 @@ class Aula extends Component {
                                     key="materia"
                                     dataSource={mapObj(materias)}
                                     placeholder="Materia"
-                                    onChange={(e) => { this.setState({ materia: e }) }}
+                                    onChange={(e) => { this.setState(prev => ({ aula:{...prev.aula, materia: e }}))}}
                                     filterOption={(inputValue, option) => option.props.children.toUpperCase().indexOf(inputValue.toUpperCase()) !== -1}
                                 />
                             )}
@@ -114,10 +132,10 @@ class Aula extends Component {
                             <AutoComplete
                                 defaultValue={type === "sala" ? search : null}
                                 name="sala"
-                                value={this.state.sala}
+                                value={this.state.aula.sala}
                                 dataSource={mapObj(salas)}
                                 placeholder="Sala"
-                                onChange={(e) => { this.setState({ sala: e }) }}
+                                onChange={(e) => { this.setState(prev => ({ aula:{...prev.aula, sala: e }}))}}
                                 filterOption={(inputValue, option) => option.props.children.toUpperCase().indexOf(inputValue.toUpperCase()) !== -1}
                             />
                         </Form.Item>
@@ -125,10 +143,10 @@ class Aula extends Component {
                             <AutoComplete
                                 defaultValue={type === "turma" ? search : null}
                                 key="turma"
-                                value={this.state.turma}
+                                value={this.state.aula.turma}
                                 dataSource={mapObj(turmas)}
                                 placeholder="Turma"
-                                onChange={(e) => { this.setState({ turma: e }) }}
+                                onChange={(e) => { this.setState(prev => ({ aula:{...prev.aula, turma: e }}))}}
                                 filterOption={(inputValue, option) => option.props.children.toUpperCase().indexOf(inputValue.toUpperCase()) !== -1}
                             />
                         </Form.Item>
@@ -140,7 +158,7 @@ class Aula extends Component {
                                 key="dia"
                                 dataSource={diasArray}
                                 placeholder="dia"
-                                onChange={(e) => { this.setState({ dia: e }) }}
+                                onChange={(e) => { this.setState(prev => ({ aula:{...prev.aula, dia: e }}))}}
                                 filterOption={(inputValue, option) => option.props.children.toUpperCase().indexOf(inputValue.toUpperCase()) !== -1}
                             />
                         </Form.Item>
@@ -149,7 +167,7 @@ class Aula extends Component {
                                 <TimePicker
                                     defaultValue={type ? inicio : moment('06:00', 'HH:mm')}
                                     format={'HH:mm'}
-                                    onChange={(e) => { this.setState({ horaInicio: e.format("HH:mm") }) }}
+                                    onChange={(e) => {this.setState(prev => ({ aula:{...prev.aula, horaInicio: e.format("HH:mm") }}))}}
                                     minuteStep={15}
                                     placeholder="Hr Inicio"
                                     key="horaInicio"
@@ -163,7 +181,7 @@ class Aula extends Component {
                                     minuteStep={15}
                                     placeholder="Hr Fim"
                                     key="horaFim"
-                                    onChange={(e) => { this.setState({ horaFim: e.format("HH:mm") }) }}
+                                    onChange={(e) => {this.setState(prev => ({ aula:{...prev.aula, horaFim: e.format("HH:mm") }}))}}
                                     disabledHours={() => [1, 2, 3, 4, 4, 5]}
                                     allowClear={false}
                                 />
@@ -173,8 +191,9 @@ class Aula extends Component {
                             <Button style={{ width: "16em" }} type="primary" htmlType="submit"> criar </Button>
                         </Form.Item>
                     </Col>
+                    
                 </Row>), user, 1, (<div>nope</div>), loading)}
-
+                </Spin>
             </Form>
         );
     }
@@ -183,7 +202,7 @@ const mapStateToProps = (state) => ({
     salas: state.salas,
     turmas: state.turmas,
     materias: state.materias,
-    professores: state.professores,
+    professores: state.professores.professores,
     settings: state.settings,
     aulas: state.aulas,
     user: state.user
