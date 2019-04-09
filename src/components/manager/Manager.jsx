@@ -71,7 +71,7 @@ const mapStateToProps = (state) => ({
     salas: state.salas,
     turmas: state.turmas,
     materias: state.materias,
-    professores: state.professores,
+    professores: state.professores.professores,
     settings: state.settings,
     aulas: state.aulas.aulas
 })
