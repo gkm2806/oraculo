@@ -47,7 +47,7 @@ export default function aulas(state = initialState, action) {
         case Types.REMOVE:
             return {
                 ...state,
-                aulas: [...state.aulas.filter(aula => aula.id !== action.payload.AulaId)]
+                aulas: [...state.aulas.filter(aula => aula.id !== action.payload.aulaId)]
             }
         default: return state
     }
