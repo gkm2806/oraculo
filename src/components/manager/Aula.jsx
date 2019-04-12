@@ -1,11 +1,10 @@
 import React, { Component } from 'react';
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
-
-import { Row, Progress, Spin, notification, Col, Form, Button, AutoComplete, TimePicker } from 'antd';
 import axios from "axios";
 import cuid from "cuid";
 import moment from "moment"
+import { Row, Spin, notification, Col, Form, Button, AutoComplete, TimePicker } from 'antd';
 
 import { Creators as aulaAction } from "../../store/ducks/aulas"
 import Auth from "../../utils/Auth"
@@ -23,10 +22,6 @@ const aulaCriada = (ok, type, err = null) => {
         })
     }
 };
-
-const aulaCriando = () => {
-
-}
 
 class Aula extends Component {
     constructor(props) {
@@ -71,10 +66,7 @@ class Aula extends Component {
         obj.preventDefault();
         this.props.form.validateFields((err, values) => {
             if (!err) {
-                let newId = cuid();
-                let now = moment.now();
-                this.setState(prev => ({aula:{ ...prev.aula, id: newId, creationdate: now }}));
-                this.setState({visible:"true"})
+                this.setState({visible:true})
                 axios.post('http://172.18.0.1:4000/api/aulas', this.state.aula)
                     .then((res) => {
                         this.props.createAula(res.data);
