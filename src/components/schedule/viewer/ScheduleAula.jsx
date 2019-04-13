@@ -1,5 +1,10 @@
 import React, { Component } from "react";
 import { Card, Modal } from "antd"
+import {connect} from "react-redux"
+import { Creators as aulaAction } from "../../../store/ducks/aulas"
+import { bindActionCreators } from "redux";
+import axios from "axios"
+
 class ScheduleAula extends Component {
     state = { visible: false }
 
@@ -14,6 +19,11 @@ class ScheduleAula extends Component {
         this.setState({
             visible: false,
         });
+        axios.delete("http://172.18.0.1:4000/api/aulas/"+this.props.aula.id).then(()=>{
+            this.props.deleteAula(this.props.aula.id)
+        }).catch((e)=>{
+            console.log(e);
+        })
     }
 
     handleCancel = (e) => {
@@ -21,6 +31,7 @@ class ScheduleAula extends Component {
         this.setState({
             visible: false,
         });
+        
     }
     render() {
         const {aula} = this.props
@@ -34,6 +45,8 @@ class ScheduleAula extends Component {
                     visible={this.state.visible}
                     onOk={this.handleOk}
                     onCancel={this.handleCancel}
+                    okText="apagar"
+                    okType= 'danger'
                 >
                     <p>Horario: {aula.horaInicio} | {aula.horaFim}</p>
                     <p>Turma: {aula.turma}</p>
@@ -46,4 +59,8 @@ class ScheduleAula extends Component {
     }
 }
 
-export default ScheduleAula;
+const mapDispatchToProps = dispatch => bindActionCreators({
+    ...aulaAction
+}, dispatch)
+
+export default connect(null,mapDispatchToProps)(ScheduleAula);
