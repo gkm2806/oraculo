@@ -2,7 +2,9 @@ import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 import { withRouter } from "react-router"
 import { connect } from "react-redux";
-import { Menu, Icon } from 'antd';
+import { Menu, Icon, Input } from 'antd';
+import {Creators as SearchActions} from "../../store/ducks/search"
+import {bindActionCreators} from "redux"
 import moment from "moment";
 
 class MenuNav extends Component {
@@ -18,7 +20,7 @@ class MenuNav extends Component {
     });
   }
   render() {
-    const { user } = this.props
+    const { user, updateSearch, search } = this.props
     return (
       <Menu
         onClick={this.handleClick}
@@ -60,6 +62,13 @@ class MenuNav extends Component {
           </Link>
           </Menu.Item>
         }
+        <Menu.Item key="serach" style={{ float: "right" }}>
+          <Input.Search
+            placeholder="Buscador"
+            onSearch={value => updateSearch(value)}
+            style={{ width: 200 }}
+          />
+        </Menu.Item>
       </Menu>
     )
   }
@@ -67,5 +76,8 @@ class MenuNav extends Component {
 const mapState = (state) => ({
   user: state.user
 })
+const mapDispatchToProps = dispatch => bindActionCreators({
+  ...SearchActions
+}, dispatch)
 
-export default withRouter(connect(mapState)(MenuNav));
+export default withRouter(connect(mapState,mapDispatchToProps)(MenuNav));
