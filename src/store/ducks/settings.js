@@ -1,14 +1,42 @@
+import moment from "moment"
 export const Types = {
-    END: "FETCH_ALL_END"
+    END: "FETCH_ALL_END",
+    MINUTES: "UPDATE_MINUTES",
+    HORAINICIO: "UPDATE_HORA_INICIO",
+    HORAFIM: "UPDATE_HORA_FIM"
 }
+
+const minutoAula = 45
+const comeco = moment("7:00","HH:mm")
+const fim = moment("23:00","HH:mm")
+const timeStamps = [];
+
+function calculaTimeStamps(time){
+    while(time.diff(fim) < 0){
+        if((time.format("HH:mm")) == "09:15" || (time.format("HH:mm") == "15:15")){
+            time.add(15,"minutes") //intervalos
+        }else if((time.format("HH:mm")) == "12:30"){
+            time.add(30,"minutes") //mudança de turno    
+        }
+        
+        timeStamps.push(time.format("HH:mm"))
+        time.add(minutoAula, "minutes")
+    }
+}
+calculaTimeStamps(comeco)
+
 const initialState ={
-    minutoAula: 45,
-    timeStamps: ["07:00","07:45","08:30","09:30","10:15","11:00","11:45","12:30","13:00","13:45","14:30","15:30","16:15","17:00","17:45","18:30"],
+    minutoAula,
+    timeStamps,
+    comeco: comeco.format("HH:mm"),
+    fim: fim.format("HH:mm"),
     dias: ["Domingo","Segunda", "Terça", "Quarta", "Quinta", "Sexta", "Sabado"],
     globalLoading: true
 }
 export default (state = initialState, action) => {
     switch(action.type){
+        case Types.MINUTES:
+            return {...state, minutoAula: action.payload.minute}
         case Types.END:
             return {...state, globalLoading: false}
         default:
@@ -19,5 +47,9 @@ export default (state = initialState, action) => {
 export const Creators = {
     fetchAllEnd: () => ({
         type: Types.END
+    }),
+    updateMinutes: (minute) => ({
+        type: Types.MINUTES,
+        payload: {minute}
     })
 }

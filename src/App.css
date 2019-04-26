@@ -9,10 +9,19 @@
   background-color: rgb(197, 197, 197);
   color: #555
 }
-.ant-form-item{
-  padding: 0 1em 0 1em !important
-}
+
 /*
   rgb(127, 226, 107);
 
 */
+.ant-layout-header{
+  height: 100%!important
+}
+@media only screen and (min-width: 600px) {
+  .ant-form-item{
+    padding: 0 1em 0 1em !important
+  }
+  .ant-layout-header{
+    padding: 0
+  }
+}

@@ -4,6 +4,9 @@ import {connect} from "react-redux"
 import { Creators as aulaAction } from "../../../store/ducks/aulas"
 import { bindActionCreators } from "redux";
 import axios from "axios"
+import "dotenv/config"
+
+import Auth from "../../../utils/Auth"
 
 class ScheduleAula extends Component {
     state = { visible: false }
@@ -16,25 +19,28 @@ class ScheduleAula extends Component {
 
     handleOk = (e) => {
         console.log(e);
+        const {user} = this.props
         this.setState({
             visible: false,
-        });
-        axios.delete("http://172.18.0.1:4000/api/aulas/"+this.props.aula.id).then(()=>{
-            this.props.deleteAula(this.props.aula.id)
-        }).catch((e)=>{
-            console.log(e);
         })
+        Auth((
+            axios.delete(process.env.API+ "aulas/"+this.props.aula.id).then(()=>{
+                this.props.deleteAula(this.props.aula.id)
+            }).catch((e)=>{
+                console.log(e);
+            })
+        ), user.permission, 1, alert("Sem permissao"))
     }
 
     handleCancel = (e) => {
-        console.log(e);
         this.setState({
-            visible: false,
-        });
-        
+            visible: false
+        })
     }
+    
     render() {
-        const {aula} = this.props
+        const {aula, user} = this.props
+        console.log(user.permission)
         return (
             <div>
                 <Card className="hoverable aula" onClick={this.showModal}>
@@ -47,6 +53,7 @@ class ScheduleAula extends Component {
                     onCancel={this.handleCancel}
                     okText="apagar"
                     okType= 'danger'
+                    
                 >
                     <p>Horario: {aula.horaInicio} | {aula.horaFim}</p>
                     <p>Turma: {aula.turma}</p>
@@ -63,4 +70,7 @@ const mapDispatchToProps = dispatch => bindActionCreators({
     ...aulaAction
 }, dispatch)
 
-export default connect(null,mapDispatchToProps)(ScheduleAula);
+const mapStateToProps = state => ({
+    user: state.user
+})
+export default connect(mapStateToProps,mapDispatchToProps)(ScheduleAula);

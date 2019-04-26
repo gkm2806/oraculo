@@ -17,8 +17,11 @@ class ScheduleMenu extends Component {
   componentWillUnmount(){
     this.setState({current:this.props.type})
   }
+  Itens = () => {
+
+  }
   render() {
-    const { ctx, type } = this.props
+    const { ctx, type, turmas, salas } = this.props
     return (
       <div>
       <Turnos />
@@ -28,7 +31,11 @@ class ScheduleMenu extends Component {
         current={this.state.current}
       >
         <Menu.SubMenu onClick={this.handleClick} key={type} title={type}>
-          {ctx.map((obj) => {
+          {type=="salas" && salas.map((obj) => {
+            return (
+              <Menu.Item key={obj.nome} > {obj.nome} </Menu.Item>)
+          })}
+          {type=="turmas" && turmas.map((obj) => {
             return (
               <Menu.Item key={obj.nome} > {obj.nome} </Menu.Item>)
           })}
