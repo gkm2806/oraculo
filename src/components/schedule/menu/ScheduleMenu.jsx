@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import {Menu, Divider} from "antd"
 
-import {Turnos} from "./Turnos"
 
 class ScheduleMenu extends Component {
   state = {
@@ -20,8 +19,6 @@ class ScheduleMenu extends Component {
   render() {
     const { ctx, type } = this.props
     return (
-      <div>
-      <Turnos />
       <Menu
         style={{ width: "100%" }}
         mode="inline"
@@ -34,7 +31,6 @@ class ScheduleMenu extends Component {
           })}
         </Menu.SubMenu>
       </Menu>
-      </div>
     )
   }
 }
