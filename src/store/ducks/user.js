@@ -7,7 +7,7 @@ export const Types = {
 
 const initialState = {
     userName:"",
-    permission: 0
+    permission: 1
 };
 
 export default function turmas(state = initialState, action) {

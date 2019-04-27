@@ -5,7 +5,7 @@ import axios from "axios";
 import cuid from "cuid";
 import moment from "moment"
 import { Row, Spin, notification, Col, Form, Button, AutoComplete, TimePicker } from 'antd';
-
+import "dotenv/config"
 import { Creators as aulaAction } from "../../store/ducks/aulas"
 import Auth from "../../utils/Auth"
 
@@ -67,7 +67,7 @@ class Aula extends Component {
         this.props.form.validateFields((err, values) => {
             if (!err) {
                 this.setState({visible:true})
-                axios.post('http://172.18.0.1:4000/api/aulas', this.state.aula)
+                axios.post(process.env.API_URL ||"http://172.18.0.1:4000" + "/api/aulas/", this.state.aula)
                     .then((res) => {
                         this.props.createAula(res.data);
                         aulaCriada(true, "success")
