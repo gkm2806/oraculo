@@ -3,8 +3,9 @@ import {connect} from "react-redux"
 import {
     Form, Icon, Input, Button, Col,notification
 } from 'antd';
+import axios from "axios"
+import "dotenv/config"
 import {bindActionCreators} from "redux"
-import { createBrowserHistory } from 'history';
 import {Creators as userActions} from "../../store/ducks/user";
 
 class UserLogin extends Component {
@@ -19,9 +20,17 @@ class UserLogin extends Component {
         e.preventDefault();
         this.props.form.validateFields((err, values) => {
             if (!err) {
-                console.log('Received values of form: ', values);
-                this.props.loginUser({...values, permission: 1})
-                createBrowserHistory().push('/manager')
+                console.log("username: ", values.userName, "\n senha: ", values.password);
+                axios.post(process.env.API_URL ||"http://localhost:4000" + "/api/users/login", {
+                    username: values.userName,
+                    password: values.password
+                  })
+                  .then((response) => {
+                    this.props.loginUser({
+                        userName: response.username,
+                        permission: 1
+                      })
+                  })
             }
         });
     }

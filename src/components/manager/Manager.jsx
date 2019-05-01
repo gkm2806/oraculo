@@ -7,6 +7,7 @@ import { Creators as TurmaActions } from "../../store/ducks/turmas"
 import { Creators as MateriaActions } from "../../store/ducks/materias"
 import { Creators as SalaActions } from "../../store/ducks/salas"
 import { Creators as professoreAction } from "../../store/ducks/professores"
+import Axios from "axios";
 
 class Manager extends Component {
 
@@ -24,7 +25,10 @@ class Manager extends Component {
                 console.log(obj)
                 break;
             case "professores":
-                createProfessor(obj)
+                console.log(obj)
+                Axios.post(process.env.API_URL ||"http://localhost:4000" + "/api/professores", {nome: obj}).then(()=>{
+                    createProfessor(obj)
+                })
                 break;
             default:
                 alert("Nenhuma action type passada pelo obj ")
