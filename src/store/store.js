@@ -19,7 +19,7 @@ const store = createStore(RootReducer, /* preloadedState, */ composeEnhancers(
 
 store.dispatch((dispatch)=>{
   dispatch({type: "FETCH_AULAS_BEGIN"})
-  axios.get(process.env.API_URL ||"http://172.18.0.1:4000" + "/api/aulas/")
+  axios.get(process.env.API_URL ||"http://localhost:4000" + "/api/aulas/")
     .then((response) => {
       dispatch({type: "FETCH_AULAS_SUCCESS", payload: response.data})
     })
@@ -29,7 +29,7 @@ store.dispatch((dispatch)=>{
     }).then(()=>{
       store.dispatch((dispatch)=>{
         dispatch({type: "FETCH_PROFS_BEGIN"})
-        axios.get(process.env.API_URL ||"http://172.18.0.1:4000" + "/api/professores/")
+        axios.get(process.env.API_URL ||"http://localhost:4000" + "/api/professores/")
           .then((response) => {
             dispatch({type: "FETCH_PROFS_SUCCESS", payload: response.data})
           })
