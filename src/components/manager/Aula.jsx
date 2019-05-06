@@ -1,3 +1,4 @@
+//@ts-check
 import React, { Component } from 'react';
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
@@ -16,9 +17,10 @@ const aulaCriada = (ok, type, err = null) => {
             message: 'Aula criada com sucesso!',
         })
     } else {
+        console.log(err.response.data)
         notification[type]({
             message: "Falha ao criar aula",
-            description: err.response.data,
+            description: "",
         })
     }
 };
@@ -67,13 +69,19 @@ class Aula extends Component {
         this.props.form.validateFields((err, values) => {
             if (!err) {
                 this.setState({visible:true})
-                axios.post(process.env.API_URL ||"http://localhost:4000" + "/api/aulas/", this.state.aula)
+                axios({
+                    method: 'POST',
+                    url: process.env.API_URL ||"http://localhost:4000" + "/api/aulas/", 
+                    data: this.state.aula, 
+                    headers: {'Authorization': "Bearer "+this.props.user.token}
+                })
                     .then((res) => {
+                        console.log(res)
                         this.props.createAula(res.data);
                         aulaCriada(true, "success")
                     })
                     .catch((err) => {
-                        console.log("erro ao criar sala: ", err)
+                        console.log("erro ao criar aula: ", err)
                         aulaCriada(false, "error", err)
                     }).then(()=>{
                         this.props.close && this.props.close()
@@ -103,7 +111,6 @@ class Aula extends Component {
                                 dataSource={mapObj(professores)}
                                 placeholder="Professor"
                                 filterOption={(inputValue, option) => option.props.children.toUpperCase().indexOf(inputValue.toUpperCase()) !== -1}
-                                alo="vtnc"
                                 onChange={(e) => { this.setState(prev => ({ aula:{...prev.aula, professor: e }}))}}
                             />
                         </Form.Item>
@@ -166,7 +173,6 @@ class Aula extends Component {
                                     disabledHours={() => [1, 2, 3, 4, 4, 5]}
                                     allowClear={false}
                                 />
-
                                 <TimePicker
                                     defaultValue={type ? fim : moment('06:00', 'HH:mm')}
                                     format={'HH:mm'}
