@@ -8,15 +8,9 @@ import ScheduleMenu from "./menu/ScheduleMenu"
 import ScheduleViewer from "./viewer/ScheduleViewer"
 
 class Schedule extends Component {
-  state = {
-    searched: ""
-  }
   componentDidMount(){
-    const { match} = this.props 
-
-    match && (
-      this.setState({searched: capitalizer(match.match.params.search)})
-    )
+    const {match} = this.props 
+    match && this.props.updateSearch(capitalizer(match.match.params.search))
   }
 
   setSearched = (query) => {
