@@ -23,14 +23,7 @@ class Schedule extends Component {
 
       <div style={{ width: "100%" }}>
         {aulas &&
-          <div>
-            <Col span={3}>
-              <ScheduleMenu type={type} setSearched={this.setSearched} ctx={ctx} />
-            </Col>
-            <Col span={20} style={{ marginLeft: "1rem" }}>
-              <ScheduleViewer type={type} search={search.searched} aulas={aulas.filter(aula => (Object.values(aula)).includes(search.searched))} timeStamps={settings.timeStamps} />
-            </Col>
-          </div>
+            <ScheduleViewer type={type} search={search.searched} aulas={aulas.filter(aula => (Object.values(aula)).includes(search.searched))} timeStamps={settings.timeStamps} />
         }
       </div>
 

@@ -3,8 +3,8 @@ import { Link } from 'react-router-dom'
 import { withRouter } from "react-router"
 import { connect } from "react-redux";
 import { Menu, Icon, Input } from 'antd';
-import {Creators as SearchActions} from "../../store/ducks/search"
-import {bindActionCreators} from "redux"
+import { Creators as SearchActions } from "../../store/ducks/search"
+import { bindActionCreators } from "redux"
 import moment from "moment";
 
 class MenuNav extends Component {
@@ -20,25 +20,33 @@ class MenuNav extends Component {
     });
   }
   render() {
-    const { user, updateSearch, search } = this.props
+    const { user, updateSearch, search, turmas, salas } = this.props
+    const SubMenu = Menu.SubMenu;
+    const MenuItemGroup = Menu.ItemGroup;
     return (
       <Menu
         onClick={this.handleClick}
         selectedKeys={[this.state.current]}
         mode="horizontal"
       >
-        <Menu.Item key="mail">
-          <Link to="/salas">
-            <Icon type="table" /> Salas
-          </Link>
-        </Menu.Item>
 
-        <Menu.Item key="app">
-          <Link to="/turmas">
-            <Icon type="table" /> Turmas
-          </Link>
-        </Menu.Item>
+        <SubMenu key="salas" title={<span><Icon type="table" /><span>Locais</span></span>}>
+          <MenuItemGroup key="g1">
+          {salas.map((obj) => {
+            return (
+              <Menu.Item key={obj.nome} > <Link to={`/salas/${obj.nome}`} >{obj.nome} </Link> </Menu.Item>)
+          })}
+          </MenuItemGroup>
+        </SubMenu>
 
+        <SubMenu key="turmas" title={<span><Icon type="table" /><span>Turmas</span></span>}>
+          <MenuItemGroup key="g1">
+          {turmas.map((obj) => {
+            return (
+              <Menu.Item key={obj.nome} > <Link to={`/turmas/${obj.nome}`} >{obj.nome} </Link> </Menu.Item>)
+          })}
+          </MenuItemGroup>
+        </SubMenu>
 
         <Menu.Item key="clock" disabled style={{ float: "right" }}>
           <Icon type="clock-circle" /> {moment().format("HH:mm")}
@@ -74,10 +82,12 @@ class MenuNav extends Component {
   }
 }
 const mapState = (state) => ({
-  user: state.user
+  user: state.user,
+  salas: state.salas,
+  turmas: state.turmas
 })
 const mapDispatchToProps = dispatch => bindActionCreators({
   ...SearchActions
 }, dispatch)
 
-export default withRouter(connect(mapState,mapDispatchToProps)(MenuNav));
+export default withRouter(connect(mapState, mapDispatchToProps)(MenuNav));
