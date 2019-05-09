@@ -30,7 +30,7 @@ export default class ScheduleViewer extends Component {
                 </div>
 
             ) : (
-                    <h2> Selecione um contexto no menu ao lado</h2>
+                    <h2> Selecione um contexto no menu acima</h2>
                 )
             )
         )

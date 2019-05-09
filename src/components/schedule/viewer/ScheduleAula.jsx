@@ -52,7 +52,8 @@ class ScheduleAula extends Component {
                     okText="apagar"
                     okType='danger'
                 >
-                    <p>Horario: {aula.horaInicio} | {aula.horaFim}</p>
+                    <p>Inicio: {aula.horaInicio}</p>
+                    <p>Fim: {aula.horaFim} </p>
                     <p>Turma: {aula.turma}</p>
                     <p>Local: {aula.sala}</p>
                     <p>Materia: {aula.materia}</p>

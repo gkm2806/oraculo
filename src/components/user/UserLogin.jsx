@@ -44,12 +44,12 @@ class UserLogin extends Component {
             if (!err) {
                 console.log("username: ", values.userName, "\n senha: ", values.password);
                 axios.post(
-                    process.env.API_URL || "http://localhost:4000" + "/api/users/login",
-                    {
-                        username: values.userName,
-                        password: values.password
-                    }
-                )
+                        process.env.API_URL || "http://localhost:4000" + "/api/users/login",
+                        {
+                            username: values.userName,
+                            password: values.password
+                        }
+                    )
                     .then((response) => {
                         this.props.loginUser({
                             userName: response.data.username,
