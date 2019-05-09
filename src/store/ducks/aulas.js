@@ -1,4 +1,3 @@
-import axios from "axios"
 export const Types = {
     ADD: "aula/ADD",
     UPDATE: "aula/UPDATE",

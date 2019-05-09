@@ -16,36 +16,45 @@ const middleware = [thunk]
 const store = createStore(RootReducer, /* preloadedState, */ composeEnhancers(
     applyMiddleware(...middleware)
   ));
-
+  
 store.dispatch((dispatch)=>{
   dispatch({type: "FETCH_AULAS_BEGIN"})
-  axios.get(process.env.API_URL ||"http://localhost:4000" + "/api/aulas/")
+  axios.get(`${process.env.API_URL ||"http://localhost:4000"}/api/aulas/`)
     .then((response) => {
       dispatch({type: "FETCH_AULAS_SUCCESS", payload: response.data})
     })
     .catch((err)=>{
       console.log(err)
       dispatch({type: "FETCH_AULAS_FAILURE", payload: err})
-    }).then(()=>{
-      store.dispatch((dispatch)=>{
-        dispatch({type: "FETCH_PROFS_BEGIN"})
-        axios.get(process.env.API_URL ||"http://localhost:4000" + "/api/professores/")
-          .then((response) => {
-            dispatch({type: "FETCH_PROFS_SUCCESS", payload: response.data})
-          })
-          .catch((err)=>{
-            console.log(err)
-            dispatch({type: "FETCH_PROFS_FAILURE", payload: err})
-          }).then(()=>{
-            store.dispatch((dispatch)=>{dispatch({type: "FETCH_ALL_END"})})
-          })
-      })
+    })
+})
+
+store.dispatch((dispatch)=>{
+  dispatch({type: "FETCH_PROFS_BEGIN"})
+  axios.get(`${process.env.API_URL ||"http://localhost:4000"}/api/professores/`)
+    .then((response) => {
+      dispatch({type: "FETCH_PROFS_SUCCESS", payload: response.data})
+    })
+    .catch((err)=>{
+      console.log(err)
+      dispatch({type: "FETCH_PROFS_FAILURE", payload: err})
+    })
+})
+
+store.dispatch((dispatch)=>{
+  dispatch({type: "FETCH_LOCAIS_BEGIN"})
+  axios.get(`${process.env.API_URL ||"http://localhost:4000"}/api/LOCAIS/`)
+    .then((response) => {
+      dispatch({type: "FETCH_LOCAIS_SUCCESS", payload: response.data})
+    })
+    .catch((err)=>{
+      console.log(err)
+      dispatch({type: "FETCH_LOCAIS_FAILURE", payload: err})
     })
 })
 
 
-
-
+store.dispatch((dispatch)=>{dispatch({type: "FETCH_ALL_END"})})
 
 
 export default store;

@@ -26,7 +26,7 @@ class Manager extends Component {
                 break;
             case "professores":
                 console.log(obj)
-                Axios.post(process.env.API_URL ||"http://localhost:4000" + "/api/professores", {nome: obj}).then(()=>{
+                Axios.post(`${process.env.API_URL ||"http://localhost:4000"}/api/professores`, {nome: obj}).then(()=>{
                     createProfessor(obj)
                 })
                 break;
@@ -58,6 +58,8 @@ class Manager extends Component {
     }
     render() {
         const { professores, materias, turmas, salas } = this.props
+        console.log(salas)
+        console.log(professores)
         return (
             <div className="main">
                 <Row>
@@ -72,7 +74,7 @@ class Manager extends Component {
 }
 
 const mapStateToProps = (state) => ({
-    salas: state.salas,
+    salas: state.salas.locais,
     turmas: state.turmas,
     materias: state.materias,
     professores: state.professores.professores,

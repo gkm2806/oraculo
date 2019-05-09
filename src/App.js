@@ -53,7 +53,7 @@ class App extends Component {
 }
 
 const mapStateToProps = (state) => ({
-  salas: state.salas,
+  salas: state.salas.locais,
   turmas: state.turmas,
   user: state.user,
   globalLoading: state.settings.globalLoading

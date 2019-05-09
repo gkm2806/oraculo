@@ -10,16 +10,7 @@ export const Types = {
 };
 
 const initialState = {
-    professores: [
-        {
-            id: "cjrr5xtfi00003a5qu7lvn55d",
-            nome: "Jimenez"
-        },
-        {
-            id: "cjrr5xu3k00013a5qymu6gn3k",
-            nome: "Rogers"
-        }
-    ],
+    professores: [],
     loading: false,
     error: null
 };

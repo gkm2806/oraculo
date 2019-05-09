@@ -6,7 +6,7 @@ class NoAcess extends Component {
   render() {
     return (
       <center>
-        {Gandalf ? <img src={Gandalf} /> : <h1> YOU SHALL NOT PASS </h1>}
+        {Gandalf ? <img alt="Gandalf fodao n deixando ninguem passar" src={Gandalf} /> : <h1> YOU SHALL NOT PASS </h1>}
       </center>
     );
   }

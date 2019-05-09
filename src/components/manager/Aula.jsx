@@ -1,4 +1,3 @@
-//@ts-check
 import React, { Component } from 'react';
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
@@ -71,7 +70,7 @@ class Aula extends Component {
                 this.setState({visible:true})
                 axios({
                     method: 'POST',
-                    url: process.env.API_URL ||"http://localhost:4000" + "/api/aulas/", 
+                    url: `${process.env.API_URL ||"http://localhost:4000"}/api/aulas/`, 
                     data: this.state.aula, 
                     headers: {'Authorization': "Bearer "+this.props.user.token}
                 })
@@ -97,6 +96,7 @@ class Aula extends Component {
         function mapObj(array) {
             return array.map((obj, i) => ({ "text": obj.nome, "value": obj.nome }))
         }
+        console.log(salas)
         let diasArray = settings.dias.map((dia, i) => ({ "text": dia, "value": dia }))
         let inicio = moment(time, "HH:mm"), fim = moment(inicio).add(45, 'minutes')
 
@@ -127,7 +127,7 @@ class Aula extends Component {
                                 />
                             )}
                         </Form.Item>
-                        <Form.Item>
+                        {/*<Form.Item>
                             <AutoComplete
                                 defaultValue={type === "sala" ? search : null}
                                 name="sala"
@@ -137,7 +137,7 @@ class Aula extends Component {
                                 onChange={(e) => { this.setState(prev => ({ aula:{...prev.aula, sala: e }}))}}
                                 filterOption={(inputValue, option) => option.props.children.toUpperCase().indexOf(inputValue.toUpperCase()) !== -1}
                             />
-                        </Form.Item>
+                        </Form.Item>*/}
                         <Form.Item>
                             <AutoComplete
                                 defaultValue={type === "turma" ? search : null}
@@ -197,7 +197,7 @@ class Aula extends Component {
     }
 }
 const mapStateToProps = (state) => ({
-    salas: state.salas,
+    salas: state.salas.locais,
     turmas: state.turmas,
     materias: state.materias,
     professores: state.professores.professores,

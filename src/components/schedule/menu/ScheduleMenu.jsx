@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import {Menu, Divider} from "antd"
+import {Menu} from "antd"
 
 
 class ScheduleMenu extends Component {

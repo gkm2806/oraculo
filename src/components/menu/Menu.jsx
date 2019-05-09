@@ -20,7 +20,7 @@ class MenuNav extends Component {
     });
   }
   render() {
-    const { user, updateSearch, search, turmas, salas } = this.props
+    const { user, updateSearch, turmas, salas } = this.props
     const SubMenu = Menu.SubMenu;
     const MenuItemGroup = Menu.ItemGroup;
     return (
@@ -83,7 +83,7 @@ class MenuNav extends Component {
 }
 const mapState = (state) => ({
   user: state.user,
-  salas: state.salas,
+  salas: state.salas.locais,
   turmas: state.turmas
 })
 const mapDispatchToProps = dispatch => bindActionCreators({

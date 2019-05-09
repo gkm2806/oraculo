@@ -1,4 +1,5 @@
-export default (string) => {
-    string = string.toLocaleLowerCase()
-    return string.charAt(0).toUpperCase() + string.slice(1);
+export default (str) => {
+    return str.replace(/(?:^\w|[A-Z]|\b\w)/g, function(word, index) {
+        return word.toUpperCase();
+      });
 }

@@ -6,7 +6,7 @@ import {withRouter} from "react-router-dom"
 import "dotenv/config"
 import { bindActionCreators } from "redux"
 import { Creators as userActions } from "../../store/ducks/user";
-import history from "../../utils/history"
+//import history from "../../utils/history"
 
 class UserLogin extends Component {
     openNotification = (type, message = null) => {
@@ -29,6 +29,8 @@ class UserLogin extends Component {
                     description: "Usuario Conectado",
                 });
                 break;
+            default:
+                console.log(`"${type}" is not recognized`)
         }
 
     };
@@ -44,7 +46,7 @@ class UserLogin extends Component {
             if (!err) {
                 console.log("username: ", values.userName, "\n senha: ", values.password);
                 axios.post(
-                        process.env.API_URL || "http://localhost:4000" + "/api/users/login",
+                    `${process.env.API_URL || "http://localhost:4000"}/api/users/login`,
                         {
                             username: values.userName,
                             password: values.password
@@ -56,7 +58,8 @@ class UserLogin extends Component {
                             permission: response.data.permission,
                             token: response.data.token
                         })
-                        history.push('/manager')
+                        console.log("response: ", response)
+                        this.props.history.push('/manager')
                     }).catch((err) => {
                         console.log("erro", err.response.data.message)
                         this.openNotification("error", err.response.data.message)
@@ -103,4 +106,4 @@ const mapDispatchToProps = dispatch => bindActionCreators({
     ...userActions
 }, dispatch)
 
-export default connect(null, mapDispatchToProps)(WrappedForm)
+export default withRouter(connect(null, mapDispatchToProps)(WrappedForm))

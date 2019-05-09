@@ -1,7 +1,6 @@
 
 import React, { Component } from "react";
 import { Row, Col, Card } from "antd"
-import InfiniteScroll from 'react-infinite-scroller';
 import Dia from "./Dia"
 
 export default class ScheduleViewer extends Component {

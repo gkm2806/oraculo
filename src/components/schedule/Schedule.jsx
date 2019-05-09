@@ -1,10 +1,8 @@
 import React, { Component } from "react";
 import { connect } from "react-redux"
-import { Col } from "antd"
 import {bindActionCreators} from "redux"
 import {Creators as SearchActions } from "../../store/ducks/search"
 import capitalizer from "../../utils/capitalizer"
-import ScheduleMenu from "./menu/ScheduleMenu"
 import ScheduleViewer from "./viewer/ScheduleViewer"
 
 class Schedule extends Component {
@@ -23,7 +21,7 @@ class Schedule extends Component {
 
       <div style={{ width: "100%" }}>
         {aulas &&
-            <ScheduleViewer type={type} search={search.searched} aulas={aulas.filter(aula => (Object.values(aula)).includes(search.searched))} timeStamps={settings.timeStamps} />
+            <ScheduleViewer ctx={ctx} type={type} search={capitalizer(search.searched)} aulas={aulas.filter(aula => (Object.values(aula)).includes(search.searched))} timeStamps={settings.timeStamps} />
         }
       </div>
 
@@ -31,7 +29,7 @@ class Schedule extends Component {
   }
 }
 const mapStateToProps = (state,props) => ({
-  salas: state.salas,
+  salas: state.salas.locais,
   turmas: state.turmas,
   settings: state.settings,
   aulas: state.aulas.aulas,

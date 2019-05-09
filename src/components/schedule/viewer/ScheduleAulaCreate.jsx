@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import { Card, Button, Modal } from "antd"
 import Aula from "../../manager/Aula"
-import Auth from "../../../utils/Auth"
 
 class ScheduleAulaCreate extends Component {
     state = { visible: false }
