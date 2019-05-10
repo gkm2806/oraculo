@@ -18,7 +18,7 @@ const store = createStore(RootReducer, /* preloadedState, */ composeEnhancers(
   ));
   
 
-console.log(`env = ${process.env}`)
+console.log(`env = ${JSON.stringify(process.env)}`)
 console.log(`API_URL = ${process.env.API_URL}`)
 console.log(`RAZZLE_API_URL = ${process.env.RAZZLE_API_URL}`)
 console.log(`RAZZLE_RUNTIME_API_URL = ${process.env.RAZZLE_API_URL}`)
