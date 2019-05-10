@@ -40,8 +40,8 @@ class ScheduleAula extends Component {
         const { aula } = this.props
         return (
             <div>
-                <Card className="hoverable aula" onClick={this.showModal}>
-                    {aula.materia}
+                <Card style={{backgroundColor: `${aula.color}` }} className="hoverable aula scheduleCard" onClick={this.showModal}>
+                    <CardInside aula={aula} />
                 </Card>
                 <Modal
                     title={aula.materia}
@@ -61,6 +61,20 @@ class ScheduleAula extends Component {
             </div>
         )
     }
+}
+
+const CardInside = ({aula}) => {
+    return (
+        <div style={{display:"flex"}}>
+            <div style={{ fontSize: "1rem", width: "80%", height:"100%" }}>
+                {aula.materia}
+            </div>
+            <div style={{ float: "right", fontSize: "0.6rem",width: "30%", height:"100%", lineHeight: "1rem" }}>
+                | {aula.sala} <br />
+                | {aula.turma}
+            </div>
+        </div>
+    )
 }
 const mapStateToProps = (state) => ({
     user: state.user

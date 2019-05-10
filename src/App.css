@@ -1,14 +1,21 @@
 @import '~antd/dist/antd.css';
 
 .aula{
-  background-color: #eee
+  color: white
+}
+
+.ant-card-body{
+  padding: 10% !important;
+  height: 5rem;
+  line-height: 2.5rem;
 }
 
 .hoverable:hover{
   cursor: pointer;
-  background-color: rgb(197, 197, 197);
-  color: #555
+  color: #bbb;
+  margin: 1em solid black 
 }
+
 .ant-form-item{
   padding: 0 1em 0 1em !important
 }

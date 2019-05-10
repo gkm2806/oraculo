@@ -96,7 +96,6 @@ class Aula extends Component {
         function mapObj(array) {
             return array.map((obj, i) => ({ "text": obj.nome, "value": obj.nome }))
         }
-        console.log(salas)
         let diasArray = settings.dias.map((dia, i) => ({ "text": dia, "value": dia }))
         let inicio = moment(time, "HH:mm"), fim = moment(inicio).add(45, 'minutes')
 
@@ -127,7 +126,7 @@ class Aula extends Component {
                                 />
                             )}
                         </Form.Item>
-                        {/*<Form.Item>
+                        <Form.Item>
                             <AutoComplete
                                 defaultValue={type === "sala" ? search : null}
                                 name="sala"
@@ -137,7 +136,7 @@ class Aula extends Component {
                                 onChange={(e) => { this.setState(prev => ({ aula:{...prev.aula, sala: e }}))}}
                                 filterOption={(inputValue, option) => option.props.children.toUpperCase().indexOf(inputValue.toUpperCase()) !== -1}
                             />
-                        </Form.Item>*/}
+                        </Form.Item>
                         <Form.Item>
                             <AutoComplete
                                 defaultValue={type === "turma" ? search : null}
@@ -198,7 +197,7 @@ class Aula extends Component {
 }
 const mapStateToProps = (state) => ({
     salas: state.salas.locais,
-    turmas: state.turmas,
+    turmas: state.turmas.turmas,
     materias: state.materias,
     professores: state.professores.professores,
     settings: state.settings,

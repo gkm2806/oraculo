@@ -32,7 +32,7 @@ class ScheduleAulaCreate extends Component {
         const { dia, time, search, type } = this.props
         return (
             <div>
-                <Card className="hoverable" onClick={this.showModal}>
+                <Card className="hoverable scheduleCard" onClick={this.showModal}>
                     Vazio
                 </Card>
                 <Modal
