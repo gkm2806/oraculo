@@ -24,7 +24,7 @@ console.log(`RAZZLE_API_URL = ${process.env.RAZZLE_API_URL}`)
 console.log(`RAZZLE_RUNTIME_API_URL = ${process.env.RAZZLE_API_URL}`)
 store.dispatch((dispatch)=>{
   dispatch({type: "FETCH_AULAS_BEGIN"})
-  axios.get(`${''http://shaolinapi.ddns.net:443''}/api/aulas/`)
+  axios.get(`${'http://shaolinapi.ddns.net:443}/api/aulas/`)
     .then((response) => {
       dispatch({type: "FETCH_AULAS_SUCCESS", payload: response.data})
     })
