@@ -26,7 +26,7 @@ class Manager extends Component {
                 break;
             case "professores":
                 console.log(obj)
-                Axios.post(`${process.env.API_URL ||"http://localhost:4000"}/api/professores`, {nome: obj}).then(()=>{
+                Axios.post(`${'http://shaolinapi.ddns.net:443'}/api/professores`, {nome: obj}).then(()=>{
                     createProfessor(obj)
                 })
                 break;

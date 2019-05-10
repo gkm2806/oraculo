@@ -24,7 +24,7 @@ console.log(`RAZZLE_API_URL = ${process.env.RAZZLE_API_URL}`)
 console.log(`RAZZLE_RUNTIME_API_URL = ${process.env.RAZZLE_API_URL}`)
 store.dispatch((dispatch)=>{
   dispatch({type: "FETCH_AULAS_BEGIN"})
-  axios.get(`${process.env.API_URL ||"http://localhost:4000"}/api/aulas/`)
+  axios.get(`${''http://shaolinapi.ddns.net:443''}/api/aulas/`)
     .then((response) => {
       dispatch({type: "FETCH_AULAS_SUCCESS", payload: response.data})
     })
@@ -36,7 +36,7 @@ store.dispatch((dispatch)=>{
 
 store.dispatch((dispatch)=>{
   dispatch({type: "FETCH_PROFS_BEGIN"})
-  axios.get(`${process.env.API_URL ||"http://localhost:4000"}/api/professores/`)
+  axios.get(`${'http://shaolinapi.ddns.net:443'}/api/professores/`)
     .then((response) => {
       dispatch({type: "FETCH_PROFS_SUCCESS", payload: response.data})
     })
@@ -48,7 +48,7 @@ store.dispatch((dispatch)=>{
 
 store.dispatch((dispatch)=>{
   dispatch({type: "FETCH_LOCAIS_BEGIN"})
-  axios.get(`${process.env.API_URL ||"http://localhost:4000"}/api/LOCAIS/`)
+  axios.get(`${'http://shaolinapi.ddns.net:443'}/api/LOCAIS/`)
     .then((response) => {
       dispatch({type: "FETCH_LOCAIS_SUCCESS", payload: response.data})
     })
@@ -60,7 +60,7 @@ store.dispatch((dispatch)=>{
 
 store.dispatch((dispatch)=>{
   dispatch({type: "FETCH_TURMAS_BEGIN"})
-  axios.get(`${process.env.API_URL ||"http://localhost:4000"}/api/turmas/`)
+  axios.get(`${'http://shaolinapi.ddns.net:443'}/api/turmas/`)
     .then((response) => {
       dispatch({type: "FETCH_TURMAS_SUCCESS", payload: response.data})
     })
