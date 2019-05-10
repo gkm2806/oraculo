@@ -17,6 +17,9 @@ const store = createStore(RootReducer, /* preloadedState, */ composeEnhancers(
     applyMiddleware(...middleware)
   ));
   
+
+console.log(`env = ${process.env}`)
+console.log(`API_URL = ${process.env.API_URL}`)
 store.dispatch((dispatch)=>{
   dispatch({type: "FETCH_AULAS_BEGIN"})
   axios.get(`${process.env.API_URL ||"http://localhost:4000"}/api/aulas/`)
