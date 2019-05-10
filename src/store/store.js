@@ -53,6 +53,18 @@ store.dispatch((dispatch)=>{
     })
 })
 
+store.dispatch((dispatch)=>{
+  dispatch({type: "FETCH_TURMAS_BEGIN"})
+  axios.get(`${process.env.API_URL ||"http://localhost:4000"}/api/turmas/`)
+    .then((response) => {
+      dispatch({type: "FETCH_TURMAS_SUCCESS", payload: response.data})
+    })
+    .catch((err)=>{
+      console.log(err)
+      dispatch({type: "FETCH_TURMAS_FAILURE", payload: err})
+    })
+})
+
 
 store.dispatch((dispatch)=>{dispatch({type: "FETCH_ALL_END"})})
 

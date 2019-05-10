@@ -84,7 +84,7 @@ class MenuNav extends Component {
 const mapState = (state) => ({
   user: state.user,
   salas: state.salas.locais,
-  turmas: state.turmas
+  turmas: state.turmas.turmas
 })
 const mapDispatchToProps = dispatch => bindActionCreators({
   ...SearchActions

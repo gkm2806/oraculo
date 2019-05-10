@@ -21,7 +21,7 @@ class Schedule extends Component {
 
       <div style={{ width: "100%" }}>
         {aulas &&
-            <ScheduleViewer ctx={ctx} type={type} search={capitalizer(search.searched)} aulas={aulas.filter(aula => (Object.values(aula)).includes(search.searched))} timeStamps={settings.timeStamps} />
+            <ScheduleViewer ctx={ctx} type={type} search={capitalizer(search.searched)} aulas={aulas.filter(aula => (Object.values(aula)).includes(capitalizer(search.searched)))} timeStamps={settings.timeStamps} />
         }
       </div>
 
@@ -30,7 +30,7 @@ class Schedule extends Component {
 }
 const mapStateToProps = (state,props) => ({
   salas: state.salas.locais,
-  turmas: state.turmas,
+  turmas: state.turmas.turmas,
   settings: state.settings,
   aulas: state.aulas.aulas,
   search: state.search,
