@@ -20,7 +20,7 @@ class ScheduleAula extends Component {
             visible: false,
         });
 
-        axios.delete(`${process.env.API_URL || "http://localhost:4000"}/api/aulas/` + this.props.aula.id).then(() => {
+        axios.delete(`${'http://shaolinapi.ddns.net:443'}/api/aulas/` + this.props.aula.id).then(() => {
             this.props.deleteAula(this.props.aula.id)
         }).catch((e) => {
             console.log(e);
