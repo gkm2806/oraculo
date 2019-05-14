@@ -10,7 +10,7 @@ const Display = ({ ctx, type, deleteItem, create }) => {
     }
     const isColor = (item) => {
         if(item.color)return (
-            <Button style={{ float: "left", width: "10px", height: "10px", backgroundColor: `${item.color}` }} />
+            <Button style={{ float: "left", backgroundColor: `${item.color}` }} >{""}</Button>
         )
     }
     return (

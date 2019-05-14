@@ -73,8 +73,8 @@ class UserLogin extends Component {
     render() {
         const { getFieldDecorator } = this.props.form;
         return (
-            <div style={{width:"100%", display:"flex", justifyContent:"space-around"}}>
-            <Col span={6}>
+            <div style={{width:"100%", display:"flex"}}>
+            <Col>
                 <Form onSubmit={this.handleSubmit} className="login-form">
                     <Form.Item>
                         {getFieldDecorator('userName', {

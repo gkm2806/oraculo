@@ -15,7 +15,7 @@ export default class ScheduleViewer extends Component {
                     <Col span={3} >
                         <Row><header> Hora </header></Row>
                         {timeStamps.map((time) => {
-                            return (<Row key={time} ><Card style={{ backgroundColor: "#999", padding: 0 }}>{time}</Card></Row>)
+                            return (<Row key={time} ><Card  className="timeTable" style={{ backgroundColor: "#999", padding: 0 }}>{time}</Card></Row>)
                         })}
                     </Col>
 

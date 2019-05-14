@@ -2,10 +2,20 @@ import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 import { withRouter } from "react-router"
 import { connect } from "react-redux";
-import { Menu, Icon, Input } from 'antd';
+import { Menu, Icon, Input, Dropdown } from 'antd';
 import { Creators as SearchActions } from "../../store/ducks/search"
+import { Creators as userActions } from "../../store/ducks/user"
+
 import { bindActionCreators } from "redux"
 import moment from "moment";
+import User from "../user/User"
+
+const logoutDropdown = () => {
+  this.setState({
+    visible: false
+  })
+  this.props.logoutUser()
+}
 
 class MenuNav extends Component {
   state = {
@@ -20,7 +30,7 @@ class MenuNav extends Component {
     });
   }
   render() {
-    const { user, updateSearch, turmas, salas } = this.props
+    const { user, updateSearch, turmas, salas, logoutUser } = this.props
     const SubMenu = Menu.SubMenu;
     const MenuItemGroup = Menu.ItemGroup;
     return (
@@ -43,7 +53,7 @@ class MenuNav extends Component {
           <MenuItemGroup key="g1">
           {turmas.map((obj) => {
             return (
-              <Menu.Item key={obj.nome} > <Link to={`/turmas/${obj.nome}`} >{obj.nome} </Link> </Menu.Item>)
+              <Menu.Item key={obj._id} > <Link to={`/turmas/${obj.nome}`} >{obj.nome} </Link> </Menu.Item>)
           })}
           </MenuItemGroup>
         </SubMenu>
@@ -52,10 +62,15 @@ class MenuNav extends Component {
           <Icon type="clock-circle" /> {moment().format("HH:mm")}
         </Menu.Item>
         <Menu.Item key="user" style={{ float: "right" }}>
-          <Link to="/login">
+          <Link to={!user.userName ? "/login" : "/user"}>
             <Icon type="user" /> Usuario
           </Link>
         </Menu.Item>
+
+        <Menu.Item key="test" style={{ float: "right" }}>
+          <User user={user} logout={logoutUser}/>
+        </Menu.Item>
+
         {(user.permission >= 1) &&
           <Menu.Item key="manager" style={{ float: "right" }}>
             <Link to="/manager">
@@ -87,7 +102,8 @@ const mapState = (state) => ({
   turmas: state.turmas.turmas
 })
 const mapDispatchToProps = dispatch => bindActionCreators({
-  ...SearchActions
+  ...SearchActions,
+  ...userActions
 }, dispatch)
 
 export default withRouter(connect(mapState, mapDispatchToProps)(MenuNav));

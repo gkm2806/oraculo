@@ -9,6 +9,7 @@ import Schedule from "./components/schedule/Schedule"
 import Manager from "./components/manager/Manager"
 import Aula from "./components/manager/Aula"
 import UserLogin from "./components/user/UserLogin"
+import UserProfile from "./components/user/UserProfile"
 import NoAcess from "./components/NoAcess"
 import Auth from "./utils/Auth.js"
 
@@ -40,9 +41,14 @@ class App extends Component {
                 component={() => <Schedule type="turmas" ctx={this.props.turmas} />}
                 path="/turmas/" 
               />
+              <Route 
+                component={() => <Schedule/>}
+                path="/search/:search" 
+              />
               <Route component={Auth(Manager,user,1,NoAcess)} exact path="/manager" ></Route>
               <Route component={Auth(Aula,user,1,NoAcess)} exact path="/aula" ></Route>
               <Route component={UserLogin} exact path="/login" ></Route>
+              <Route component={Auth(UserProfile,user,1,NoAcess)} exact path="/user" ></Route>
           </Switch>
           )}
         </main>

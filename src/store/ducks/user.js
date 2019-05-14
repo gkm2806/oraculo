@@ -15,7 +15,9 @@ export default function turmas(state = initialState, action) {
         case Types.LOGIN:
             return {...action.payload.user}
         case Types.LOGOUT:
-            return {}
+            return {
+                initialState
+            }
         default: return state
     }
 }
