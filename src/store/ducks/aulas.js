@@ -41,12 +41,12 @@ export default function aulas(state = initialState, action) {
         case Types.UPDATE:
             return {
                 ...state,
-                aulas: [...state.aulas.filter(aula => aula.id !== action.payload.aula.id), Object.assign({}, action.payload)]
+                aulas: [...state.aulas.filter(aula => aula._id !== action.payload.aula.id), Object.assign({}, action.payload)]
             }
         case Types.REMOVE:
             return {
                 ...state,
-                aulas: [...state.aulas.filter(aula => aula.id !== action.payload.aulaId)]
+                aulas: [...state.aulas.filter(aula => aula._id !== action.payload.aulaId)]
             }
         default: return state
     }
