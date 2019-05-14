@@ -36,7 +36,7 @@ store.dispatch((dispatch)=>{
 
 store.dispatch((dispatch)=>{
   dispatch({type: "FETCH_PROFS_BEGIN"})
-  axios.get(`${"http://shaolinapi.ddns.net:443"}/api/professores/`)
+  axios.get(`${'http://shaolinapi.ddns.net:443'}/api/professores/`)
     .then((response) => {
       dispatch({type: "FETCH_PROFS_SUCCESS", payload: response.data})
     })
