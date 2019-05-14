@@ -20,8 +20,10 @@ class ScheduleAula extends Component {
             visible: false,
         });
 
-        axios.delete(`${'http://shaolinapi.ddns.net:443'}/api/aulas/` + this.props.aula.id).then(() => {
-            this.props.deleteAula(this.props.aula.id)
+        axios.delete(`${'http://shaolinapi.ddns.net:443'}/api/aulas/${this.props.aula._id}`).then(() => {
+            this.props.deleteAula(this.props.aula._id)
+            console.log(this.props.aula._id)
+            console.log("WTFFF")
         }).catch((e) => {
             console.log(e);
         })
