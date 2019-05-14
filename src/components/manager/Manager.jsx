@@ -49,7 +49,12 @@ class Manager extends Component {
                 deleteSala(obj.id)
                 break;
             case "professores":
-                deleteProfessor(obj.id)
+                Axios.delete(`${'http://shaolinapi.ddns.net:443'}/api/professores/${obj.id}`).then(()=>{
+                    deleteProfessor(obj.id)
+                    console.log("Deletando: Wtf?")
+                }).catch((e)=>{
+                    console.log("Delete error: ", e)
+                })
                 break;
             default:
                 alert("Nenhuma action type passada pelo obj ")
