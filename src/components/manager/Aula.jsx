@@ -10,16 +10,15 @@ import { Creators as aulaAction } from "../../store/ducks/aulas"
 import Auth from "../../utils/Auth"
 
 const aulaCriada = (ok, type, err = null) => {
-    console.log(ok)
     if (ok) {
         notification[type]({
-            message: 'Aula criada com sucesso!',
+            message: 'Aula criada com sucesso!'
         })
     } else {
         console.log(err.response.data)
         notification[type]({
             message: "Falha ao criar aula",
-            description: "",
+            description: err.response.data,
         })
     }
 };
@@ -70,7 +69,7 @@ class Aula extends Component {
                 this.setState({visible:true})
                 axios({
                     method: 'POST',
-                    url: `${'http://shaolinapi.ddns.net:443'}/api/aulas/`, 
+                    url: `${'http://201.2.48.240:443'}/api/aulas/`, 
                     data: this.state.aula, 
                     headers: {'Authorization': "Bearer "+this.props.user.token}
                 })

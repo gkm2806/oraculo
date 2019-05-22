@@ -46,7 +46,7 @@ class UserLogin extends Component {
             if (!err) {
                 console.log("username: ", values.userName, "\n senha: ", values.password);
                 axios.post(
-                    `${'http://shaolinapi.ddns.net:443'}/api/users/login`,
+                    `${'http://201.2.48.240:443'}/api/users/login`,
                         {
                             username: values.userName,
                             password: values.password
