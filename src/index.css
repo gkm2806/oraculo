@@ -6,6 +6,21 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  height: 100% !important;
+}
+
+#root{
+  height: 100% !important;
+}
+
+.App{
+  height: 100% !important;
+}
+
+main{
+  height: 100% !important;
+  display: table-cell;
+  vertical-align: top;
 }
 
 code {
