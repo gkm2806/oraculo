@@ -11,7 +11,7 @@ export default class ScheduleViewer extends Component {
         const { timeStamps, aulas, search, type } = this.props
         return (
             (search ? (
-                <div style={scrollable}>
+                <div>
                     <Col span={3} >
                         <Row><header> Hora </header></Row>
                         {timeStamps.map((time) => {
@@ -19,13 +19,13 @@ export default class ScheduleViewer extends Component {
                         })}
                     </Col>
 
-                    <Dia type={type} search={search} timeStamps={timeStamps} dNome="Domingo" key="Domingo" aulas={aulas.filter(aula => aula.dia === "Domingo")} />
-                    <Dia type={type} search={search} timeStamps={timeStamps} dNome="Segunda" key="Segunda" aulas={aulas.filter(aula => aula.dia === "Segunda")} />
-                    <Dia type={type} search={search} timeStamps={timeStamps} dNome="Terça" key="Terça" aulas={aulas.filter(aula => aula.dia === "Terça")} />
-                    <Dia type={type} search={search} timeStamps={timeStamps} dNome="Quarta" key="Quarta" aulas={aulas.filter(aula => aula.dia === "Quarta")} />
-                    <Dia type={type} search={search} timeStamps={timeStamps} dNome="Quinta" key="Quinta" aulas={aulas.filter(aula => aula.dia === "Quinta")} />
-                    <Dia type={type} search={search} timeStamps={timeStamps} dNome="Sexta" key="Sexta" aulas={aulas.filter(aula => aula.dia === "Sexta")} />
-                    <Dia type={type} search={search} timeStamps={timeStamps} dNome="Sabado" key="Sabado" aulas={aulas.filter(aula => aula.dia === "Sabado")} />
+                    <Dia user={this.props.user} type={type} search={search} timeStamps={timeStamps} dNome="Domingo" key="Domingo" aulas={aulas.filter(aula => aula.dia === "Domingo")} />
+                    <Dia user={this.props.user} type={type} search={search} timeStamps={timeStamps} dNome="Segunda" key="Segunda" aulas={aulas.filter(aula => aula.dia === "Segunda")} />
+                    <Dia user={this.props.user} type={type} search={search} timeStamps={timeStamps} dNome="Terça" key="Terça" aulas={aulas.filter(aula => aula.dia === "Terça")} />
+                    <Dia user={this.props.user} type={type} search={search} timeStamps={timeStamps} dNome="Quarta" key="Quarta" aulas={aulas.filter(aula => aula.dia === "Quarta")} />
+                    <Dia user={this.props.user} type={type} search={search} timeStamps={timeStamps} dNome="Quinta" key="Quinta" aulas={aulas.filter(aula => aula.dia === "Quinta")} />
+                    <Dia user={this.props.user} type={type} search={search} timeStamps={timeStamps} dNome="Sexta" key="Sexta" aulas={aulas.filter(aula => aula.dia === "Sexta")} />
+                    <Dia user={this.props.user} type={type} search={search} timeStamps={timeStamps} dNome="Sabado" key="Sabado" aulas={aulas.filter(aula => aula.dia === "Sabado")} />
                 </div>
 
             ) : (

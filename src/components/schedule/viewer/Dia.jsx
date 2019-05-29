@@ -3,7 +3,7 @@ import { Row, Col } from "antd"
 
 import ScheduleAula from "./ScheduleAula.jsx";
 import Create from "./ScheduleAulaCreate"
-const Dia = ({ aulas, dNome, timeStamps,search, type }) => {
+const Dia = ({ aulas, dNome, timeStamps,search, type, user }) => {
     return (
         <Col span={3}>
             <Row> <header> {dNome} </header> </Row>
@@ -13,7 +13,7 @@ const Dia = ({ aulas, dNome, timeStamps,search, type }) => {
                 return (<Row key={time}>
                      {bool ? 
                         (<ScheduleAula className="ScheduleDot" aula={bool} />) : 
-                        (<Create type={type} search={search} dia={dNome} time={time} className="ScheduleDot" /> )} 
+                        (<Create user={user} type={type} search={search} dia={dNome} time={time} className="ScheduleDot" /> )} 
                 </Row>)
             })}
         </Col>
