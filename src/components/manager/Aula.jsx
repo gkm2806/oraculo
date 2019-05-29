@@ -8,18 +8,22 @@ import { Row, Spin, notification, Col, Form, Button, AutoComplete, TimePicker } 
 import "dotenv/config"
 import { Creators as aulaAction } from "../../store/ducks/aulas"
 import Auth from "../../utils/Auth"
+import ScheduleAula from "../schedule/viewer/ScheduleAula.noStore"
 
-const aulaCriada = (ok, type, err = null) => {
+const aulaCriada = (ok, type="error", err = null) => {
     if (ok) {
         notification[type]({
             message: 'Aula criada com sucesso!'
         })
     } else {
-        console.log(err.response.data)
-        notification[type]({
-            message: "Falha ao criar aula",
-            description: err.response.data,
-        })
+        if(err.response.status == 409){
+            console.log(err.response)
+            notification[type]({
+                message: `colisao de ${err.response.data.aviso}`,
+                description: <ScheduleAula conflito={err.response.data.aviso} aula={err.response.data[0]}> </ScheduleAula>
+            })
+        }
+        
     }
 };
 
@@ -69,7 +73,7 @@ class Aula extends Component {
                 this.setState({visible:true})
                 axios({
                     method: 'POST',
-                    url: `${'http://201.2.48.240:443'}/api/aulas/`, 
+                    url: `${'http://shaolinapi.ddns.net:443'}/api/aulas/`, 
                     data: this.state.aula, 
                     headers: {'Authorization': "Bearer "+this.props.user.token}
                 })
