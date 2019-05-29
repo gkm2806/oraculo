@@ -1,17 +1,21 @@
 import React, { Component } from "react";
 import { Card, Modal } from "antd"
+
 import { connect } from "react-redux"
 import { Creators as aulaAction } from "../../../store/ducks/aulas"
 import { bindActionCreators } from "redux";
 import axios from "axios"
 import "dotenv/config"
+import Auth from "../../../utils/Auth"
+
 class ScheduleAula extends Component {
     state = { visible: false }
 
     showModal = () => {
         this.setState({
             visible: true,
-        });
+        })
+
     }
 
     handleOk = (e) => {
@@ -20,7 +24,7 @@ class ScheduleAula extends Component {
             visible: false,
         });
 
-        axios.delete(`${'http://201.2.48.240:443'}/api/aulas/${this.props.aula._id}`).then(() => {
+        axios.delete(`${'http://shaolinapi.ddns.net:443'}/api/aulas/${this.props.aula._id}`).then(() => {
             this.props.deleteAula(this.props.aula._id)
             console.log(this.props.aula._id)
             console.log("WTFFF")
@@ -42,7 +46,7 @@ class ScheduleAula extends Component {
         const { aula } = this.props
         return (
             <div>
-                <Card style={{backgroundColor: `${aula.color}` }} className="hoverable aula scheduleCard" onClick={this.showModal}>
+                <Card style={{ backgroundColor: `${aula.color}` }} className="hoverable aula scheduleCard" onClick={this.showModal}>
                     <CardInside aula={aula} />
                 </Card>
                 <Modal
@@ -65,13 +69,13 @@ class ScheduleAula extends Component {
     }
 }
 
-const CardInside = ({aula}) => {
+const CardInside = ({ aula }) => {
     return (
-        <div style={{display:"flex"}}>
-            <div style={{ fontSize: "1rem", width: "80%", height:"100%" }}>
+        <div style={{ display: "flex" }}>
+            <div style={{ fontSize: "1rem", width: "80%", height: "100%" }}>
                 {aula.materia}
             </div>
-            <div style={{ float: "right", fontSize: "0.6rem",width: "30%", height:"100%", lineHeight: "1rem" }}>
+            <div style={{ float: "right", fontSize: "0.6rem", width: "30%", height: "100%", lineHeight: "1rem" }}>
                 | {aula.sala} <br />
                 | {aula.turma}
             </div>
