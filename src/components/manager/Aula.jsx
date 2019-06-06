@@ -19,8 +19,8 @@ const aulaCriada = (ok, type="error", err = null) => {
         if(err.response.status == 409){
             console.log(err.response)
             notification[type]({
-                message: `colisao de ${err.response.data.aviso}`,
-                description: <ScheduleAula conflito={err.response.data.aviso} aula={err.response.data[0]}> </ScheduleAula>
+                message: `colisao de ${err.response.data[0].aviso}`,
+                description: <ScheduleAula conflito={err.response.data[0].aviso} aula={err.response.data[0]}> </ScheduleAula>
             })
         }
         
