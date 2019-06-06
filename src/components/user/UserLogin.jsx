@@ -70,7 +70,7 @@ class UserLogin extends Component {
                         })
                     ):(
                         axios.post(
-                            `${'http://shaolinapi.ddns.net:443'}/api/users/login`,
+                            `${'https://shaolinbackend.herokuapp.com'}/api/users/login`,
                             {
                                 username: values.userName,
                                 password: values.password

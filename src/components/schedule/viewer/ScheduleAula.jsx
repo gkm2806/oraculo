@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Card, Modal } from "antd"
+import { Card, Modal, Descriptions } from "antd"
 
 import { connect } from "react-redux"
 import { Creators as aulaAction } from "../../../store/ducks/aulas"
@@ -24,7 +24,7 @@ class ScheduleAula extends Component {
             visible: false,
         });
 
-        axios.delete(`${'http://shaolinapi.ddns.net:443'}/api/aulas/${this.props.aula._id}`).then(() => {
+        axios.delete(`${'https://shaolinbackend.herokuapp.com'}/api/aulas/${this.props.aula._id}`).then(() => {
             this.props.deleteAula(this.props.aula._id)
             console.log(this.props.aula._id)
             console.log("WTFFF")
@@ -57,11 +57,10 @@ class ScheduleAula extends Component {
                     okText="apagar"
                     okType='danger'
                 >
-                    <p>Inicio: {aula.horaInicio}</p>
-                    <p>Fim: {aula.horaFim} </p>
+                    <p>Materia: {aula.materia}</p>
+                    <p>Horario: {aula.horaInicio} - {aula.horaFim}</p>
                     <p>Turma: {aula.turma}</p>
                     <p>Local: {aula.sala}</p>
-                    <p>Materia: {aula.materia}</p>
                     <p>Professor: {aula.professor}</p>
                 </Modal>
             </div>
@@ -75,7 +74,7 @@ const CardInside = ({ aula }) => {
             <div style={{ fontSize: "1rem", width: "80%", height: "100%" }}>
                 {aula.materia}
             </div>
-            <div style={{ float: "right", fontSize: "0.6rem", width: "30%", height: "100%", lineHeight: "1rem" }}>
+            <div className="sideCard" style={{ float: "right", fontSize: "0.6rem", width: "30%", height: "100%", lineHeight: "1rem" }}>
                 | {aula.sala} <br />
                 | {aula.turma}
             </div>

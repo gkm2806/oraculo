@@ -73,7 +73,7 @@ class Aula extends Component {
                 this.setState({visible:true})
                 axios({
                     method: 'POST',
-                    url: `${'http://shaolinapi.ddns.net:443'}/api/aulas/`, 
+                    url: `${'https://shaolinbackend.herokuapp.com'}/api/aulas/`, 
                     data: this.state.aula, 
                     headers: {'Authorization': "Bearer "+this.props.user.token}
                 })
