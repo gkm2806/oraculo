@@ -47,7 +47,6 @@ class App extends Component {
               />
               <Route component={Auth(Manager,user,1,NoAcess)} exact path="/manager" ></Route>
               <Route component={Auth(Aula,user,1,NoAcess)} exact path="/aula" ></Route>
-              <Route component={UserLogin} exact path="/login" ></Route>
               <Route component={Auth(UserProfile,user,1,NoAcess)} exact path="/user" ></Route>
           </Switch>
           )}
