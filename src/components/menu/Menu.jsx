@@ -57,17 +57,20 @@ class MenuNav extends Component {
           })}
           </MenuItemGroup>
         </SubMenu>
+        <Menu.Item key="serach">
+          <Input.Search
+            placeholder="Buscador"
+            onSearch={value => updateSearch(value)}
+            style={{ width: 200 }}
+          />
+        </Menu.Item>
+
 
         <Menu.Item key="clock" disabled style={{ float: "right" }}>
           <Icon type="clock-circle" /> {moment().format("HH:mm")}
         </Menu.Item>
-        <Menu.Item key="user" style={{ float: "right" }}>
-          <Link to={!user.userName ? "/login" : "/user"}>
-            <Icon type="user" /> Usuario
-          </Link>
-        </Menu.Item>
 
-        <Menu.Item key="test" style={{ float: "right" }}>
+        <Menu.Item key="user" style={{ float: "right" }}>
           <User user={user} logout={logoutUser}/>
         </Menu.Item>
 
@@ -85,13 +88,7 @@ class MenuNav extends Component {
           </Link>
           </Menu.Item>
         }
-        <Menu.Item key="serach" style={{ float: "right" }}>
-          <Input.Search
-            placeholder="Buscador"
-            onSearch={value => updateSearch(value)}
-            style={{ width: 200 }}
-          />
-        </Menu.Item>
+        
       </Menu>
     )
   }

@@ -92,7 +92,7 @@ class UserLogin extends Component {
         });
     }
     componentDidMount() {
-        this.openNotification("info")
+        //this.openNotification("info")
     }
     render() {
         const { getFieldDecorator } = this.props.form;
@@ -100,7 +100,6 @@ class UserLogin extends Component {
         return (
             <div style={{ width: "100%", display: "flex" }}>
                 <Col>
-                    <Switch onChange={()=> this.setState({isSuap : !isSuap})} checkedChildren="suap" unCheckedChildren="ifms" />
                     <Form onSubmit={this.handleSubmit} className="login-form">
                         <Form.Item>
                             {getFieldDecorator('userName', {
@@ -119,7 +118,8 @@ class UserLogin extends Component {
                         <Form.Item>
                             <Button type="primary" htmlType="submit" className="login-form-button">
                                 Log in
-                        </Button>
+                            </Button>
+                            <Switch style={{marginLeft:"15%"}} onChange={()=> this.setState({isSuap : !isSuap})} checkedChildren="suap" unCheckedChildren="ifms" />
                         </Form.Item>
                     </Form>
                 </Col>

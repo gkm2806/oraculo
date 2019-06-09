@@ -10,7 +10,7 @@ class User extends Component {
         return (
         <Dropdown overlay={<MenuUser user={user} logout={logout} />} >
           <a className="ant-dropdown-link" href="#">
-            TESTE <Icon type="down" />
+          <Icon type="user" /> usuário <Icon type="down" />
           </a>
         </Dropdown>
             
@@ -21,7 +21,10 @@ class User extends Component {
 const MenuUser = ({user, logout}) => {
   return (
   <Menu >
-      {user && !user.userName ? (<UserLogin />) : (<UserProfile logout={logout} user={user} />)}
+      {user && !user.userName 
+        ? (<UserLogin />) 
+        : (<UserProfile logout={logout} user={user} />)
+      }
   </Menu>
 )}
 
