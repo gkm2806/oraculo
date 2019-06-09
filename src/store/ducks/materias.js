@@ -3,7 +3,10 @@
 export const Types = {
     ADD: "materia/ADD",
     UPDATE: "materia/UPDATE",
-    REMOVE: "materia/REMOVE"
+    REMOVE: "materia/REMOVE",
+    BEGIN: 'FETCH_MATERIAS_BEGIN',
+    SUCCESS: 'FETCH_MATERIAS_SUCCESS',
+    FAILURE: 'FETCH_MATERIAS_FAILURE'
 };
 
 const initialState = [

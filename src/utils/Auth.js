@@ -1,4 +1,4 @@
-const Auth = (Component, user, permission,fail,loading=false) => 
+const Auth = (Component, user, permission,fail= null,loading=false) => 
   (user.permission >= permission && !loading) ? (
     Component
   ):(

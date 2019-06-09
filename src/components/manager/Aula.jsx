@@ -11,11 +11,13 @@ import Auth from "../../utils/Auth"
 import ScheduleAula from "../schedule/viewer/ScheduleAula.noStore"
 
 const aulaCriada = (ok, type="error", err = null) => {
+    
     if (ok) {
         notification[type]({
             message: 'Aula criada com sucesso!'
         })
     } else {
+        console.log(err)
         if(err.response.status == 409){
             console.log(err.response)
             notification[type]({
