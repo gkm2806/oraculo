@@ -10,51 +10,40 @@ import { Creators as aulaAction } from "../../store/ducks/aulas"
 import Auth from "../../utils/Auth"
 import ScheduleAula from "../schedule/viewer/ScheduleAula.noStore"
 
-const aulaCriada = (ok, type="error", err = null) => {
-    
+const aulaCriada = (ok, type = "error", err = null) => {
+
     if (ok) {
         notification[type]({
             message: 'Aula criada com sucesso!'
         })
     } else {
         console.log(err)
-        if(err.response.status == 409){
+        if (err.response.status == 409) {
             console.log(err.response)
             notification[type]({
                 message: `colisao de ${err.response.data[0].aviso}`,
                 description: <ScheduleAula conflito={err.response.data[0].aviso} aula={err.response.data[0]}> </ScheduleAula>
             })
         }
-        
+
     }
 };
 
 class Aula extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            aula: { materia: "", turma: "", professor: "", sala: "", dia: "", horaInicio: "", horaFim: "", id: 0, creationdate: "" }, 
-            loading: true,
-
-        };
-    }
-
-    componentDidMount() {
-        const { type,user, search, dia, time } = this.props
+    load() {
+        const { type, user, search, dia, time } = this.props
         let inicio = moment(time, "HH:mm"), fim = moment(inicio).add(45, 'minutes')
-        user.permission == 2 && this.setState(prev =>({
-            aula: {
-                ...prev.aula,
-                professor: user.username
-            }
-        }))
+        
         type ? (
-            this.setState(prev =>({
+            this.setState(prev => ({
                 aula: {
                     ...prev.aula,
                     horaInicio: inicio.format("HH:mm"),
                     horaFim: fim.format("HH:mm"),
                     dia: dia,
+                    sala: "",
+                    turma: "",
+                    proefessor: user.permission == 2 ? (user.username) : (""),
                     [type]: search
                 }
             }))
@@ -62,14 +51,27 @@ class Aula extends Component {
                 console.log("Sem argumentos")
             )
         this.setState(prev => ({
-            aula:{
+            aula: {
                 ...prev.aula,
                 creationdate: inicio.format("YY/MM/DD")
             },
             loading: false,
             visible: false
-            
+
         }))
+    }
+
+    constructor(props) {
+        super(props);
+        this.state = {
+            aula: { materia: "", turma: "", professor: "", sala: "", dia: "", horaInicio: "", horaFim: "", id: 0, creationdate: "" },
+            loading: false,
+
+        };
+    }
+
+    componentDidMount() {
+        this.load()
     }
 
     dispatch = (obj) => {
@@ -77,12 +79,12 @@ class Aula extends Component {
         this.props.user.permission == 1 && (this.state.aula.professor = this.props.user.username)
         this.props.form.validateFields((err, values) => {
             if (!err) {
-                this.setState({visible:true})
+                this.setState({ visible: true })
                 axios({
                     method: 'POST',
-                    url: `${process.env.REACT_APP_API_URL}/api/aulas/`, 
-                    data: this.state.aula, 
-                    headers: {'Authorization': "Bearer "+this.props.user.token}
+                    url: `${process.env.REACT_APP_API_URL}/api/aulas/`,
+                    data: this.state.aula,
+                    headers: { 'Authorization': "Bearer " + this.props.user.token }
                 })
                     .then((res) => {
                         console.log(res)
@@ -92,8 +94,9 @@ class Aula extends Component {
                     .catch((err) => {
                         console.log("erro ao criar aula: ", err)
                         aulaCriada(false, "error", err)
-                    }).then(()=>{
+                    }).then(() => {
                         this.props.close && this.props.close()
+                        this.load()
                     })
             }
         });
@@ -111,97 +114,97 @@ class Aula extends Component {
 
         return (
             <Form className="main" onSubmit={this.dispatch} >
-               <Spin spinning={this.state.visible} delay={500}>
-                {Auth((<Row>
-                    <Col span={12} >
-                        {(user.permission != 1 && (
-                        <Form.Item>
-                            <AutoComplete
-                                id="professor"
-                                dataSource={mapObj(professores)}
-                                placeholder="Professor"
-                                filterOption={(inputValue, option) => option.props.children.toUpperCase().indexOf(inputValue.toUpperCase()) !== -1}
-                                onChange={(e) => { this.setState(prev => ({ aula:{...prev.aula, professor: e }}))}}
-                            />
-                        </Form.Item>
-                        ))}
-                        <Form.Item>
-                            {getFieldDecorator('materia', {
-                                rules: [{ required: true, message: "Materia não pode ser nula!" }],
-                            })(
+                <Spin spinning={this.state.visible} delay={500}>
+                    {Auth((<Row>
+                        <Col span={12} >
+                            {(user.permission != 1 && (
+                                <Form.Item>
+                                    <AutoComplete
+                                        id="professor"
+                                        dataSource={mapObj(professores)}
+                                        placeholder="Professor"
+                                        filterOption={(inputValue, option) => option.props.children.toUpperCase().indexOf(inputValue.toUpperCase()) !== -1}
+                                        onChange={(e) => { this.setState(prev => ({ aula: { ...prev.aula, professor: e } })) }}
+                                    />
+                                </Form.Item>
+                            ))}
+                            <Form.Item>
+                                {getFieldDecorator('materia', {
+                                    rules: [{ required: true, message: "Materia não pode ser nula!" }],
+                                })(
+                                    <AutoComplete
+                                        key="materia"
+                                        dataSource={mapObj(materias)}
+                                        placeholder="Materia"
+                                        onChange={(e) => { this.setState(prev => ({ aula: { ...prev.aula, materia: e } })) }}
+                                        filterOption={(inputValue, option) => option.props.children.toUpperCase().indexOf(inputValue.toUpperCase()) !== -1}
+                                    />
+                                )}
+                            </Form.Item>
+                            <Form.Item>
                                 <AutoComplete
-                                    key="materia"
-                                    dataSource={mapObj(materias)}
-                                    placeholder="Materia"
-                                    onChange={(e) => { this.setState(prev => ({ aula:{...prev.aula, materia: e }}))}}
+                                    defaultValue={type === "sala" ? search : null}
+                                    name="sala"
+                                    value={this.state.aula.sala}
+                                    dataSource={mapObj(salas)}
+                                    placeholder="Sala"
+                                    onChange={(e) => { this.setState(prev => ({ aula: { ...prev.aula, sala: e } })) }}
                                     filterOption={(inputValue, option) => option.props.children.toUpperCase().indexOf(inputValue.toUpperCase()) !== -1}
                                 />
-                            )}
-                        </Form.Item>
-                        <Form.Item>
-                            <AutoComplete
-                                defaultValue={type === "sala" ? search : null}
-                                name="sala"
-                                value={this.state.aula.sala}
-                                dataSource={mapObj(salas)}
-                                placeholder="Sala"
-                                onChange={(e) => { this.setState(prev => ({ aula:{...prev.aula, sala: e }}))}}
-                                filterOption={(inputValue, option) => option.props.children.toUpperCase().indexOf(inputValue.toUpperCase()) !== -1}
-                            />
-                        </Form.Item>
-                        <Form.Item>
-                            <AutoComplete
-                                defaultValue={type === "turma" ? search : null}
-                                key="turma"
-                                value={this.state.aula.turma}
-                                dataSource={mapObj(turmas)}
-                                placeholder="Turma"
-                                onChange={(e) => { this.setState(prev => ({ aula:{...prev.aula, turma: e }}))}}
-                                filterOption={(inputValue, option) => option.props.children.toUpperCase().indexOf(inputValue.toUpperCase()) !== -1}
-                            />
-                        </Form.Item>
-                    </Col >
-                    <Col span={12}>
-                        <Form.Item>
-                            <AutoComplete
-                                defaultValue={dia && dia}
-                                key="dia"
-                                dataSource={diasArray}
-                                placeholder="dia"
-                                onChange={(e) => { this.setState(prev => ({ aula:{...prev.aula, dia: e }}))}}
-                                filterOption={(inputValue, option) => option.props.children.toUpperCase().indexOf(inputValue.toUpperCase()) !== -1}
-                            />
-                        </Form.Item>
-                        <Form.Item>
-                            <Row>
-                                <TimePicker
-                                    defaultValue={type ? inicio : moment('06:00', 'HH:mm')}
-                                    format={'HH:mm'}
-                                    onChange={(e) => {this.setState(prev => ({ aula:{...prev.aula, horaInicio: e.format("HH:mm") }}))}}
-                                    minuteStep={15}
-                                    placeholder="Hr Inicio"
-                                    key="horaInicio"
-                                    disabledHours={() => [1, 2, 3, 4, 4, 5]}
-                                    allowClear={false}
+                            </Form.Item>
+                            <Form.Item>
+                                <AutoComplete
+                                    defaultValue={type === "turma" ? search : null}
+                                    key="turma"
+                                    value={this.state.aula.turma}
+                                    dataSource={mapObj(turmas)}
+                                    placeholder="Turma"
+                                    onChange={(e) => { this.setState(prev => ({ aula: { ...prev.aula, turma: e } })) }}
+                                    filterOption={(inputValue, option) => option.props.children.toUpperCase().indexOf(inputValue.toUpperCase()) !== -1}
                                 />
-                                <TimePicker
-                                    defaultValue={type ? fim : moment('06:00', 'HH:mm')}
-                                    format={'HH:mm'}
-                                    minuteStep={15}
-                                    placeholder="Hr Fim"
-                                    key="horaFim"
-                                    onChange={(e) => {this.setState(prev => ({ aula:{...prev.aula, horaFim: e.format("HH:mm") }}))}}
-                                    disabledHours={() => [1, 2, 3, 4, 4, 5]}
-                                    allowClear={false}
+                            </Form.Item>
+                        </Col >
+                        <Col span={12}>
+                            <Form.Item>
+                                <AutoComplete
+                                    defaultValue={dia && dia}
+                                    key="dia"
+                                    dataSource={diasArray}
+                                    placeholder="dia"
+                                    onChange={(e) => { this.setState(prev => ({ aula: { ...prev.aula, dia: e } })) }}
+                                    filterOption={(inputValue, option) => option.props.children.toUpperCase().indexOf(inputValue.toUpperCase()) !== -1}
                                 />
-                            </Row>
-                        </Form.Item>
-                        <Form.Item style={{ display: "flex", flex: 1, justifyContent: "space-between" }}>
-                            <Button style={{ width: "16em" }} type="primary" htmlType="submit"> criar </Button>
-                        </Form.Item>
-                    </Col>
-                    
-                </Row>), user, 1, (<div>nope</div>), loading)}
+                            </Form.Item>
+                            <Form.Item>
+                                <Row>
+                                    <TimePicker
+                                        defaultValue={type ? inicio : moment('06:00', 'HH:mm')}
+                                        format={'HH:mm'}
+                                        onChange={(e) => { this.setState(prev => ({ aula: { ...prev.aula, horaInicio: e.format("HH:mm") } })) }}
+                                        minuteStep={15}
+                                        placeholder="Hr Inicio"
+                                        key="horaInicio"
+                                        disabledHours={() => [1, 2, 3, 4, 4, 5]}
+                                        allowClear={false}
+                                    />
+                                    <TimePicker
+                                        defaultValue={type ? fim : moment('06:00', 'HH:mm')}
+                                        format={'HH:mm'}
+                                        minuteStep={15}
+                                        placeholder="Hr Fim"
+                                        key="horaFim"
+                                        onChange={(e) => { this.setState(prev => ({ aula: { ...prev.aula, horaFim: e.format("HH:mm") } })) }}
+                                        disabledHours={() => [1, 2, 3, 4, 4, 5]}
+                                        allowClear={false}
+                                    />
+                                </Row>
+                            </Form.Item>
+                            <Form.Item style={{ display: "flex", flex: 1, justifyContent: "space-between" }}>
+                                <Button style={{ width: "16em" }} type="primary" htmlType="submit"> criar </Button>
+                            </Form.Item>
+                        </Col>
+
+                    </Row>), user, 1, (<div>nope</div>), loading)}
                 </Spin>
             </Form>
         );

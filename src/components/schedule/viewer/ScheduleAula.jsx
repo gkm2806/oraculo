@@ -15,7 +15,6 @@ class ScheduleAula extends Component {
         this.setState({
             visible: true,
         })
-
     }
 
     handleOk = (e) => {
@@ -26,13 +25,9 @@ class ScheduleAula extends Component {
 
         axios.delete(`${process.env.REACT_APP_API_URL}/api/aulas/${this.props.aula._id}`).then(() => {
             this.props.deleteAula(this.props.aula._id)
-            console.log(this.props.aula._id)
-            console.log("WTFFF")
         }).catch((e) => {
             console.log(e);
         })
-
-
     }
 
     handleCancel = (e) => {

@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux"
-import { Form, Icon, Input, Button, Col, notification, Switch } from 'antd';
+import { Form, Icon, Spin, Input, Button, Col, notification, Switch } from 'antd';
 import axios from "axios"
 import { withRouter } from "react-router-dom"
 
@@ -10,7 +10,8 @@ import { Creators as userActions } from "../../store/ducks/user";
 
 class UserLogin extends Component {
     state = {
-        isSuap: true
+        isSuap: true,
+        loading: false
     }
     openNotification = (type, message = null) => {
         switch (type) {
@@ -47,6 +48,7 @@ class UserLogin extends Component {
         e.preventDefault();
         this.props.form.validateFields((err, values) => {
             if (!err) {
+                this.setState({loading:true})
                 axios.post(
                     `${process.env.REACT_APP_API_URL}/api/users/login`,
                     {
@@ -62,6 +64,8 @@ class UserLogin extends Component {
                 }).catch((err) => {
                     console.log("erro", err.response.data)
                     this.openNotification("error", err.response.data.message)
+                }).then(()=>{
+                    this.setState({loading:false})
                 })
 
             }
@@ -76,28 +80,30 @@ class UserLogin extends Component {
         return (
             <div style={{ width: "100%", display: "flex" }}>
                 <Col>
-                    <Form onSubmit={this.handleSubmit} className="login-form">
-                        <Form.Item>
-                            {getFieldDecorator('username', {
-                                rules: [{ required: true, message: 'Please input your username!' }],
-                            })(
-                                <Input prefix={<Icon type="user" style={{ color: 'rgba(0,0,0,.25)' }} />} placeholder="Username" />
-                            )}
-                        </Form.Item>
-                        <Form.Item>
-                            {getFieldDecorator('password', {
-                                rules: [{ required: true, message: 'Please input your Password!' }],
-                            })(
-                                <Input prefix={<Icon type="lock" style={{ color: 'rgba(0,0,0,.25)' }} />} type="password" placeholder="Password" />
-                            )}
-                        </Form.Item>
-                        <Form.Item>
-                            <Button type="primary" htmlType="submit" className="login-form-button">
-                                Log in
-                            </Button>
-                            <Switch style={{ marginLeft: "15%" }} defaultChecked onChange={() => this.setState({ isSuap: !isSuap })} checkedChildren="suap" unCheckedChildren="ifms" />
-                        </Form.Item>
-                    </Form>
+                    <Spin spinning={this.state.loading} delay={500}>
+                        <Form onSubmit={this.handleSubmit} className="login-form">
+                            <Form.Item>
+                                {getFieldDecorator('username', {
+                                    rules: [{ required: true, message: 'Please input your username!' }],
+                                })(
+                                    <Input prefix={<Icon type="user" style={{ color: 'rgba(0,0,0,.25)' }} />} placeholder="Username" />
+                                )}
+                            </Form.Item>
+                            <Form.Item>
+                                {getFieldDecorator('password', {
+                                    rules: [{ required: true, message: 'Please input your Password!' }],
+                                })(
+                                    <Input prefix={<Icon type="lock" style={{ color: 'rgba(0,0,0,.25)' }} />} type="password" placeholder="Password" />
+                                )}
+                            </Form.Item>
+                            <Form.Item>
+                                <Button type="primary" htmlType="submit" className="login-form-button">
+                                    Log in
+                                </Button>
+                                <Switch style={{ marginLeft: "15%" }} defaultChecked onChange={() => this.setState({ isSuap: !isSuap })} checkedChildren="suap" unCheckedChildren="ifms" />
+                            </Form.Item>
+                        </Form>
+                    </Spin>
                 </Col>
             </div>
         );
