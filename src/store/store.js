@@ -2,7 +2,7 @@ import RootReducer from "./ducks/rootReducer"
 import "redux-devtools-extension";
 import { createStore, applyMiddleware, compose } from 'redux';
 import thunk from "redux-thunk";
-import "dotenv/config"
+
 import axios from 'axios';
 
 /*const store = createStore(
@@ -19,12 +19,9 @@ const store = createStore(RootReducer, /* preloadedState, */ composeEnhancers(
 
 
 console.log(`env = ${JSON.stringify(process.env)}`)
-console.log(`API_URL = ${process.env.API_URL}`)
-console.log(`RAZZLE_API_URL = ${process.env.RAZZLE_API_URL}`)
-console.log(`RAZZLE_RUNTIME_API_URL = ${process.env.RAZZLE_API_URL}`)
 store.dispatch((dispatch) => {
   dispatch({ type: "FETCH_AULAS_BEGIN" })
-  axios.get(`${'https://shaolinbackend.herokuapp.com'}/api/aulas/`)
+  axios.get(`${process.env.REACT_APP_API_URL}/api/aulas/`)
     .then((response) => {
       dispatch({ type: "FETCH_AULAS_SUCCESS", payload: response.data })
     })
@@ -36,7 +33,7 @@ store.dispatch((dispatch) => {
 
 store.dispatch((dispatch) => {
   dispatch({ type: "FETCH_PROFS_BEGIN" })
-  axios.get(`${'https://shaolinbackend.herokuapp.com'}/api/professores/`)
+  axios.get(`${process.env.REACT_APP_API_URL}/api/professores/`)
     .then((response) => {
       dispatch({ type: "FETCH_PROFS_SUCCESS", payload: response.data })
     })
@@ -48,7 +45,7 @@ store.dispatch((dispatch) => {
 
       store.dispatch((dispatch) => {
         dispatch({ type: "FETCH_LOCAIS_BEGIN" })
-        axios.get(`${'https://shaolinbackend.herokuapp.com'}/api/LOCAIS/`)
+        axios.get(`${process.env.REACT_APP_API_URL}/api/LOCAIS/`)
           .then((response) => {
             dispatch({ type: "FETCH_LOCAIS_SUCCESS", payload: response.data })
           })
@@ -60,7 +57,7 @@ store.dispatch((dispatch) => {
 
             store.dispatch((dispatch) => {
               dispatch({ type: "FETCH_TURMAS_BEGIN" })
-              axios.get(`${'https://shaolinbackend.herokuapp.com'}/api/turmas/`)
+              axios.get(`${process.env.REACT_APP_API_URL}/api/turmas/`)
                 .then((response) => {
                   dispatch({ type: "FETCH_TURMAS_SUCCESS", payload: response.data })
                 })

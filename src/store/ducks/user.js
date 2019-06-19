@@ -6,7 +6,7 @@ export const Types = {
 };
 
 const initialState = {
-    userName:"",
+    username:"",
     permission: 0
 };
 

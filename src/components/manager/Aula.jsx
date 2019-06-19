@@ -5,7 +5,7 @@ import axios from "axios";
 import cuid from "cuid";
 import moment from "moment"
 import { Row, Spin, notification, Col, Form, Button, AutoComplete, TimePicker } from 'antd';
-import "dotenv/config"
+
 import { Creators as aulaAction } from "../../store/ducks/aulas"
 import Auth from "../../utils/Auth"
 import ScheduleAula from "../schedule/viewer/ScheduleAula.noStore"
@@ -40,9 +40,14 @@ class Aula extends Component {
     }
 
     componentDidMount() {
-        const { type, search, dia, time } = this.props
+        const { type,user, search, dia, time } = this.props
         let inicio = moment(time, "HH:mm"), fim = moment(inicio).add(45, 'minutes')
-
+        user.permission == 2 && this.setState(prev =>({
+            aula: {
+                ...prev.aula,
+                professor: user.username
+            }
+        }))
         type ? (
             this.setState(prev =>({
                 aula: {
@@ -59,8 +64,7 @@ class Aula extends Component {
         this.setState(prev => ({
             aula:{
                 ...prev.aula,
-                creationdate: inicio.format("YY/MM/DD"),
-                id: cuid()
+                creationdate: inicio.format("YY/MM/DD")
             },
             loading: false,
             visible: false
@@ -70,12 +74,13 @@ class Aula extends Component {
 
     dispatch = (obj) => {
         obj.preventDefault();
+        this.props.user.permission == 1 && (this.state.aula.professor = this.props.user.username)
         this.props.form.validateFields((err, values) => {
             if (!err) {
                 this.setState({visible:true})
                 axios({
                     method: 'POST',
-                    url: `${'https://shaolinbackend.herokuapp.com'}/api/aulas/`, 
+                    url: `${process.env.REACT_APP_API_URL}/api/aulas/`, 
                     data: this.state.aula, 
                     headers: {'Authorization': "Bearer "+this.props.user.token}
                 })
@@ -109,6 +114,7 @@ class Aula extends Component {
                <Spin spinning={this.state.visible} delay={500}>
                 {Auth((<Row>
                     <Col span={12} >
+                        {(user.permission != 1 && (
                         <Form.Item>
                             <AutoComplete
                                 id="professor"
@@ -118,6 +124,7 @@ class Aula extends Component {
                                 onChange={(e) => { this.setState(prev => ({ aula:{...prev.aula, professor: e }}))}}
                             />
                         </Form.Item>
+                        ))}
                         <Form.Item>
                             {getFieldDecorator('materia', {
                                 rules: [{ required: true, message: "Materia não pode ser nula!" }],

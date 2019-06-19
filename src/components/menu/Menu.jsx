@@ -74,7 +74,7 @@ class MenuNav extends Component {
           <User user={user} logout={logoutUser}/>
         </Menu.Item>
 
-        {(user.permission >= 1) &&
+        {(user.permission >= 2) &&
           <Menu.Item key="manager" style={{ float: "right" }}>
             <Link to="/manager">
               <Icon type="setting" /> manager

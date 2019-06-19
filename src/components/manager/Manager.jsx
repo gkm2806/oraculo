@@ -26,7 +26,7 @@ class Manager extends Component {
                 break;
             case "professores":
                 console.log(obj)
-                Axios.post(`${'https://shaolinbackend.herokuapp.com'}/api/professores`, {nome: obj}).then(()=>{
+                Axios.post(`${process.env.REACT_APP_API_URL}/api/professores`, {nome: obj}).then(()=>{
                     createProfessor(obj)
                 })
                 break;
@@ -49,7 +49,7 @@ class Manager extends Component {
                 deleteSala(obj.id)
                 break;
             case "professores":
-                Axios.delete(`${'https://shaolinbackend.herokuapp.com'}/api/professores/${obj.id}`).then(()=>{
+                Axios.delete(`${process.env.REACT_APP_API_URL}/api/professores/${obj.id}`).then(()=>{
                     deleteProfessor(obj.id)
                     console.log("Deletando: Wtf?")
                 }).catch((e)=>{

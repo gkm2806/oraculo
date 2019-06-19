@@ -5,7 +5,7 @@ import { connect } from "react-redux"
 import { Creators as aulaAction } from "../../../store/ducks/aulas"
 import { bindActionCreators } from "redux";
 import axios from "axios"
-import "dotenv/config"
+
 import Auth from "../../../utils/Auth"
 
 class ScheduleAula extends Component {
@@ -24,7 +24,7 @@ class ScheduleAula extends Component {
             visible: false,
         });
 
-        axios.delete(`${'https://shaolinbackend.herokuapp.com'}/api/aulas/${this.props.aula._id}`).then(() => {
+        axios.delete(`${process.env.REACT_APP_API_URL}/api/aulas/${this.props.aula._id}`).then(() => {
             this.props.deleteAula(this.props.aula._id)
             console.log(this.props.aula._id)
             console.log("WTFFF")

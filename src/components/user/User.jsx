@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import UserLogin from "./UserLogin"
 import UserProfile from "./UserProfile"
-import {Menu,Dropdown, Icon} from "antd"
+import {Menu,Dropdown, Icon, Avatar} from "antd"
 
 
 class User extends Component {
@@ -10,7 +10,10 @@ class User extends Component {
         return (
         <Dropdown overlay={<MenuUser user={user} logout={logout} />} >
           <a className="ant-dropdown-link" href="#">
-          <Icon type="user" /> usuário <Icon type="down" />
+          {(user.permission != 1
+            ? (<div><Icon type="user" /> usuário <Icon type="down" /></div>)
+            : (<div><Avatar src={user.photo} /> usuário <Icon type="down" /></div>)
+          )}
           </a>
         </Dropdown>
             
@@ -21,7 +24,7 @@ class User extends Component {
 const MenuUser = ({user, logout}) => {
   return (
   <Menu >
-      {user && !user.userName 
+      {user && !user.username 
         ? (<UserLogin />) 
         : (<UserProfile logout={logout} user={user} />)
       }

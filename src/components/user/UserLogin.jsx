@@ -3,14 +3,14 @@ import { connect } from "react-redux"
 import { Form, Icon, Input, Button, Col, notification, Switch } from 'antd';
 import axios from "axios"
 import { withRouter } from "react-router-dom"
-import "dotenv/config"
+
 import { bindActionCreators } from "redux"
 import { Creators as userActions } from "../../store/ducks/user";
 //import history from "../../utils/history"
 
 class UserLogin extends Component {
     state = {
-        isSuap: false
+        isSuap: true
     }
     openNotification = (type, message = null) => {
         switch (type) {
@@ -47,47 +47,23 @@ class UserLogin extends Component {
         e.preventDefault();
         this.props.form.validateFields((err, values) => {
             if (!err) {
-                {this.state.isSuap 
-                    ? (
-                        axios.post(
-                            `https://suap.ifms.edu.br/api/autenticacao/token/`,
-                            {
-                                username: values.userName,
-                                password: values.password
-                            }
-                        )
-                        .then((response) => {
-                            this.props.loginUser({
-                                userName: response.data.username,
-                                permission: response.data.permission,
-                                token: response.data.token
-                            })
-                            console.log("response: ", response)
-                            this.props.history.push('/manager')
-                        }).catch((err) => {
-                            console.log("erro", err.response.data.message)
-                            this.openNotification("error", err.response.data.message)
-                        })
-                    ):(
-                        axios.post(
-                            `${'https://shaolinbackend.herokuapp.com'}/api/users/login`,
-                            {
-                                username: values.userName,
-                                password: values.password
-                            }
-                        )
-                        .then((response) => {
-                            this.props.loginUser({
-                                ...response.data,
-                                permission: 1
-                            })
-                            console.log("response: ", response)
-                            this.props.history.push('/manager')
-                        }).catch((err) => {
-                            console.log("erro", err.response.data)
-                            this.openNotification("error", err.response.data.message)
-                        })
-                )}
+                axios.post(
+                    `${process.env.REACT_APP_API_URL}/api/users/login`,
+                    {
+                        username: values.username,
+                        password: values.password,
+                        isSuap: this.state.isSuap
+                    }
+                ).then((response) => {
+                    this.props.loginUser({
+                        ...response.data
+                    })
+                    console.log("response: ", response)
+                }).catch((err) => {
+                    console.log("erro", err.response.data)
+                    this.openNotification("error", err.response.data.message)
+                })
+
             }
         });
     }
@@ -102,7 +78,7 @@ class UserLogin extends Component {
                 <Col>
                     <Form onSubmit={this.handleSubmit} className="login-form">
                         <Form.Item>
-                            {getFieldDecorator('userName', {
+                            {getFieldDecorator('username', {
                                 rules: [{ required: true, message: 'Please input your username!' }],
                             })(
                                 <Input prefix={<Icon type="user" style={{ color: 'rgba(0,0,0,.25)' }} />} placeholder="Username" />
@@ -119,7 +95,7 @@ class UserLogin extends Component {
                             <Button type="primary" htmlType="submit" className="login-form-button">
                                 Log in
                             </Button>
-                            <Switch style={{marginLeft:"15%"}} onChange={()=> this.setState({isSuap : !isSuap})} checkedChildren="suap" unCheckedChildren="ifms" />
+                            <Switch style={{ marginLeft: "15%" }} defaultChecked onChange={() => this.setState({ isSuap: !isSuap })} checkedChildren="suap" unCheckedChildren="ifms" />
                         </Form.Item>
                     </Form>
                 </Col>
