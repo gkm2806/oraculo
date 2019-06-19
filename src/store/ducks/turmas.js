@@ -19,26 +19,26 @@ const initialState = {
 export default function turmas(state = initialState, action) {
     switch (action.type) {
         case Types.BEGIN:
-        return {
-            ...state,
-            loading: true,
-            error: null
-        }
-    case Types.SUCCESS:
-        return {
-            ...state,
-            loading: false,
-            turmas: action.payload
-        }
-    case Types.FAILURE:
-        return {
-            ...state,
-            error: action.payload.error
-        }
+            return {
+                ...state,
+                loading: true,
+                error: null
+            }
+        case Types.SUCCESS:
+            return {
+                ...state,
+                loading: false,
+                turmas: action.payload
+            }
+        case Types.FAILURE:
+            return {
+                ...state,
+                error: action.payload.error
+            }
         case Types.ADD:
             return {
                 ...state,
-                turmas:[...state.turmas, Object.assign({}, { "nome": action.payload.turma })],
+                turmas: [...state.turmas, Object.assign({}, { "nome": action.payload.turma })],
             }
         case Types.UPDATE:
             return {
@@ -51,7 +51,7 @@ export default function turmas(state = initialState, action) {
                 turmas: [...state.filter(turma => turma.id !== action.payload.turmaId)]
             }
         default: return state
-        }
+    }
 }
 
 export const Creators = {

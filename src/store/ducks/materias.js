@@ -9,32 +9,69 @@ export const Types = {
     FAILURE: 'FETCH_MATERIAS_FAILURE'
 };
 
-const initialState = [
-    {
-        id: "cjrr5xtfi00003a5qu7lvn55d",
-        nome: "historia"
-    },
-    {
-        id: "cjrr5xu3k00013a5qymu6gn3k",
-        nome: "Matematica"
-    }
-];
+const initialState = {
+    materias: [],
+    loading: false,
+    error: null
+};
 
 
 export default function materias(state = initialState, action) {
     switch (action.type) {
+        case Types.BEGIN:
+            return {
+                ...state,
+                loading: true,
+                error: null
+            }
+        case Types.SUCCESS:
+            return {
+                ...state,
+                loading: false,
+                materias: action.payload
+            }
+        case Types.FAILURE:
+            return {
+                ...state,
+                error: action.payload.error
+            }
         case Types.ADD:
-            return [...state, Object.assign({}, {"nome" : action.payload.materia})]
+            return {
+                ...state,
+                materias: [...state.materias, ...action.payload.materia]
+            }
         case Types.UPDATE:
-            return [...state.filter(materia => materia.id !== action.payload.materia.id), Object.assign({}, action.payload.materia)]
+            return {
+                ...state,
+                materias: [...state.materias.filter(aula => aula._id !== action.payload.id), Object.assign({}, action.payload)]
+            }
         case Types.REMOVE:
-            return [...state.filter(materia => materia.id !== action.payload.materiaId)]
+            return {
+                ...state,
+                materias: [...state.materias.filter(aula => aula._id !== action.payload.id)]
+            }
         default: return state
     }
 }
 
 export const Creators = {
+    fetchBeginMateria: () => ({
+        type: Types.BEGIN
+    }),
 
+    fetchSuccessMateria: (materias) => ({
+        type: Types.SUCCESS,
+        payload: {
+            materias
+        }
+    }),
+
+    fetchFailureMateria: (error) => ({
+        type: Types.FAILURE,
+        payload: {
+            error
+        }
+    }),
     createMateria: (materia) => ({
         type: Types.ADD,
         payload: {
@@ -42,17 +79,17 @@ export const Creators = {
         }
     }),
 
-    updateMateria: (materia) => ({
+    updateMateria: (id) => ({
         type: Types.UPDATE,
         payload: {
-            materia
+            id
         }
     }),
 
-    deleteMateria: (materiaId) => ({
+    deleteMateria: (id) => ({
         type: Types.REMOVE,
         payload: {
-            materiaId
+            id
         }
     })
 }
