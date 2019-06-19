@@ -81,7 +81,7 @@ class Manager extends Component {
 const mapStateToProps = (state) => ({
     salas: state.salas.locais,
     turmas: state.turmas.turmas,
-    materias: state.materias,
+    materias: state.materias.materias,
     professores: state.professores.professores,
     settings: state.settings,
     aulas: state.aulas.aulas
