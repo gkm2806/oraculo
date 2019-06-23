@@ -15,18 +15,22 @@ class Manager extends Component {
         const { createTurma, createMateria, createSala, createProfessor } = this.props
         switch (type) {
             case "turmas":
-                createTurma(obj)
+                Axios.post(`${process.env.REACT_APP_API_URL}/api/turmas`, { nome: obj }).then(() => {
+                    createTurma(obj)
+                })
                 break;
             case "materias":
-                createMateria(obj)
+                Axios.post(`${process.env.REACT_APP_API_URL}/api/materias`, { nome: obj }).then(() => {
+                    createMateria(obj)
+                })
                 break;
             case "salas":
-                createSala(obj)
-                console.log(obj)
+                Axios.post(`${process.env.REACT_APP_API_URL}/api/salas`, { nome: obj }).then(() => {
+                    createSala(obj)
+                })
                 break;
             case "professores":
-                console.log(obj)
-                Axios.post(`${process.env.REACT_APP_API_URL}/api/professores`, {nome: obj}).then(()=>{
+                Axios.post(`${process.env.REACT_APP_API_URL}/api/professores`, { nome: obj }).then(() => {
                     createProfessor(obj)
                 })
                 break;
@@ -40,19 +44,31 @@ class Manager extends Component {
         const { deleteTurma, deleteMateria, deleteSala, deleteProfessor } = this.props
         switch (type) {
             case "turmas":
-                deleteTurma(obj.id)
+                Axios.delete(`${process.env.REACT_APP_API_URL}/api/turmas/${obj._id}`).then(() => {
+                    deleteTurma(obj.id)
+                }).catch((e) => {
+                    console.log("Delete error: ", e)
+                })
                 break;
             case "materias":
-                deleteMateria(obj.id)
+                Axios.delete(`${process.env.REACT_APP_API_URL}/api/materias/${obj._id}`).then(() => {
+                    deleteMateria(obj.id)
+                }).catch((e) => {
+                    console.log("Delete error: ", e)
+                })
                 break;
             case "salas":
-                deleteSala(obj.id)
+                Axios.delete(`${process.env.REACT_APP_API_URL}/api/salas/${obj._id}`).then(() => {
+                    deleteSala(obj.id)
+                }).catch((e) => {
+                    console.log("Delete error: ", e)
+                })
                 break;
             case "professores":
-                Axios.delete(`${process.env.REACT_APP_API_URL}/api/professores/${obj.id}`).then(()=>{
+                Axios.delete(`${process.env.REACT_APP_API_URL}/api/professores/${obj._id}`).then(() => {
                     deleteProfessor(obj.id)
                     console.log("Deletando: Wtf?")
-                }).catch((e)=>{
+                }).catch((e) => {
                     console.log("Delete error: ", e)
                 })
                 break;
@@ -68,10 +84,10 @@ class Manager extends Component {
         return (
             <div className="main">
                 <Row>
-                    <Col span={6}> <Display deleteItem ={this.deleteItem} create={this.createNew} type="materias" ctx={materias && materias}> </Display> </Col>
-                    <Col span={6}> <Display deleteItem ={this.deleteItem} create={this.createNew} type="salas" ctx={salas && salas}> </Display></Col>
-                    <Col span={6}> <Display deleteItem ={this.deleteItem} create={this.createNew} type="turmas" ctx={turmas && turmas}> </Display></Col>
-                    <Col span={6}> <Display deleteItem ={this.deleteItem} create={this.createNew} type="professores" ctx={professores && professores}> </Display>  </Col>
+                    <Col span={6}> <Display deleteItem={this.deleteItem} create={this.createNew} type="materias" ctx={materias && materias}> </Display> </Col>
+                    <Col span={6}> <Display deleteItem={this.deleteItem} create={this.createNew} type="salas" ctx={salas && salas}> </Display></Col>
+                    <Col span={6}> <Display deleteItem={this.deleteItem} create={this.createNew} type="turmas" ctx={turmas && turmas}> </Display></Col>
+                    <Col span={6}> <Display deleteItem={this.deleteItem} create={this.createNew} type="professores" ctx={professores && professores}> </Display>  </Col>
                 </Row>
             </div>
         )
