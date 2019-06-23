@@ -35,14 +35,14 @@ store.dispatch(async (dispatch) => {
 })
 
 store.dispatch(async (dispatch) => {
-  dispatch({ type: "locais/FETCH_BEGIN" })
+  dispatch({ type: "salas/FETCH_BEGIN" })
   await axios.get(`${process.env.REACT_APP_API_URL}/api/LOCAIS/`)
     .then((response) => {
-      dispatch({ type: "locais/FETCH_SUCCESS", payload: response.data })
+      dispatch({ type: "salas/FETCH_SUCCESS", payload: response.data })
     })
     .catch((err) => {
       console.log(err)
-      dispatch({ type: "locais/FETCH_FAILURE", payload: err })
+      dispatch({ type: "salas/FETCH_FAILURE", payload: err })
     })
 })
 
