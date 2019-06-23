@@ -11,63 +11,63 @@ const store = createStore(RootReducer, /* preloadedState, */ composeEnhancers(
 ));
 
 store.dispatch(async (dispatch) => {
-  dispatch({ type: "FETCH_AULAS_BEGIN" })
-  axios.get(`${process.env.REACT_APP_API_URL}/api/aulas/`)
+  dispatch({ type: "aulas/FETCH_BEGIN" })
+  await axios.get(`${process.env.REACT_APP_API_URL}/api/aulas/`)
     .then((response) => {
-      dispatch({ type: "FETCH_AULAS_SUCCESS", payload: response.data })
+      dispatch({ type: "aulas/FETCH_SUCCESS", payload: response.data })
     })
     .catch((err) => {
       console.log(err)
-      dispatch({ type: "FETCH_AULAS_FAILURE", payload: err })
+      dispatch({ type: "aulas/FETCH_FAILURE", payload: err })
     })
 })
 
 store.dispatch(async (dispatch) => {
-  dispatch({ type: "FETCH_PROFS_BEGIN" })
+  dispatch({ type: "profs/FETCH_BEGIN" })
   await axios.get(`${process.env.REACT_APP_API_URL}/api/professores/`)
     .then((response) => {
-      dispatch({ type: "FETCH_PROFS_SUCCESS", payload: response.data })
+      dispatch({ type: "profs/FETCH_SUCCESS", payload: response.data })
     })
     .catch((err) => {
       console.log(err)
-      dispatch({ type: "FETCH_PROFS_FAILURE", payload: err })
+      dispatch({ type: "profs/FETCH_FAILURE", payload: err })
     })
 })
 
 store.dispatch(async (dispatch) => {
-  await dispatch({ type: "FETCH_LOCAIS_BEGIN" })
-  axios.get(`${process.env.REACT_APP_API_URL}/api/LOCAIS/`)
+  dispatch({ type: "locais/FETCH_BEGIN" })
+  await axios.get(`${process.env.REACT_APP_API_URL}/api/LOCAIS/`)
     .then((response) => {
-      dispatch({ type: "FETCH_LOCAIS_SUCCESS", payload: response.data })
+      dispatch({ type: "locais/FETCH_SUCCESS", payload: response.data })
     })
     .catch((err) => {
       console.log(err)
-      dispatch({ type: "FETCH_LOCAIS_FAILURE", payload: err })
+      dispatch({ type: "locais/FETCH_FAILURE", payload: err })
     })
 })
 
 store.dispatch(async (dispatch) => {
-  await dispatch({ type: "FETCH_TURMAS_BEGIN" })
-  axios.get(`${process.env.REACT_APP_API_URL}/api/turmas/`)
+  dispatch({ type: "turmas/FETCH_BEGIN" })
+  await axios.get(`${process.env.REACT_APP_API_URL}/api/turmas/`)
     .then((response) => {
-      dispatch({ type: "FETCH_TURMAS_SUCCESS", payload: response.data })
+      dispatch({ type: "turmas/FETCH_SUCCESS", payload: response.data })
     })
     .catch((err) => {
       console.log(err)
-      dispatch({ type: "FETCH_TURMAS_FAILURE", payload: err })
+      dispatch({ type: "turmas/FETCH_FAILURE", payload: err })
     })   
 })
 
 store.dispatch(async (dispatch) => {
-  await dispatch({ type: "FETCH_MATERIAS_BEGIN" })
-  axios.get(`${process.env.REACT_APP_API_URL}/api/materias/`)
+  dispatch({ type: "materias/FETCH_BEGIN" })
+  await axios.get(`${process.env.REACT_APP_API_URL}/api/materias/`)
     .then((response) => {
       console.log(response.data)
-      dispatch({ type: "FETCH_MATERIAS_SUCCESS", payload: response.data })
+      dispatch({ type: "materias/FETCH_SUCCESS", payload: response.data })
     })
     .catch((err) => {
       console.log(err)
-      dispatch({ type: "FETCH_MATERIAS_FAILURE", payload: err })
+      dispatch({ type: "materias/FETCH_FAILURE", payload: err })
     })   
 })
 

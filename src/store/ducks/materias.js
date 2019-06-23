@@ -1,12 +1,12 @@
 //@ts-check
 
 export const Types = {
-    ADD: "materia/ADD",
-    UPDATE: "materia/UPDATE",
-    REMOVE: "materia/REMOVE",
-    BEGIN: 'FETCH_MATERIAS_BEGIN',
-    SUCCESS: 'FETCH_MATERIAS_SUCCESS',
-    FAILURE: 'FETCH_MATERIAS_FAILURE'
+    ADD: "materias/ADD",
+    UPDATE: "materias/UPDATE",
+    REMOVE: "materias/REMOVE",
+    BEGIN: 'materias/FETCH_BEGIN',
+    SUCCESS: 'materias/FETCH_SUCCESS',
+    FAILURE: 'materias/FETCH_FAILURE'
 };
 
 const initialState = {

@@ -1,12 +1,12 @@
 //@ts-check
 
 export const Types = {
-    ADD: "professores/ADD",
-    UPDATE: "professores/UPDATE",
-    REMOVE: "professores/REMOVE",
-    BEGIN: 'FETCH_PROFS_BEGIN',
-    SUCCESS: 'FETCH_PROFS_SUCCESS',
-    FAILURE: 'FETCH_PROFS_FAILURE'
+    ADD: "profs/ADD",
+    UPDATE: "profs/UPDATE",
+    REMOVE: "profs/REMOVE",
+    BEGIN: 'profs/FETCH_BEGIN',
+    SUCCESS: 'profs/FETCH_SUCCESS',
+    FAILURE: 'profs/FETCH_FAILURE'
 };
 
 const initialState = {

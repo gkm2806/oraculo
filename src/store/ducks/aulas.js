@@ -1,10 +1,10 @@
 export const Types = {
-    ADD: "aula/ADD",
-    UPDATE: "aula/UPDATE",
-    REMOVE: "aula/REMOVE",
-    BEGIN: 'FETCH_AULAS_BEGIN',
-    SUCCESS: 'FETCH_AULAS_SUCCESS',
-    FAILURE: 'FETCH_AULAS_FAILURE'
+    ADD: "aulas/ADD",
+    UPDATE: "aulas/UPDATE",
+    REMOVE: "aulas/REMOVE",
+    BEGIN: 'aulas/FETCH_BEGIN',
+    SUCCESS: 'aulas/FETCH_SUCCESS',
+    FAILURE: 'aulas/FETCH_FAILURE'
 };
 
 const initialState = {

@@ -1,12 +1,12 @@
 //@ts-check
 
 export const Types = {
-    ADD: "turma/ADD",
-    UPDATE: "turma/UPDATE",
-    REMOVE: "turma/REMOVE",
-    BEGIN: 'FETCH_TURMAS_BEGIN',
-    SUCCESS: 'FETCH_TURMAS_SUCCESS',
-    FAILURE: 'FETCH_TURMAS_FAILURE'
+    ADD: "turmas/ADD",
+    UPDATE: "turmas/UPDATE",
+    REMOVE: "turmas/REMOVE",
+    BEGIN: 'turmas/FETCH_BEGIN',
+    SUCCESS: 'turmas/FETCH_SUCCESS',
+    FAILURE: 'turmas/FETCH_FAILURE'
 };
 
 const initialState = {
@@ -43,12 +43,12 @@ export default function turmas(state = initialState, action) {
         case Types.UPDATE:
             return {
                 ...state,
-                turmas: [...state.filter(turma => turma.id !== action.payload.turma.id), Object.assign({}, action.payload.turma)]
+                turmas: [...state.turmas.filter(turma => turma.id !== action.payload.turma.id), Object.assign({}, action.payload.turma)]
             }
         case Types.REMOVE:
             return {
                 ...state,
-                turmas: [...state.filter(turma => turma.id !== action.payload.turmaId)]
+                turmas: [...state.turmas.filter(turma => turma.id !== action.payload.turmaId)]
             }
         default: return state
     }

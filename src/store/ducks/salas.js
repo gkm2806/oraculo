@@ -1,12 +1,12 @@
 //@ts-check
 
 export const Types = {
-    ADD: "sala/ADD",
-    UPDATE: "sala/UPDATE",
-    REMOVE: "sala/REMOVE",
-    BEGIN: 'FETCH_LOCAIS_BEGIN',
-    SUCCESS: 'FETCH_LOCAIS_SUCCESS',
-    FAILURE: 'FETCH_LOCAIS_FAILURE'
+    ADD: "salas/ADD",
+    UPDATE: "salas/UPDATE",
+    REMOVE: "salas/REMOVE",
+    BEGIN: 'salas/FETCH_BEGIN',
+    SUCCESS: 'salas/FETCH_SUCCESS',
+    FAILURE: 'salas/FETCH_FAILURE'
 };
 
 const initialState = {
