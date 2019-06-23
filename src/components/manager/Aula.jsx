@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import axios from "axios";
-import cuid from "cuid";
 import moment from "moment"
 import { Row, Spin, notification, Col, Form, Button, AutoComplete, TimePicker } from 'antd';
 
@@ -18,7 +17,7 @@ const aulaCriada = (ok, type = "error", err = null) => {
         })
     } else {
         console.log(err)
-        if (err.response.status == 409) {
+        if (err.response.status === 409) {
             console.log(err.response)
             notification[type]({
                 message: `colisao de ${err.response.data[0].aviso}`,
@@ -43,7 +42,7 @@ class Aula extends Component {
                     dia: dia,
                     sala: "",
                     turma: "",
-                    proefessor: user.permission == 2 ? (user.username) : (""),
+                    proefessor: user.permission === 2 ? (user.username) : (""),
                     [type]: search
                 }
             }))
@@ -76,7 +75,7 @@ class Aula extends Component {
 
     dispatch = (obj) => {
         obj.preventDefault();
-        this.props.user.permission == 1 && (this.state.aula.professor = this.props.user.username)
+        this.props.user.permission === 1 && (this.setState({aula:{professor:this.props.user.username}}))
         this.props.form.validateFields((err, values) => {
             if (!err) {
                 this.setState({ visible: true })
@@ -117,7 +116,7 @@ class Aula extends Component {
                 <Spin spinning={this.state.visible} delay={500}>
                     {Auth((<Row>
                         <Col span={12} >
-                            {(user.permission != 1 && (
+                            {(user.permission !== 1 && (
                                 <Form.Item>
                                     <AutoComplete
                                         id="professor"
