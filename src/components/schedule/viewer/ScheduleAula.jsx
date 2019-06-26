@@ -19,15 +19,19 @@ class ScheduleAula extends Component {
 
     handleOk = (e) => {
         console.log(e);
-        this.setState({
-            visible: false,
-        });
+        
+        this.props.user.permission > 2 && (
+            axios.delete(`${process.env.REACT_APP_API_URL}/api/aulas/${this.props.aula._id}`).then(() => {
+                this.props.deleteAula(this.props.aula._id)
+            }).then(()=>{
+                this.setState({
+                    visible: false,
+                });
+            }).catch((e) => {
+                console.log(e);
+            })
+        )
 
-        axios.delete(`${process.env.REACT_APP_API_URL}/api/aulas/${this.props.aula._id}`).then(() => {
-            this.props.deleteAula(this.props.aula._id)
-        }).catch((e) => {
-            console.log(e);
-        })
     }
 
     handleCancel = (e) => {
