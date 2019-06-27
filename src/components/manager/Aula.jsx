@@ -116,17 +116,6 @@ class Aula extends Component {
                 <Spin spinning={this.state.visible} delay={500}>
                     {Auth((<Row>
                         <Col span={12} >
-                            {(user.permission !== 1 && (
-                                <Form.Item>
-                                    <AutoComplete
-                                        id="professor"
-                                        dataSource={mapObj(professores)}
-                                        placeholder="Professor"
-                                        filterOption={(inputValue, option) => option.props.children.toUpperCase().indexOf(inputValue.toUpperCase()) !== -1}
-                                        onChange={(e) => { this.setState(prev => ({ aula: { ...prev.aula, professor: e } })) }}
-                                    />
-                                </Form.Item>
-                            ))}
                             <Form.Item>
                                 {getFieldDecorator('materia', {
                                     rules: [{ required: true, message: "Materia não pode ser nula!" }],
@@ -140,6 +129,17 @@ class Aula extends Component {
                                     />
                                 )}
                             </Form.Item>
+                            {(!user.permission <= 2 && (
+                                <Form.Item>
+                                    <AutoComplete
+                                        id="professor"
+                                        dataSource={mapObj(professores)}
+                                        placeholder="Professor"
+                                        filterOption={(inputValue, option) => option.props.children.toUpperCase().indexOf(inputValue.toUpperCase()) !== -1}
+                                        onChange={(e) => { this.setState(prev => ({ aula: { ...prev.aula, professor: e } })) }}
+                                    />
+                                </Form.Item>
+                            ))}
                             <Form.Item>
                                 <AutoComplete
                                     defaultValue={type === "sala" ? search : null}
