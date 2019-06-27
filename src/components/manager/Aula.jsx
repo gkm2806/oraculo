@@ -129,7 +129,7 @@ class Aula extends Component {
                                     />
                                 )}
                             </Form.Item>
-                            {(!user.permission <= 2 && (
+                            {(user.permission !== 1 && (
                                 <Form.Item>
                                     <AutoComplete
                                         id="professor"
