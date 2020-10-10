@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import Gandalf from "../utils/gandalf.gif"
+import Gandalf from "../resources/images/gandalf.gif"
 
 class NoAcess extends Component {
 

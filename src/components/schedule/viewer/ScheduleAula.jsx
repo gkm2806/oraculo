@@ -7,6 +7,7 @@ import { bindActionCreators } from "redux";
 import axios from "axios"
 
 import Auth from "../../../utils/Auth"
+import autoSizer from "../../../utils/autoSizer"
 
 class ScheduleAula extends Component {
     state = { visible: false }
@@ -67,16 +68,20 @@ class ScheduleAula extends Component {
     }
 }
 
+const cardTitleSize = (window.innerWidth > 1000 ? '1rem' : '0.5rem')
+
 const CardInside = ({ aula }) => {
     return (
         <div style={{ display: "flex" }}>
-            <div style={{ fontSize: "1rem", width: "80%", height: "100%" }}>
+            <div style={{fontSize: autoSizer(), width: "80%", height: "100%" }}>
                 {aula.materia}
             </div>
-            <div className="sideCard" style={{ float: "right", fontSize: "0.6rem", width: "30%", height: "100%", lineHeight: "1rem" }}>
-                | {aula.sala} <br />
-                | {aula.turma}
-            </div>
+            {window.innerWidth > 1000 && (
+                <div className="sideCard" style={{ float: "right", fontSize: "0.6rem", width: "30%", height: "100%", lineHeight: "1rem" }}>
+                    | {aula.sala} <br />
+                    | {aula.turma}
+                </div>
+            )}
         </div>
     )
 }

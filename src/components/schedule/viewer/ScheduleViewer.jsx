@@ -2,6 +2,7 @@
 import React, { Component } from "react";
 import { Row, Col, Card } from "antd"
 import Dia from "./Dia"
+import autoSizer from "../../../utils/autoSizer";
 
 export default class ScheduleViewer extends Component {
     componentDidMount() {
@@ -12,7 +13,7 @@ export default class ScheduleViewer extends Component {
         return (
             (search ? (
                 <div>
-                    <Col span={3} >
+                    <Col span={3} style={{fontSize: autoSizer()}}>
                         <Row><header> Hora </header></Row>
                         {timeStamps.map((time) => {
                             return (<Row key={time} ><Card  className="timeTable" style={{ backgroundColor: "#999", padding: 0 }}>{time}</Card></Row>)
