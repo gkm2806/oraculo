@@ -9,6 +9,7 @@ import { Creators as userActions } from "../../store/ducks/user"
 import { bindActionCreators } from "redux"
 import moment from "moment";
 import User from "../user/User"
+import autoSizer from '../../utils/autoSizer';
 
 const logoutDropdown = () => {
   this.setState({

@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { Card, Button, Modal } from "antd"
 import Aula from "../../manager/Aula"
 import Auth from "../../../utils/Auth"
+import autoSizer from "../../../utils/autoSizer";
 
 class ScheduleAulaCreate extends Component {
     state = { visible: false }
@@ -30,7 +31,7 @@ class ScheduleAulaCreate extends Component {
         const { dia, time, search, type } = this.props
         return (
             <div>
-                <Card className="hoverable scheduleCard" onClick={this.showModal}>
+                <Card style={{fontSize: autoSizer()}} className="hoverable scheduleCard" onClick={this.showModal}>
                     Vazio
                 </Card>
                 <Modal
