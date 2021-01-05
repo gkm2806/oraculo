@@ -5,7 +5,7 @@
   "dependencies": {
     "@ant-design/icons": "^1.2.1",
     "antd": "^3.15.0",
-    "axios": "^0.18.0",
+    "axios": "^0.21.1",
     "cuid": "^2.1.6",
     "dotenv": "^7.0.0",
     "history": "^4.9.0",
